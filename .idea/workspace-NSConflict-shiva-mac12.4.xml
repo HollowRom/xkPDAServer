@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="88a2be90-3e55-4ea0-bb2d-f10643a95b13" name="默认变更列表" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file:///usr/local/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="true" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/hollowrom/xkpdaserver/controllers/go.mod" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/hollowrom/xkpdaserver/controllers/server.go" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="2B73NDBcHDMTH9bxpalg8XJ1gkv" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "configurable..is.expanded": "true",
+    "configurable.GoLibrariesConfigurable.is.expanded": "true",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "/Users/hollorom/myGo/src/org",
+    "settings.editor.selected.configurable": "go.vgo"
+  }
+}]]></component>
+  <component name="RunManager" selected="Go 构建.go build main.go">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="org" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build getGoodInfo.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="org" />
+      <working_directory value="$PROJECT_DIR$/hollowrom/xkpdaserver/dbTools" />
+      <kind value="FILE" />
+      <package value="org" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/hollowrom/xkpdaserver/dbTools/getGoodInfo.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="org" />
+      <working_directory value="$PROJECT_DIR$/hollowrom/xkpdaserver" />
+      <kind value="FILE" />
+      <package value="org" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/hollowrom/xkpdaserver/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build xkpdaserver" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="org" />
+      <working_directory value="$PROJECT_DIR$/hollowrom/xkpdaserver" />
+      <kind value="PACKAGE" />
+      <package value="xkpdaserver" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/hollowrom/xkpdaserver/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="org" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go 构建.go build main.go" />
+        <item itemvalue="Go 构建.go build xkpdaserver" />
+        <item itemvalue="Go 构建.go build getGoodInfo.go" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="88a2be90-3e55-4ea0-bb2d-f10643a95b13" name="默认变更列表" comment="" />
+      <created>1656243253415</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1656243253415</updated>
+      <workItem from="1656243255230" duration="2914000" />
+      <workItem from="1656294879682" duration="2206000" />
+      <workItem from="1656300249099" duration="12538000" />
+      <workItem from="1656327844972" duration="5972000" />
+      <workItem from="1656413903224" duration="14050000" />
+      <workItem from="1656473376922" duration="4400000" />
+      <workItem from="1656495700885" duration="11922000" />
+      <workItem from="1656510138935" duration="65000" />
+      <workItem from="1656510443698" duration="113000" />
+      <workItem from="1656674755666" duration="2000000" />
+      <workItem from="1656814604084" duration="3392000" />
+      <workItem from="1657020826484" duration="1895000" />
+      <workItem from="1657192505635" duration="5459000" />
+      <workItem from="1657345268659" duration="618000" />
+      <workItem from="1657349667797" duration="596000" />
+      <workItem from="1657420351588" duration="1890000" />
+      <workItem from="1657600107560" duration="1228000" />
+      <workItem from="1657713452189" duration="3921000" />
+      <workItem from="1657895631330" duration="216000" />
+      <workItem from="1657964580277" duration="686000" />
+      <workItem from="1658040635723" duration="107000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
