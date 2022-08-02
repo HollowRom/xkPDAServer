@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"strings"
 	"sync"
+	"time"
 	"xkpdaserver/dbTools"
 )
 
@@ -220,4 +222,12 @@ func GetSome(postUrl string, jsonByte []byte) []byte {
 		return nil
 	}
 	return body
+}
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+func getRandNumber() uint64 {
+	return rand.Uint64()
 }

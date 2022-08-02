@@ -11,7 +11,7 @@ import (
 
 func main() {
 	go func() {
-		time.Sleep(200 * time.Second)
+		time.Sleep(20 * time.Second)
 		panic(nil)
 	}()
 
