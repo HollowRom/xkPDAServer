@@ -33,7 +33,7 @@ func getCGDDMain(orgNumber, supplierNumber, FBillNo string) []*CGDDMain {
 	}
 	sql := fmt.Sprintf(GetCGDDMainInfo, orgNumber)
 	if supplierNumber != "" {
-		sql += " and (f.FNUMBER = " + supplierNumber + " or g.FNAME = " + supplierNumber + ")"
+		sql += " and (f.FNUMBER = '" + supplierNumber + "' or g.FNAME = '" + supplierNumber + "')"
 	}
 	if FBillNo != "" {
 		sql += " and a.FBILLNO like '%" + FBillNo + "%'"

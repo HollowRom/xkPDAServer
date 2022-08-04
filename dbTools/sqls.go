@@ -160,4 +160,8 @@ const (
 	GetWWDDMainInfo = `select 1`
 
 	GetWWDDEntryInfo = `select 1`
+
+	GetWWTLMainInfo = `select 1`
+
+	GetWWTLEntryInfo = `select 1`
 )

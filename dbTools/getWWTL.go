@@ -5,13 +5,13 @@ import (
 	"fmt"
 )
 
-type WWDDMain struct {
+type WWTLMain struct {
 	FBillNo         string
 	FSupplierNumber string
 	FSupplierName   string
 }
 
-type WWDDEntry struct {
+type WWTLEntry struct {
 	FID         int
 	FENTRYID    int
 	FItemNumber int
@@ -19,19 +19,19 @@ type WWDDEntry struct {
 	FQTY        string
 }
 
-func GetAllWWDDMain(orgNumber string) []*WWDDMain {
-	return getWWDDMain(orgNumber, "", "")
+func GetAllWWTLMain(orgNumber string) []*WWTLMain {
+	return getWWTLMain(orgNumber, "", "")
 }
 
-func GetWWDDMain(orgNumber, supplierNumber, FBillNo string) []*WWDDMain {
-	return getWWDDMain(orgNumber, supplierNumber, FBillNo)
+func GetWWTLMain(orgNumber, supplierNumber, FBillNo string) []*WWTLMain {
+	return getWWTLMain(orgNumber, supplierNumber, FBillNo)
 }
 
-func getWWDDMain(orgNumber, supplierNumber, FBillNo string) []*WWDDMain {
+func getWWTLMain(orgNumber, supplierNumber, FBillNo string) []*WWTLMain {
 	if orgNumber == "" {
 		return nil
 	}
-	sql := fmt.Sprintf(GetWWDDMainInfo, orgNumber)
+	sql := fmt.Sprintf(GetWWTLMainInfo, orgNumber)
 	if supplierNumber != "" {
 		sql += " and (f.FNUMBER = '" + supplierNumber + "' or g.FNAME = '" + supplierNumber + "')"
 	}
@@ -55,7 +55,7 @@ func getWWDDMain(orgNumber, supplierNumber, FBillNo string) []*WWDDMain {
 		return nil
 	}
 
-	var rs []*WWDDMain
+	var rs []*WWTLMain
 
 	e = json.Unmarshal(j, &rs)
 	if e != nil {
@@ -66,15 +66,15 @@ func getWWDDMain(orgNumber, supplierNumber, FBillNo string) []*WWDDMain {
 	return rs
 }
 
-func GetWWDDEntry(FBillNo string) []*WWDDEntry {
-	return getWWDDEntry(FBillNo)
+func GetWWTLEntry(FBillNo string) []*WWTLEntry {
+	return getWWTLEntry(FBillNo)
 }
 
-func getWWDDEntry(FBillNo string) []*WWDDEntry {
+func getWWTLEntry(FBillNo string) []*WWTLEntry {
 	if FBillNo == "" {
 		return nil
 	}
-	r, e := db.QueryString(fmt.Sprintf(GetWWDDEntryInfo, FBillNo))
+	r, e := db.QueryString(fmt.Sprintf(GetWWTLEntryInfo, FBillNo))
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -91,7 +91,7 @@ func getWWDDEntry(FBillNo string) []*WWDDEntry {
 		return nil
 	}
 
-	var rs []*WWDDEntry
+	var rs []*WWTLEntry
 
 	e = json.Unmarshal(j, &rs)
 	if e != nil {

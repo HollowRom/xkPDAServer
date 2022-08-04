@@ -95,6 +95,18 @@ func Init() {
 
 	engine.GET("/getSCTLEntry", getSCTLEntry)
 
+	engine.GET("/getAllWWTLMain", getAllWWTLMain)
+
+	engine.GET("/getWWTLMain", getWWTLMain)
+
+	engine.GET("/getWWTLEntry", getWWTLEntry)
+
+	engine.GET("/getAllWWDDMain", getAllWWDDMain)
+
+	engine.GET("/getWWDDMain", getWWDDMain)
+
+	engine.GET("/getWWDDEntry", getWWDDEntry)
+
 	engine.GET("/getAllUser", getAllUser)
 
 	engine.POST("/postPing", postPing)
