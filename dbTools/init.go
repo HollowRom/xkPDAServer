@@ -13,9 +13,9 @@ var defDSNConf = ""
 
 func Init(dsn string) {
 	dbConfMap := map[string]string{}
-	tempValue := GetConfFromKey("ServerId")
+	tempValue := GetConfFromKey("ServerIp")
 	if tempValue != "" {
-		dbConfMap["ServerId"] = tempValue
+		dbConfMap["ServerIp"] = tempValue
 	}
 	tempValue = GetConfFromKey("DatabaseName")
 	if tempValue != "" {
@@ -31,7 +31,7 @@ func Init(dsn string) {
 	}
 
 	if len(dbConfMap) == 4 {
-		defDSNConf = fmt.Sprintf("driver={SQL Server};Server=%s;Database=%s;user id=%s;password=%s;", dbConfMap["ServerId"], dbConfMap["DatabaseName"], dbConfMap["DBuid"], dbConfMap["DBpwd"])
+		defDSNConf = fmt.Sprintf("driver={SQL Server};Server=%s;Database=%s;user id=%s;password=%s;", dbConfMap["ServerIp"], dbConfMap["DatabaseName"], dbConfMap["DBuid"], dbConfMap["DBpwd"])
 	}
 
 	if db != nil {

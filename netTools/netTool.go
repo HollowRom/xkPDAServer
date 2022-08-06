@@ -15,10 +15,11 @@ import (
 )
 
 const (
-	KDKey      = "kdservice-sessionid"
-	ASPKey     = "ASP.NET_SessionId"
-	xkLoginUrl = "http://192.168.31.153/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
+	KDKey  = "kdservice-sessionid"
+	ASPKey = "ASP.NET_SessionId"
 )
+
+var xkLoginUrl = "http://192.168.31.153/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
 
 type cookiesManger struct {
 	rwLock  *sync.RWMutex
@@ -56,6 +57,10 @@ func Init() {
 	tempValue = dbTools.GetConfFromKey("password")
 	if tempValue != "" {
 		defLoginBase.Password = tempValue
+	}
+	tempValue = dbTools.GetConfFromKey("ServerIp")
+	if tempValue != "" {
+		xkLoginUrl = "http://" + tempValue + "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
 	}
 
 	fmt.Println("星空登陆数据初始化完成")
