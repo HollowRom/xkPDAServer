@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 	"xkpdaserver/controllers"
 	"xkpdaserver/dbTools"
@@ -10,10 +11,6 @@ import (
 )
 
 func main() {
-	go func() {
-		time.Sleep(2000 * time.Second)
-		panic(nil)
-	}()
 	someInit()
 }
 
@@ -32,6 +29,14 @@ func someInit() {
 	if !netTools.TryLogin(nil) {
 		fmt.Println("登录失败")
 		panic(nil)
+	}
+	tempValue := dbTools.GetConfFromKey("serverTimeOut")
+	if tempValue != "" && tempValue != "-1" {
+		timeOut, _ := strconv.Atoi(tempValue)
+		go func() {
+			time.Sleep(time.Duration(timeOut) * time.Second)
+			panic(nil)
+		}()
 	}
 
 	controllers.Init()

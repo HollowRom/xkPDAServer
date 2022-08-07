@@ -3,26 +3,16 @@ package dbTools
 const (
 	//物料内码,物料编码,物料名称,物料规格,默认仓库id,单位number
 	GetGoods = `select top 500 a.FMASTERID,
-							   a.FNUMBER as GoodFNUMBER,
-							   d.FNAME,
-							   d.FSPECIFICATION,
-							   b.FSTOCKID,
-							   c.FNUMBER as UnitFNUMBER
-				from T_BD_MATERIAL a,
-					 t_BD_MaterialStock b,
-					 T_BD_UNIT c,
-					 T_BD_MATERIAL_L d,
-					 V_SCM_KEEPERORG e
-				where b.FSTOREUNITID = c.FMASTERID
-				  and a.FMATERIALID = b.FMATERIALID
-				  and a.FMATERIALID = d.FMATERIALID
-				  and d.FLOCALEID = 2052
-				  and a.FDOCUMENTSTATUS = 'C'
-				  and a.FFORBIDSTATUS = 'A'
-				  and e.FNUMBER = '%s'
-				  and e.FDOCUMENTSTATUS = 'C'
-				  and e.FFORBIDSTATUS = 'A'
-				  and a.FUSEORGID in (e.FORGID, 0)`
+							   a.FNUMBER,
+							   a.FNAME,
+							   a.FSPECIFICATION,
+							   a.FSTOCKID,
+							   a.FStockName,
+							   a.FBaseUnitNumber,
+							   a.FUSEORGID,
+							   a.FUseOrgNumber
+				from xkPdaServer_good_tool a
+				where a.FUSEORGID = 0 or a.FUseOrgNumber = '%s'`
 
 	//员工内码,员工编码,员工姓名
 	GetEmpInfo = `select top 500 a.FMASTERID, a.FNUMBER, b.FNAME
@@ -41,38 +31,33 @@ const (
 	GetUserInfo = "select top 500 FUSERID, FNAME from T_SEC_user where FFORBIDSTATUS = 'A'"
 
 	//仓库内码,仓库编码,仓库名称
-	GetStockInfo = `select top 500 a.FMASTERID, a.FNUMBER, b.FNAME
-					from t_BD_Stock a,
-						 T_BD_STOCK_L b,
-						 V_SCM_KEEPERORG c
-					where a.FMASTERID = b.FSTOCKID
-					  and b.FLOCALEID = 2052
-					  and c.FNUMBER = '%s'
-					  and a.FDOCUMENTSTATUS = 'C'
-					  and a.FFORBIDSTATUS = 'A'
-					  and c.FDOCUMENTSTATUS = 'C'
-					  and c.FFORBIDSTATUS = 'A'
-					  and a.FUSEORGID in (c.FORGID, 0)`
+	GetStockInfo = `select top 500 a.FMASTERID, 
+									a.FNUMBER, 
+									a.FNAME, 
+									a.FUSEORGID, 
+									a.FOrgNumber
+					from xkPdaServer_stock_tool a
+					where a.FUSEORGID = 0 or a.FOrgNumber = '%s'`
 
 	//供应商内码,供应商编码,供应商名称
-	GetSupplierInfo = `select top 500 a.FMASTERID, a.FNUMBER, b.FNAME
-						from t_BD_Supplier a,
-							 T_BD_SUPPLIER_L b
-						where a.FMASTERID = b.FSUPPLIERID
-						  and b.FLOCALEID = 2052
-						  and a.FDOCUMENTSTATUS = 'C'
-						  and a.FFORBIDSTATUS = 'A'
-						  and a.FMASTERID = a.FSUPPLIERID`
+	GetSupplierInfo = `select top 500 a.FMASTERID, 
+									  a.FNUMBER, 
+							  		  a.FNAME, 
+							  		  a.FSUPPLYCLASSIFY, 
+									  a.FSUPPLYCLASSName, 
+									  a.FORGID, 
+									  a.FOrgNumber
+						from xkPdaServer_supplier_tool a
+						where a.FORGID = 0 or a.FOrgNumber = '%s'`
 
 	//客户内码,客户编码,客户名称
-	GetCustomerInfo = `select top 500 a.FMASTERID, a.FNUMBER, b.FNAME
-						from T_BD_CUSTOMER a,
-							 T_BD_CUSTOMER_L b
-						where a.FMASTERID = b.FCUSTID
-						  and b.FLOCALEID = 2052
-						  and a.FDOCUMENTSTATUS = 'C'
-						  and a.FFORBIDSTATUS = 'A'
-						  and a.FMASTERID = a.FCUSTID`
+	GetCustomerInfo = `select top 500 a.FMASTERID, 
+										a.FNUMBER, 
+										b.FNAME, 
+										a.FORGID, 
+										a.FOrgNumber
+						from xkPdaServer_customer_tool a
+						where a.FORGID = 0 or a.FOrgNumber = '%s'`
 
 	//保管者编码,名字
 	GetKeeperInfo = `select a.FNumber, b.FNAME, a.FItemID
