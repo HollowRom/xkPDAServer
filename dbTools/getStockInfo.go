@@ -1,14 +1,19 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type StockInto struct {
-	FMASTERID string
-	FNUMBER   string
-	FNAME     string
+	FMASTERID  int
+	FNUMBER    string
+	FNAME      string
+	FUSEORGID  int
+	ForgNumber string
+}
+
+func (*StockInto) TableName() string {
+	return "xkPdaServer_stock_tool"
 }
 
 func GetAllStock(orgNum string) []*StockInto {
@@ -19,12 +24,8 @@ func GetStock(number string, orgNum string) []*StockInto {
 	return getStock(number, orgNum)
 }
 
-func getStock(number string, orgNum string) []*StockInto {
-	selSQL := fmt.Sprintf(GetStockInfo, orgNum)
-	if number != "" {
-		selSQL += " and (a.FNumber like '%" + number + "%' or b.FName like '%" + number + "%')"
-	}
-	r, e := db.QueryString(selSQL)
+func getStock(number string, orgNum string) (r []*StockInto) {
+	e := db.Where(fmt.Sprintf("FName = '%s' or FNumber = '%s'", number, number)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -35,19 +36,5 @@ func getStock(number string, orgNum string) []*StockInto {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*StockInto
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

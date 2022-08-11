@@ -1,22 +1,41 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type WWTLMain struct {
-	FBillNo         string
-	FSupplierNumber string
-	FSupplierName   string
+	FBillNo     string
+	FSuppNumber string
+	FSuppName   string
+}
+
+func (*WWTLMain) TableName() string {
+	return "xkPdaServer_sub_ppbom_to_stockin_tool"
 }
 
 type WWTLEntry struct {
-	FID         int
-	FENTRYID    int
-	FItemNumber int
-	FUnitNumber int
-	FQTY        string
+	FID             int
+	FBILLNO         string
+	FSuppNumber     string
+	FSuppName       string
+	FENTRYID        int
+	FSUBREQBILLNO   string
+	FSUBREQID       int
+	FSUBREQENTRYSEQ int
+	FSUBREQENTRYID  int
+	FMATERIALID     int
+	FNUMBER         string
+	FNAME           string
+	FBaseUnitNumber string
+	FLOT_TEXT       string
+	FMustQty        string
+	SQTY            string
+	FUseOrgNumber   string
+}
+
+func (*WWTLEntry) TableName() string {
+	return "xkPdaServer_sub_ppbom_to_stockin_tool"
 }
 
 func GetAllWWTLMain(orgNumber string) []*WWTLMain {
@@ -27,18 +46,15 @@ func GetWWTLMain(orgNumber, supplierNumber, FBillNo string) []*WWTLMain {
 	return getWWTLMain(orgNumber, supplierNumber, FBillNo)
 }
 
-func getWWTLMain(orgNumber, supplierNumber, FBillNo string) []*WWTLMain {
-	if orgNumber == "" {
-		return nil
-	}
-	sql := fmt.Sprintf(GetWWTLMainInfo, orgNumber)
+func getWWTLMain(orgNumber, supplierNumber, FBillNo string) (r []*WWTLMain) {
+	siss := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNumber))
 	if supplierNumber != "" {
-		sql += " and (f.FNUMBER = '" + supplierNumber + "' or g.FNAME = '" + supplierNumber + "')"
+		siss = siss.And(fmt.Sprintf("FSuppNumber = '%s'", supplierNumber))
 	}
 	if FBillNo != "" {
-		sql += " and a.FBILLNO like '%" + FBillNo + "%'"
+		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", FBillNo))
 	}
-	r, e := db.QueryString(sql)
+	e := siss.GroupBy("FBILLNO, FSuppNumber, FSuppName").Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -49,32 +65,15 @@ func getWWTLMain(orgNumber, supplierNumber, FBillNo string) []*WWTLMain {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*WWTLMain
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }
 
 func GetWWTLEntry(FBillNo string) []*WWTLEntry {
 	return getWWTLEntry(FBillNo)
 }
 
-func getWWTLEntry(FBillNo string) []*WWTLEntry {
-	if FBillNo == "" {
-		return nil
-	}
-	r, e := db.QueryString(fmt.Sprintf(GetWWTLEntryInfo, FBillNo))
+func getWWTLEntry(FBillNo string) (r []*WWTLEntry) {
+	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -85,19 +84,5 @@ func getWWTLEntry(FBillNo string) []*WWTLEntry {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*WWTLEntry
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

@@ -1,31 +1,44 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type SCTLMain struct {
-	FBillNo       string
-	FParentNumber string
+	FBILLNO           string
+	FParentNumber     string
+	FParentName       string
+	FParentUnitNumber string
+}
+
+func (*SCTLMain) TableName() string {
+	return "xkPdaServer_prd_ppbom_to_stockOut_tool"
 }
 
 type SCTLEntry struct {
+	FID               int
+	FBILLNO           string
 	FParentNumber     string
-	FNumber           string
-	UnitNumber        string
-	FQTY              string
-	FStockNumber      string
-	FMoBillNo         string
-	FMoEntryId        int
-	FPPBomEntryId     int
-	FMoId             int
-	FMoEntrySeq       int
-	FPPBomBillNo      string
-	FEntrySrcInterId  int
-	FEntrySrcEntrySeq int
-	FKeeperId         string
-	FLotNo            string
+	FParentName       string
+	FParentUnitNumber string
+	FENTRYID          int
+	FMOBILLNO         string
+	FMOENTRYID        int
+	FMOID             int
+	FMOENTRYSEQ       int
+	FMATERIALID       int
+	FNUMBER           string
+	FName             string
+	FSPECIFICATION    string
+	FBaseUnitNumber   string
+	FMustQty          string
+	SQTY              string
+	FLOT_TEXT         string
+	FUseOrgNumber     string
+}
+
+func (*SCTLEntry) TableName() string {
+	return "xkPdaServer_prd_ppbom_to_stockOut_tool"
 }
 
 func GetAllSCTLMain(orgNumber string) []*SCTLMain {
@@ -36,15 +49,12 @@ func GetSCTLMain(orgNumber, fBillNo string) []*SCTLMain {
 	return getSCTLMain(orgNumber, fBillNo)
 }
 
-func getSCTLMain(orgNumber, fBillNo string) []*SCTLMain {
-	if orgNumber == "" {
-		return nil
-	}
-	sql := fmt.Sprintf(GetSCTLMainInfo, orgNumber)
+func getSCTLMain(orgNumber, fBillNo string) (r []*SCTLMain) {
+	siss := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNumber))
 	if fBillNo != "" {
-		sql += " and a.FBillNo like '%" + orgNumber + "%'"
+		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", fBillNo))
 	}
-	r, e := db.QueryString(sql)
+	e := siss.GroupBy("FBILLNO, FParentNumber, FParentName, FParentUnitNumber").Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -55,33 +65,15 @@ func getSCTLMain(orgNumber, fBillNo string) []*SCTLMain {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*SCTLMain
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }
 
 func GetSCTLEntry(FBillNo string) []*SCTLEntry {
 	return getSCTLEntry(FBillNo)
 }
 
-func getSCTLEntry(FBillNo string) []*SCTLEntry {
-	if FBillNo == "" {
-		return nil
-	}
-	sql := fmt.Sprintf(GetSCTLEntryInfo, FBillNo)
-	r, e := db.QueryString(sql)
+func getSCTLEntry(FBillNo string) (r []*SCTLEntry) {
+	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -92,19 +84,5 @@ func getSCTLEntry(FBillNo string) []*SCTLEntry {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*SCTLEntry
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

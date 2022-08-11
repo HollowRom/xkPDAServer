@@ -1,7 +1,6 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
@@ -9,6 +8,10 @@ type OrgInfo struct {
 	FNumber string
 	FNAME   string
 	FORGID  string
+}
+
+func (*OrgInfo) TableName() string {
+	return "xkPdaServer_orgInfo_tool"
 }
 
 func GetAllOrg() []*OrgInfo {
@@ -19,12 +22,8 @@ func GetOrg(number string) []*OrgInfo {
 	return getOrg(number)
 }
 
-func getOrg(number string) []*OrgInfo {
-	selSQL := GetOrgInfo
-	if number != "" {
-		selSQL += " and (a.FNumber like '%" + number + "%' or b.FName like '%" + number + "%')"
-	}
-	r, e := db.QueryString(selSQL)
+func getOrg(number string) (r []*OrgInfo) {
+	e := db.Where(fmt.Sprintf("FName like '%%%s%%' or FNumber like '%%%s%%'", number, number)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -35,19 +34,5 @@ func getOrg(number string) []*OrgInfo {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*OrgInfo
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

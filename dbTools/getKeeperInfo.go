@@ -1,14 +1,19 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type KeeperInfo struct {
-	FNumber string
-	FNAME   string
-	FItemId string
+	FNumber       string
+	FNAME         string
+	FKeeperId     string
+	FORGID        int
+	FUseOrgNumber string
+}
+
+func (*KeeperInfo) TableName() string {
+	return "xkPdaServer_keeperInfo_tool"
 }
 
 func GetAllKeeper(orgNum string) []*KeeperInfo {
@@ -19,12 +24,8 @@ func GetKeeper(number string, orgNum string) []*KeeperInfo {
 	return getKeeper(number, orgNum)
 }
 
-func getKeeper(number string, orgNum string) []*KeeperInfo {
-	selSQL := fmt.Sprintf(GetKeeperInfo, orgNum)
-	if number != "" {
-		selSQL += " and (a.FNumber like '%" + number + "%' or b.FName like '%" + number + "%')"
-	}
-	r, e := db.QueryString(selSQL)
+func getKeeper(number string, orgNum string) (r []*KeeperInfo) {
+	e := db.Where(fmt.Sprintf("(FName = '%s' or FNumber = '%s') and FUseOrgNumber = '%s' ", number, number, orgNum)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -35,19 +36,5 @@ func getKeeper(number string, orgNum string) []*KeeperInfo {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*KeeperInfo
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

@@ -1,22 +1,43 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type CGDDMain struct {
-	FBillNo         string
-	FSupplierNumber string
-	FSupplierName   string
+	FBILLNO     string
+	FSuppNumber string
+	FSuppName   string
+}
+
+func (*CGDDMain) TableName() string {
+	return "xkPdaServer_sltz_to_cgrk_tool"
 }
 
 type CGDDEntry struct {
-	FID         int
-	FENTRYID    int
-	FItemNumber int
-	FUnitNumber int
-	FQTY        string
+	FID             int
+	FBILLNO         string
+	FSUPPLIERID     int
+	FSuppNumber     string
+	FSuppName       string
+	FPURCHASERID    int
+	FSRCBILLNO      string
+	FSRCENTRYID     int
+	FSRCID          int
+	FSRCSEQ         int
+	FMATERIALID     int
+	FENTRYID        int
+	FSEQ            int
+	FNAME           string
+	FSPECIFICATION  string
+	FBaseUnitNumber int
+	FLOT_TEXT       string
+	FMustQty        string
+	SQTY            string
+}
+
+func (*CGDDEntry) TableName() string {
+	return "xkPdaServer_sltz_to_cgrk_tool"
 }
 
 func GetAllCGDDMain(orgNumber string) []*CGDDMain {
@@ -27,18 +48,15 @@ func GetCGDDMain(orgNumber, supplierNumber, FBillNo string) []*CGDDMain {
 	return getCGDDMain(orgNumber, supplierNumber, FBillNo)
 }
 
-func getCGDDMain(orgNumber, supplierNumber, FBillNo string) []*CGDDMain {
-	if orgNumber == "" {
-		return nil
-	}
-	sql := fmt.Sprintf(GetCGDDMainInfo, orgNumber)
+func getCGDDMain(orgNumber, supplierNumber, FBillNo string) (r []*CGDDMain) {
+	siss := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNumber))
 	if supplierNumber != "" {
-		sql += " and (f.FNUMBER = '" + supplierNumber + "' or g.FNAME = '" + supplierNumber + "')"
+		siss = siss.And(fmt.Sprintf("FSuppNumber = '%s'", supplierNumber))
 	}
 	if FBillNo != "" {
-		sql += " and a.FBILLNO like '%" + FBillNo + "%'"
+		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", FBillNo))
 	}
-	r, e := db.QueryString(sql)
+	e := siss.GroupBy("FBILLNO, FSuppNumber, FSuppName").Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -49,32 +67,15 @@ func getCGDDMain(orgNumber, supplierNumber, FBillNo string) []*CGDDMain {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*CGDDMain
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }
 
 func GetCGDDEntry(FBillNo string) []*CGDDEntry {
 	return getCGDDEntry(FBillNo)
 }
 
-func getCGDDEntry(FBillNo string) []*CGDDEntry {
-	if FBillNo == "" {
-		return nil
-	}
-	r, e := db.QueryString(fmt.Sprintf(GetCGDDEntryInfo, FBillNo))
+func getCGDDEntry(FBillNo string) (r []*CGDDEntry) {
+	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -85,19 +86,5 @@ func getCGDDEntry(FBillNo string) []*CGDDEntry {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*CGDDEntry
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

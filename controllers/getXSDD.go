@@ -7,7 +7,7 @@ import (
 )
 
 func getAllXSDDMain(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetAllCGDDMain(context.Query(defOrgKey))
+	info := dbTools.GetAllXSDDMain(context.Query(defOrgKey))
 	if info == nil {
 		setErrJson(context, nil)
 		return
@@ -16,7 +16,7 @@ func getAllXSDDMain(context *gin.Context) { // 定义请求接口和处理匿名
 }
 
 func getXSDDMain(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetCGDDMain(context.Query(defOrgKey), context.Query(defSuppKey), context.Query(defBillKey))
+	info := dbTools.GetXSDDMain(context.Query(defOrgKey), context.Query(defSuppKey), context.Query(defBillKey))
 	if info == nil {
 		setErrJson(context, nil)
 		return
@@ -25,7 +25,7 @@ func getXSDDMain(context *gin.Context) { // 定义请求接口和处理匿名函
 }
 
 func getXSDDEntry(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetCGDDEntry(context.Query(defBillKey))
+	info := dbTools.GetXSDDEntry(context.Query(defBillKey))
 	if info == nil {
 		setErrJson(context, nil)
 		return

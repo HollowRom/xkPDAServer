@@ -1,13 +1,16 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type UserInfo struct {
 	FUSERID string
 	FNAME   string
+}
+
+func (*UserInfo) TableName() string {
+	return "xkPdaServer_userInfo_tool"
 }
 
 func GetAllUser() []*UserInfo {
@@ -18,12 +21,8 @@ func GetUser(number string) []*UserInfo {
 	return getUser(number)
 }
 
-func getUser(number string) []*UserInfo {
-	selSQL := GetUserInfo
-	if number != "" {
-		selSQL += " and (FName like '%" + number + "%' or FUSERID like '%" + number + "%')"
-	}
-	r, e := db.QueryString(selSQL)
+func getUser(number string) (r []*UserInfo) {
+	e := db.Where(fmt.Sprintf("FName = '%s' or FUSERID = %s", number, number)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -34,19 +33,5 @@ func getUser(number string) []*UserInfo {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*UserInfo
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

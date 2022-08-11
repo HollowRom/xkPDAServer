@@ -3,6 +3,7 @@ package dbTools
 import (
 	"fmt"
 	"xorm.io/xorm"
+	"xorm.io/xorm/names"
 )
 import _ "github.com/denisenkom/go-mssqldb"
 
@@ -54,6 +55,8 @@ func Init(dsn string) {
 	}
 
 	db.DB().SetMaxOpenConns(maxConnNum)
+
+	db.SetMapper(names.SameMapper{})
 
 	fmt.Println("db初始化完成，未出现异常")
 }

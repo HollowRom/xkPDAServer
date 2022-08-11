@@ -1,14 +1,19 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type EmpInfo struct {
-	FMASTERID string
-	FNUMBER   string
-	FNAME     string
+	FMASTERID     int
+	FNUMBER       string
+	FNAME         string
+	FUSEORGID     int
+	FUseOrgNumber string
+}
+
+func (*EmpInfo) TableName() string {
+	return "xkPdaServer_empInfo_tool"
 }
 
 func GetAllEmp(orgNum string) []*EmpInfo {
@@ -19,34 +24,17 @@ func GetEmp(number string, orgNum string) []*EmpInfo {
 	return getEmp(number, orgNum)
 }
 
-func getEmp(number string, orgNum string) []*EmpInfo {
-	selSQL := fmt.Sprintf(GetEmpInfo, orgNum)
-	if number != "" {
-		selSQL += " and (a.FNumber like '%" + number + "%' or b.FName like '%" + number + "%')"
-	}
-	r, e := db.QueryString(selSQL)
+func getEmp(number string, orgNum string) (r []*EmpInfo) {
+	e := db.Where(fmt.Sprintf("(FName like '%%%s%%' or FNumber like '%%%s%%') and FUseOrgNumber = '%s'", number, number, orgNum)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
 	}
 
 	if len(r) == 0 {
+		fmt.Println("返回nil")
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*EmpInfo
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

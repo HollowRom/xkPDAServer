@@ -1,14 +1,19 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type CustomerInfo struct {
-	FMASTERID string
-	FNUMBER   string
-	FNAME     string
+	FMASTERID  int
+	FNUMBER    string
+	FNAME      string
+	FUSEORGID  int
+	ForgNumber string
+}
+
+func (*CustomerInfo) TableName() string {
+	return "xkPdaServer_customer_tool"
 }
 
 func GetAllCustomer() []*CustomerInfo {
@@ -19,12 +24,8 @@ func GetCustomer(number string) []*CustomerInfo {
 	return getCustomer(number)
 }
 
-func getCustomer(number string) []*CustomerInfo {
-	selSQL := GetCustomerInfo
-	if number != "" {
-		selSQL += " and (b.FName like '%" + number + "%' or a.FNumber like '%" + number + "%')"
-	}
-	r, e := db.QueryString(selSQL)
+func getCustomer(number string) (r []*CustomerInfo) {
+	e := db.Where(fmt.Sprintf("FName = '%s' or FNumber = '%s'", number, number)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -35,19 +36,5 @@ func getCustomer(number string) []*CustomerInfo {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*CustomerInfo
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

@@ -1,14 +1,21 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type SupplierInfo struct {
-	FMASTERID string
-	FNUMBER   string
-	FNAME     string
+	FMASTERID        int
+	FNUMBER          string
+	FNAME            string
+	FSUPPLYCLASSIFY  string
+	FSUPPLYCLASSName string
+	FORGID           int
+	ForgNumber       string
+}
+
+func (*SupplierInfo) TableName() string {
+	return "xkPdaServer_supplier_tool"
 }
 
 func GetAllSupplier() []*SupplierInfo {
@@ -19,12 +26,8 @@ func GetSupplier(number string) []*SupplierInfo {
 	return getSupplier(number)
 }
 
-func getSupplier(number string) []*SupplierInfo {
-	selSQL := GetSupplierInfo
-	if number != "" {
-		selSQL += " and (b.FName like '%" + number + "%' or a.FNumber like '%" + number + "%')"
-	}
-	r, e := db.QueryString(selSQL)
+func getSupplier(number string) (r []*SupplierInfo) {
+	e := db.Where(fmt.Sprintf("FName = '%s' or FNumber = '%s'", number, number)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -35,19 +38,5 @@ func getSupplier(number string) []*SupplierInfo {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*SupplierInfo
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

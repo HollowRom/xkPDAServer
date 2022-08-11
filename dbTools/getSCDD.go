@@ -1,30 +1,36 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type SCDDMain struct {
-	FBillNo string
+	FBILLNO string
+	FNumber string
+	FName   string
+}
+
+func (*SCDDMain) TableName() string {
+	return "xkPdaServer_mo_to_stockin_tool"
 }
 
 type SCDDEntry struct {
-	FNumber      string
-	FSrcEntryId  int
-	UnitNumber   string
-	FQTY         string
-	FPrice       string
-	FStockNumber string
-	FNote        string
-	FLot         string
-	FMoBillNo    string
-	FMoId        int
-	FMoEntryId   string
-	FMoEntrySeq  int
-	FSrcBillNo   string
-	FSrcBillType string
-	FSrcInterId  int
+	FID             int
+	FBILLNO         string
+	FENTRYID        int
+	FSEQ            int
+	FNUMBER         string
+	FNAME           string
+	FSPECIFICATION  string
+	FBaseUnitNumber string
+	FLOT_TEXT       string
+	FMustQty        string
+	SQTY            string
+	FUseOrgNumber   string
+}
+
+func (*SCDDEntry) TableName() string {
+	return "xkPdaServer_mo_to_stockin_tool"
 }
 
 func GetAllSCDDMain(orgNumber string) []*SCDDMain {
@@ -35,15 +41,12 @@ func GetSCDDMain(orgNumber, fBillNo string) []*SCDDMain {
 	return getSCDDMain(orgNumber, fBillNo)
 }
 
-func getSCDDMain(orgNumber, fBillNo string) []*SCDDMain {
-	if orgNumber == "" {
-		return nil
-	}
-	sql := fmt.Sprintf(GetSCDDMainInfo, orgNumber)
+func getSCDDMain(orgNumber, fBillNo string) (r []*SCDDMain) {
+	siss := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNumber))
 	if fBillNo != "" {
-		sql += " and a.FBillNo like '%" + orgNumber + "%'"
+		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", fBillNo))
 	}
-	r, e := db.QueryString(sql)
+	e := siss.GroupBy("FBILLNO, FNumber, FName").Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -54,33 +57,15 @@ func getSCDDMain(orgNumber, fBillNo string) []*SCDDMain {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*SCDDMain
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }
 
 func GetSCDDEntry(FBillNo string) []*SCDDEntry {
 	return getSCDDEntry(FBillNo)
 }
 
-func getSCDDEntry(FBillNo string) []*SCDDEntry {
-	if FBillNo == "" {
-		return nil
-	}
-	sql := fmt.Sprintf(GetSCDDEntryInfo, FBillNo)
-	r, e := db.QueryString(sql)
+func getSCDDEntry(FBillNo string) (r []*SCDDEntry) {
+	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -91,19 +76,5 @@ func getSCDDEntry(FBillNo string) []*SCDDEntry {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*SCDDEntry
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }

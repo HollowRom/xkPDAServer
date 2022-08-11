@@ -1,17 +1,43 @@
 package dbTools
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 type GoodsInto struct {
-	FMASTERID      string
-	GoodFNUMBER    string
-	FNAME          string
-	FSPECIFICATION string
-	FSTOCKID       string
-	UnitFNUMBER    string
+	FMATERIALID     int
+	FNUMBER         string
+	FNAME           string
+	FSPECIFICATION  string
+	FERPCLSID       int
+	FErpClass       string
+	FSUITE          byte
+	FBASEUNITID     int
+	FBaseUnitNumber string
+	FWEIGHTUNITID   int
+	FVOLUMEUNITID   int
+	FISPURCHASE     byte
+	FISINVENTORY    byte
+	FISSUBCONTRACT  byte
+	FISSALE         byte
+	FISPRODUCE      byte
+	FISASSET        byte
+	FISBATCHMANAGE  byte
+	FISKFPERIOD     byte
+	FCHECKINCOMING  byte
+	FCHECKPRODUCT   byte
+	FCHECKSTOCK     byte
+	FCHECKRETURN    byte
+	FCHECKDELIVERY  byte
+	FSTOCKID        int
+	FStockName      string
+	FUSEORGID       int
+	FUseOrgNumber   string
+	FUseOrgName     string
+}
+
+func (*GoodsInto) TableName() string {
+	return "xkPdaServer_good_tool"
 }
 
 func GetAllGood(orgNum string) []*GoodsInto {
@@ -22,12 +48,14 @@ func GetGood(number string, orgNum string) []*GoodsInto {
 	return getGood(number, orgNum)
 }
 
-func getGood(number string, orgNum string) []*GoodsInto {
-	selSQL := fmt.Sprintf(GetGoods, orgNum)
+func getGood(number string, orgNum string) (r []*GoodsInto) {
+	siss := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNum))
+
 	if number != "" {
-		selSQL += " and (a.FNumber like '%" + number + "%' or d.FName like '%" + number + "%')"
+		siss = siss.And(fmt.Sprintf(" (FNUMBER like '%s%%' or FNAME like '%s%%') ", number, number))
 	}
-	r, e := db.QueryString(selSQL)
+
+	e := siss.Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -38,19 +66,5 @@ func getGood(number string, orgNum string) []*GoodsInto {
 		return nil
 	}
 
-	j, e := json.Marshal(r)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	var rs []*GoodsInto
-
-	e = json.Unmarshal(j, &rs)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	return rs
+	return r
 }
