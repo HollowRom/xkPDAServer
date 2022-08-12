@@ -4,14 +4,11 @@ go 1.17
 
 replace xkpdaserver/dbTools => ../dbTools
 
-replace xkpdaserver/jsonTools => ../jsonTools
-
 replace xkpdaserver/netTools => ../netTools
 
 require (
 	github.com/gin-gonic/gin v1.8.1
 	xkpdaserver/dbTools v0.0.0-00010101000000-000000000000
-	xkpdaserver/jsonTools v0.0.0
 	xkpdaserver/netTools v0.0.0-00010101000000-000000000000
 )
 

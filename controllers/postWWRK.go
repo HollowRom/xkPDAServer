@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"strconv"
 	"xkpdaserver/dbTools"
-	"xkpdaserver/jsonTools"
 	"xkpdaserver/netTools"
 )
 
@@ -42,7 +41,7 @@ func postWWRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 			fmt.Println(err)
 		}
 	}(context.Request.Body)
-	miniStr := &jsonTools.WWRKMini{}
+	miniStr := &dbTools.WWRKMini{}
 	e = json.Unmarshal(buf[0:i], miniStr)
 	if e != nil {
 		fmt.Println(e)
@@ -82,13 +81,13 @@ func postWWRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		}
 
 		if qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] == "" {
-			qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] = strconv.Itoa(qm.FPOORDERINTERID)
+			qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] = strconv.Itoa(qm.FID)
 		}
 		if qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] == "" {
-			qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] = strconv.Itoa(qm.FPOORDERENTRYID)
+			qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] = strconv.Itoa(qm.FENTRYID)
 		}
 		if qm.FLinkInfo[0]["FInStockEntry_Link_FBaseActualQty"] == "" {
-			qm.FLinkInfo[0]["FInStockEntry_Link_FBaseActualQty"] = qm.FQTY
+			qm.FLinkInfo[0]["FInStockEntry_Link_FBaseActualQty"] = qm.FMustQty
 		}
 	}
 

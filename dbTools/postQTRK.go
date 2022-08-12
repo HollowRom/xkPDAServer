@@ -3,7 +3,6 @@ package dbTools
 import (
 	"fmt"
 	"time"
-	"xkpdaserver/jsonTools"
 )
 
 const (
@@ -11,12 +10,12 @@ const (
 	defQTRKFromId   = "STK_MISCELLANEOUS"
 )
 
-func GetPostQTRK(mini *jsonTools.QTRKMini) jsonTools.ModelBaseInterface {
+func GetPostQTRK(mini *QTRKMini) ModelBaseInterface {
 	if mini == nil || mini.QTRKHeadMini == nil || mini.QTRKHeadMini.FOrgNumber == "" {
 		fmt.Println("qtrk入参异常")
 		return nil
 	}
-	i := jsonTools.InitQTRKModel(&jsonTools.DefModelHeadBase{FBillTypeId: defQTRKBillType, FDate: time.Now(), FromId: defQTRKFromId})
+	i := InitQTRKModel(&DefModelHeadBase{FBillTypeId: defQTRKBillType, FDate: time.Now(), FromId: defQTRKFromId})
 
 	if i == nil {
 		return nil

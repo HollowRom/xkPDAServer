@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"strconv"
 	"xkpdaserver/dbTools"
-	"xkpdaserver/jsonTools"
 	"xkpdaserver/netTools"
 )
 
@@ -42,7 +41,7 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 			fmt.Println(err)
 		}
 	}(context.Request.Body)
-	miniStr := &jsonTools.CGRKMini{}
+	miniStr := &dbTools.CGRKMini{}
 	e = json.Unmarshal(buf[0:i], miniStr)
 	if e != nil {
 		fmt.Println(e)
@@ -71,7 +70,7 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		if qm.FStockStatusId == "" {
 			qm.FStockStatusId = defCGRKFStockStatusId
 		}
-		if qm.FOrderNo != "" && qm.FLinkInfo != nil {
+		if qm.FSRCBILLNO != "" && qm.FLinkInfo != nil {
 			if len(qm.FLinkInfo) == 0 {
 				qm.FLinkInfo = append(qm.FLinkInfo, map[string]string{})
 			}
@@ -86,16 +85,16 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 			}
 
 			if qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] == "" {
-				qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] = strconv.Itoa(qm.FOrderInterId)
+				qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] = strconv.Itoa(qm.FSRCID)
 			}
 			if qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] == "" {
-				qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] = strconv.Itoa(qm.FOrderEntryId)
+				qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] = strconv.Itoa(qm.FSRCENTRYID)
 			}
 			if qm.FLinkInfo[0]["FInStockEntry_Link_FBaseUnitQty"] == "" {
-				qm.FLinkInfo[0]["FInStockEntry_Link_FBaseUnitQty"] = qm.FQTY
+				qm.FLinkInfo[0]["FInStockEntry_Link_FBaseUnitQty"] = qm.FMustQty
 			}
 			if qm.FLinkInfo[0]["FInStockEntry_Link_FRemainInStockBaseQty"] == "" {
-				qm.FLinkInfo[0]["FInStockEntry_Link_FRemainInStockBaseQty"] = qm.FQTY
+				qm.FLinkInfo[0]["FInStockEntry_Link_FRemainInStockBaseQty"] = qm.FMustQty
 			}
 
 		}

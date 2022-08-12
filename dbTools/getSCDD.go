@@ -6,8 +6,7 @@ import (
 
 type SCDDMain struct {
 	FBILLNO string
-	FNumber string
-	FName   string
+	FUseOrgNumber     string
 }
 
 func (*SCDDMain) TableName() string {
@@ -27,6 +26,12 @@ type SCDDEntry struct {
 	FMustQty        string
 	SQTY            string
 	FUseOrgNumber   string
+	FPrice            string              `xorm:"-"`
+	FStockNumber      string              `xorm:"-"`
+	FNote             string              `xorm:"-"`
+	FStockStatusId    string              `xorm:"-"`
+	FSrcBillType      string              `xorm:"-"`
+	FLinkInfo         []map[string]string `xorm:"-"`
 }
 
 func (*SCDDEntry) TableName() string {
@@ -46,7 +51,7 @@ func getSCDDMain(orgNumber, fBillNo string) (r []*SCDDMain) {
 	if fBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", fBillNo))
 	}
-	e := siss.GroupBy("FBILLNO, FNumber, FName").Find(&r)
+	e := siss.GroupBy("FBILLNO, FUseOrgNumber").Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

@@ -3,7 +3,6 @@ package dbTools
 import (
 	"fmt"
 	"time"
-	"xkpdaserver/jsonTools"
 )
 
 const (
@@ -11,15 +10,15 @@ const (
 	defWWRKFromId   = "STK_InStock"
 )
 
-func GetPostWWRK(mini *jsonTools.WWRKMini) jsonTools.ModelBaseInterface {
-	if mini == nil || mini.WWRKHeadMini == nil || mini.WWRKHeadMini.FOrgNumber == "" {
+func GetPostWWRK(mini *WWRKMini) ModelBaseInterface {
+	if mini == nil || mini.WWRKHeadMini == nil || mini.WWRKHeadMini.FUseOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
-	i := jsonTools.InitwwrkModel(&jsonTools.DefModelHeadBase{FBillTypeId: defWWRKBillType, FDate: time.Now(), FromId: defWWRKFromId})
+	i := InitwwrkModel(&DefModelHeadBase{FBillTypeId: defWWRKBillType, FDate: time.Now(), FromId: defWWRKFromId})
 
 	i.AddModelHead(mini.WWRKHeadMini)
 
-	i.AddModelFEntities(mini.WWRKEntityMini, mini.WWRKHeadMini.FOrgNumber)
+	i.AddModelFEntities(mini.WWRKEntityMini, mini.WWRKHeadMini.FUseOrgNumber)
 	return i
 }

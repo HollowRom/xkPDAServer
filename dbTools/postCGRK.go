@@ -3,7 +3,6 @@ package dbTools
 import (
 	"fmt"
 	"time"
-	"xkpdaserver/jsonTools"
 )
 
 const (
@@ -11,15 +10,15 @@ const (
 	defCGDDFromId   = "STK_InStock"
 )
 
-func GetPostCGRK(mini *jsonTools.CGRKMini) jsonTools.ModelBaseInterface {
-	if mini == nil || mini.CGRKHeadMini == nil || mini.CGRKHeadMini.FOrgNumber == "" {
+func GetPostCGRK(mini *CGRKMini) ModelBaseInterface {
+	if mini == nil || mini.CGRKHeadMini == nil || mini.CGRKHeadMini.FUseOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
-	i := jsonTools.InitCgrkModel(&jsonTools.DefModelHeadBase{FBillTypeId: defCGDDBillType, FDate: time.Now(), FromId: defCGDDFromId})
+	i := InitCgrkModel(&DefModelHeadBase{FBillTypeId: defCGDDBillType, FDate: time.Now(), FromId: defCGDDFromId})
 
 	i.AddModelHead(mini.CGRKHeadMini)
 
-	i.AddModelFEntities(mini.CGRKEntityMini, mini.CGRKHeadMini.FOrgNumber)
+	i.AddModelFEntities(mini.CGRKEntityMini, mini.CGRKHeadMini.FUseOrgNumber)
 	return i
 }

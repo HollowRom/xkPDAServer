@@ -5,21 +5,25 @@ import (
 )
 
 type WWTLMain struct {
-	FBillNo     string
-	FSuppNumber string
-	FSuppName   string
+	FBILLNO       string
+	FSuppNumber   string
+	FSuppName     string
+	FUseOrgNumber string
 }
 
 func (*WWTLMain) TableName() string {
-	return "xkPdaServer_sub_ppbom_to_stockin_tool"
+	return "xkPdaServer_sub_ppbom_to_stockout_tool"
 }
 
 type WWTLEntry struct {
 	FID             int
 	FBILLNO         string
+	FParentNumber   string
+	FParentName     string
 	FSuppNumber     string
 	FSuppName       string
 	FENTRYID        int
+	FSEQ            int
 	FSUBREQBILLNO   string
 	FSUBREQID       int
 	FSUBREQENTRYSEQ int
@@ -32,10 +36,19 @@ type WWTLEntry struct {
 	FMustQty        string
 	SQTY            string
 	FUseOrgNumber   string
+	FStockNumber    string              `xorm:"-"`
+	FStockStatusId  string              `xorm:"-"`
+	FKeeperId       int                 `xorm:"-"`
+	FLinkInfo       []map[string]string `xorm:"-"`
+	FSrcInterId     int
+	FSrcEntryId     int
+	FSrcBillNo      string
+	FSrcEntrySeq    int
+	FPOOrderBillNo  string
 }
 
 func (*WWTLEntry) TableName() string {
-	return "xkPdaServer_sub_ppbom_to_stockin_tool"
+	return "xkPdaServer_sub_ppbom_to_stockout_tool"
 }
 
 func GetAllWWTLMain(orgNumber string) []*WWTLMain {
@@ -49,12 +62,12 @@ func GetWWTLMain(orgNumber, supplierNumber, FBillNo string) []*WWTLMain {
 func getWWTLMain(orgNumber, supplierNumber, FBillNo string) (r []*WWTLMain) {
 	siss := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNumber))
 	if supplierNumber != "" {
-		siss = siss.And(fmt.Sprintf("FSuppNumber = '%s'", supplierNumber))
+		siss = siss.And(fmt.Sprintf("FSupplierNumber = '%s'", supplierNumber))
 	}
 	if FBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", FBillNo))
 	}
-	e := siss.GroupBy("FBILLNO, FSuppNumber, FSuppName").Find(&r)
+	e := siss.GroupBy("FBILLNO, FSupplierNumber, FSupplierName, FUseOrgNumber").Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

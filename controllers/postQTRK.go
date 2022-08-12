@@ -7,7 +7,6 @@ import (
 	"io"
 	"net/http"
 	"xkpdaserver/dbTools"
-	"xkpdaserver/jsonTools"
 	"xkpdaserver/netTools"
 )
 
@@ -39,7 +38,7 @@ func postQTRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 			fmt.Println(err)
 		}
 	}(context.Request.Body)
-	miniStr := &jsonTools.QTRKMini{}
+	miniStr := &dbTools.QTRKMini{}
 	e = json.Unmarshal(buf[0:i], miniStr)
 	if e != nil {
 		fmt.Println(e)

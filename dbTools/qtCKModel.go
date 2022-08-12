@@ -1,4 +1,4 @@
-package jsonTools
+package dbTools
 
 import (
 	"encoding/json"
@@ -19,33 +19,33 @@ type qtckModels struct {
 		Id string `json:"Id"`
 	} `json:"FBillTypeID"`
 	FStockOrgId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockOrgId"`
 	FStockDirect string `json:"FStockDirect"`
 	FDate        string `json:"FDate"`
 	FCustId      struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FCustId"`
 	FEntity []*qtckModelsEntity `json:"FInStockEntry"`
 }
 
 type qtckModelsEntity struct {
 	FMaterialId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FMaterialId"`
 	FUnitID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FUnitID"`
 	FQty        string `json:"FQty"`
 	FBaseUnitId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FBaseUnitId"`
 	FStockId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockId"`
 	FOwnerTypeId string `json:"FOwnerTypeId"`
 	FOwnerId     struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FOwnerId"`
 	FStockStatusId struct {
 		Id string `json:"Id"`
@@ -119,21 +119,21 @@ func (Q *qtckModelBase) AddModelHead(in interface{}) {
 func (Q *qtckModelBase) addModelFEntity(inT *QTCKEntityMini, orgNumber string) {
 	t := &qtckModelsEntity{
 		FMaterialId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FNumber}),
 		FUnitID: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
 		FQty: inT.FQTY,
 		FBaseUnitId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
 		FStockId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
 		FOwnerTypeId: "BD_OwnerOrg",
 		FOwnerId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
 		FStockStatusId: struct {
 			Id string `json:"Id"`

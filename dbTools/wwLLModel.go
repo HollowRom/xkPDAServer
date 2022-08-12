@@ -1,4 +1,4 @@
-package jsonTools
+package dbTools
 
 import (
 	"encoding/json"
@@ -20,70 +20,70 @@ type wwllModels struct {
 	} `json:"FBillType"`
 	FDate       string `json:"FDate"`
 	FStockOrgId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockOrgId"`
 	FSubOrgId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FSubOrgId"`
 	FEntity []*wwllModelsEntity `json:"FInStockEntry"`
 }
 
 type wwllModelsEntity struct {
 	FMaterialId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FMaterialId"`
 	FUnitID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FUnitID"`
 	FAppQty    string `json:"FAppQty"`
 	FActualQty string `json:"FActualQty"`
 	FStockId   struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockId"`
 	FParentMaterialId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FParentMaterialId"`
-	FSrcInterId     int    `json:"FSrcInterId"`
-	FSrcEntryId     int    `json:"FSrcEntryId"`
+	FSrcInterId     int    `json:"FID"`
+	FSrcEntryId     int    `json:"FENTRYID"`
 	FSrcBillType    string `json:"FSrcBillType"`
-	FSrcBillNo      string `json:"FSrcBillNo"`
+	FSrcBillNo      string `json:"FBILLNO"`
 	FSrcEntrySeq    int    `json:"FSrcEntrySeq"`
-	FSubReqId       int    `json:"FSubReqId"`
-	FPPbomBillNo    string `json:"FPPbomBillNo"`
+	FSubReqId       int    `json:"FSUBREQID"`
+	FPPbomBillNo    string `json:"FBILLNO"`
 	FSubReqEntryId  int    `json:"FSubReqEntryId"`
-	FSubReqBillNo   string `json:"FSubReqBillNo"`
+	FSubReqBillNo   string `json:"FSUBREQBILLNO"`
 	FSubReqEntrySeq int    `json:"FSubReqEntrySeq"`
 	FBaseUnitId     struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FBaseUnitId"`
 	FBaseAppQty    string `json:"FBaseAppQty"`
 	FBaseActualQty string `json:"FBaseActualQty"`
 	FStockUnitId   struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockUnitId"`
 	FStockAppQty           string `json:"FStockAppQty"`
 	FStockAllowOverQty     string `json:"FStockAllowOverQty"`
 	FStockSelPrcdReturnQty string `json:"FStockSelPrcdReturnQty"`
-	FPPbomEntryId          int    `json:"FPPbomEntryId"`
-	FPOOrderBillNo         string `json:"FPOOrderBillNo"`
+	FPPbomEntryId          int    `json:"FENTRYID"`
+	FPOOrderBillNo         string `json:"FBILLNO"`
 	FPOOrderSeq            int    `json:"FPOOrderSeq"`
 	FSupplierId            struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FSupplierId"`
 	FKeeperTypeId string `json:"FKeeperTypeId"`
 	FKeeperId     struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FKeeperId"`
 	FStockStatusId struct {
 		Id string `json:"Id"`
 	} `json:"FStockStatusId"`
 	FOwnerTypeId string `json:"FOwnerTypeId"`
 	FOwnerId     struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FOwnerId"`
 	FParentOwnerTypeId string `json:"FParentOwnerTypeId"`
 	FParentOwnerId     struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FParentOwnerId"`
 	FentityLink []*wwllFEntity_Link `json:"FEntity_Link"`
 }
@@ -97,37 +97,37 @@ type wwllFEntity_Link struct {
 }
 
 type WWLLMini struct {
-	WWLLEntityMini []*wwllEntityMini
-	WWLLHeadMini   *wwllHeadMini
+	WWLLEntityMini []*WWTLEntry
+	WWLLHeadMini   *WWTLMain
 }
 
-type wwllEntityMini struct {
-	FParentNumber  string
-	FNumber        string
-	UnitNumber     string
-	FQTY           string
-	FStockNumber   string
-	FStockStatusId string
-	FSrcInterId    int
-	FSrcEntryId    int
-	FSrcBillNo     string
-	FSrcEntrySeq   int
-	FSubReqId      int
-	FPPbomBillNo   string
-	FSubReqBillNo  string
-	FPPbomEntryId  int
-	FPOOrderBillNo string
-	FKeeperId      string
-	FLotNo         string
-	FLinkInfo      []map[string]string
-}
+//type wwllEntityMini struct {
+//	FParentNumber   string
+//	FNUMBER         string
+//	FBaseUnitNumber string
+//	FMustQty        string
+//	FStockNumber    string
+//	FStockStatusId  string
+//	FSrcInterId     int
+//	FSrcEntryId     int
+//	FSrcBillNo      string
+//	FSrcEntrySeq    int
+//	FSUBREQID       int
+//	FBILLNO         string
+//	FSUBREQBILLNO   string
+//	FENTRYID        int
+//	FPOOrderBillNo  string
+//	FKeeperId       string
+//	FLOT_TEXT       string
+//	FLinkInfo       []map[string]string
+//}
 
-type wwllHeadMini struct {
-	FBillNo         string
-	FOrgNumber      string
-	FSUPPLIERNumber string
-	FSUPPLIERName   string
-}
+//type wwllHeadMini struct {
+//	FBILLNO       string
+//	FUseOrgNumber string
+//	FSuppNumber   string
+//	FSuppName   string
+//}
 
 var _ ModelBaseInterface = &wwllModelBase{}
 
@@ -163,68 +163,68 @@ func (Q *wwllModelBase) GetJson() []byte {
 }
 
 func (Q *wwllModelBase) AddModelHead(in interface{}) {
-	inT, ok := in.(*wwllHeadMini)
+	inT, ok := in.(*WWTLMain)
 	if !ok {
 		return
 	}
-	Q.Data.Model.FStockOrgId.FNumber = inT.FOrgNumber
-	Q.Data.Model.FBillType.Id = inT.FOrgNumber
-	Q.Data.Model.FStockOrgId.FNumber = inT.FOrgNumber
-	Q.Data.Model.FSubOrgId.FNumber = inT.FOrgNumber
+	Q.Data.Model.FStockOrgId.FNumber = inT.FUseOrgNumber
+	Q.Data.Model.FBillType.Id = inT.FUseOrgNumber
+	Q.Data.Model.FStockOrgId.FNumber = inT.FUseOrgNumber
+	Q.Data.Model.FSubOrgId.FNumber = inT.FUseOrgNumber
 }
 
-func (Q *wwllModelBase) addModelFEntity(inT *wwllEntityMini, orgNumber string) {
+func (Q *wwllModelBase) addModelFEntity(inT *WWTLEntry, orgNumber string) {
 	t := &wwllModelsEntity{
 		FParentMaterialId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FParentNumber}),
 		FUnitID: struct {
-			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
 		FMaterialId: struct {
-			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.FNumber}),
-		FAppQty:    inT.FQTY,
-		FActualQty: inT.FQTY,
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: inT.FNUMBER}),
+		FAppQty:    inT.FMustQty,
+		FActualQty: inT.FMustQty,
 		FStockId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
 		FSrcInterId:    inT.FSrcInterId,
 		FSrcEntryId:    inT.FSrcEntryId,
 		FSrcBillType:   "SUB_PPBOM",
 		FSrcBillNo:     inT.FSrcBillNo,
 		FSrcEntrySeq:   inT.FSrcEntrySeq,
-		FSubReqId:      inT.FSubReqId,
-		FPPbomBillNo:   inT.FPPbomBillNo,
-		FSubReqEntryId: inT.FSubReqId,
-		FSubReqBillNo:  inT.FSubReqBillNo,
+		FSubReqId:      inT.FSUBREQID,
+		FPPbomBillNo:   inT.FBILLNO,
+		FSubReqEntryId: inT.FSUBREQID,
+		FSubReqBillNo:  inT.FSUBREQBILLNO,
 		FBaseUnitId: struct {
-			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
-		FBaseAppQty:    inT.FQTY,
-		FBaseActualQty: inT.FQTY,
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
+		FBaseAppQty:    inT.FMustQty,
+		FBaseActualQty: inT.FMustQty,
 		FStockUnitId: struct {
-			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
-		FStockAppQty:           inT.FQTY,
-		FStockAllowOverQty:     inT.FQTY,
-		FStockSelPrcdReturnQty: inT.FQTY,
-		FPPbomEntryId:          inT.FPPbomEntryId,
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
+		FStockAppQty:           inT.FMustQty,
+		FStockAllowOverQty:     inT.FMustQty,
+		FStockSelPrcdReturnQty: inT.FMustQty,
+		FPPbomEntryId:          inT.FENTRYID,
 		FPOOrderBillNo:         inT.FPOOrderBillNo,
 		FKeeperTypeId:          "BD_KeeperOrg",
 		FKeeperId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
 		FStockStatusId: struct {
 			Id string `json:"Id"`
 		}(struct{ Id string }{Id: inT.FStockStatusId}),
 		FOwnerTypeId: "BD_OwnerOrg",
 		FOwnerId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
 		FParentOwnerTypeId: "BD_OwnerOrg",
 		FParentOwnerId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
 	}
 	t.FentityLink = append(t.FentityLink, &wwllFEntity_Link{
@@ -238,7 +238,7 @@ func (Q *wwllModelBase) addModelFEntity(inT *wwllEntityMini, orgNumber string) {
 }
 
 func (Q *wwllModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
-	in, ok := ts.([]*wwllEntityMini)
+	in, ok := ts.([]*WWTLEntry)
 	if !ok {
 		return
 	}

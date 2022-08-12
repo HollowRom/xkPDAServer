@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"strconv"
 	"xkpdaserver/dbTools"
-	"xkpdaserver/jsonTools"
 	"xkpdaserver/netTools"
 )
 
@@ -42,7 +41,7 @@ func postSCRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 			fmt.Println(err)
 		}
 	}(context.Request.Body)
-	miniStr := &jsonTools.SCRKMini{}
+	miniStr := &dbTools.SCRKMini{}
 	e = json.Unmarshal(buf[0:i], miniStr)
 	if e != nil {
 		fmt.Println(e)
@@ -71,7 +70,7 @@ func postSCRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		if qm.FStockStatusId == "" {
 			qm.FStockStatusId = defSCRKFStockStatusId
 		}
-		if qm.FMoBillNo != "" && qm.FLinkInfo != nil {
+		if qm.FMOBILLNO != "" && qm.FLinkInfo != nil {
 			if len(qm.FLinkInfo) == 0 {
 				qm.FLinkInfo = append(qm.FLinkInfo, map[string]string{})
 			}
@@ -88,10 +87,10 @@ func postSCRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 				qm.FLinkInfo[0]["FENTITY_Link_FSBillId"] = strconv.Itoa(qm.FMoId)
 			}
 			if qm.FLinkInfo[0]["FENTITY_Link_FSId"] == "" {
-				qm.FLinkInfo[0]["FENTITY_Link_FSId"] = strconv.Itoa(qm.FMoEntryId)
+				qm.FLinkInfo[0]["FENTITY_Link_FSId"] = strconv.Itoa(qm.FMOENTRYID)
 			}
 			if qm.FLinkInfo[0]["FENTITY_Link_FBaseActualQty"] == "" {
-				qm.FLinkInfo[0]["FENTITY_Link_FBaseActualQty"] = qm.FQTY
+				qm.FLinkInfo[0]["FENTITY_Link_FBaseActualQty"] = qm.FMustQty
 			}
 		}
 	}

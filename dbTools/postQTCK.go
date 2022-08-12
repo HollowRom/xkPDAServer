@@ -3,7 +3,6 @@ package dbTools
 import (
 	"fmt"
 	"time"
-	"xkpdaserver/jsonTools"
 )
 
 const (
@@ -11,12 +10,12 @@ const (
 	defQTCKFromId   = "STK_MisDelivery"
 )
 
-func GetPostQTCK(mini *jsonTools.QTCKMini) jsonTools.ModelBaseInterface {
+func GetPostQTCK(mini *QTCKMini) ModelBaseInterface {
 	if mini == nil || mini.QTCKHeadMini == nil || mini.QTCKHeadMini.FOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
-	i := jsonTools.InitQTCKModel(&jsonTools.DefModelHeadBase{FBillTypeId: defQTCKBillType, FDate: time.Now(), FromId: defQTCKFromId})
+	i := InitQTCKModel(&DefModelHeadBase{FBillTypeId: defQTCKBillType, FDate: time.Now(), FromId: defQTCKFromId})
 
 	if i == nil {
 		return nil

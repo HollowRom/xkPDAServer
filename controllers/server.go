@@ -12,10 +12,10 @@ var engine = gin.Default()
 const (
 	defICUrl       = "http://127.0.0.1/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
 	defReadBufSize = 10240
-	defOrgKey      = "FOrgNumber"
+	defOrgKey      = "FUseOrgNumber"
 	defBillKey     = "FBILLNO"
-	defSuppKey     = "FSuppNumber"
-	defNumberKey   = "FNumber"
+	defSuppKey     = "FSupplierNumber"
+	defNumberKey   = "FNUMBER"
 )
 
 var defPort = ":8090"

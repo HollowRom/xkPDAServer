@@ -1,4 +1,4 @@
-package jsonTools
+package dbTools
 
 import (
 	"encoding/json"
@@ -20,33 +20,33 @@ type cgrkModels struct {
 	} `json:"FBillTypeID"`
 	FDate       string `json:"FDate"`
 	FStockOrgId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockOrgId"`
 	FSupplierId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FSupplierId"`
 	FInStockEntry []*cgrkModelsEntity `json:"FInStockEntry"`
 }
 
 type cgrkModelsEntity struct {
 	FMaterialId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FMaterialId"`
 	FUnitID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FUnitID"`
 	FRealQty string `json:"FRealQty"`
 	FPrice   string `json:"FPrice"`
 	FStockId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockId"`
 	FOWNERID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FOWNERID"`
 	FPOOrderNo        string                    `json:"FPOOrderNo"`
 	FSRCBILLTYPEID    string                    `json:"FSRCBILLTYPEID"`
 	FSRCBillNo        string                    `json:"FSRCBillNo"`
-	FPOORDERENTRYID   int                       `json:"FPOORDERENTRYID"`
+	FPOORDERENTRYID   int                       `json:"FENTRYID"`
 	FinstockentryLink []*cgrkFInStockEntry_Link `json:"FInStockEntry_Link"`
 }
 
@@ -60,32 +60,32 @@ type cgrkFInStockEntry_Link struct {
 }
 
 type CGRKMini struct {
-	CGRKEntityMini []*CGRKEntityMini
-	CGRKHeadMini   *CGRKHeadMini
+	CGRKEntityMini []*CGDDEntry
+	CGRKHeadMini   *CGDDMain
 }
 
-type CGRKEntityMini struct {
-	FNumber        string
-	UnitNumber     string
-	FQTY           string
-	FPrice         string
-	FStockNumber   string
-	FNote          string
-	FStockStatusId string
-	FKeeperId      string
-	FLotNo         string
-	FOrderNo       string
-	FSrcBillNo     string
-	FSrcBillType   string
-	FOrderInterId  int
-	FOrderEntryId  int
-	FLinkInfo      []map[string]string
-}
+//type CGRKEntityMini struct {
+//	FNUMBER         string
+//	FBaseUnitNumber string
+//	FMustQty        string
+//	FPrice          string //**
+//	FStockNumber    string
+//	FNote           string
+//	FStockStatusId  string
+//	FKeeperId       string
+//	FLOT_TEXT  string
+//	FSRCBILLNO string
+//	FBILLNO    string
+//	FSrcBillType  string
+//	FSRCID      int
+//	FSRCENTRYID int
+//	FLinkInfo   []map[string]string
+//}
 
-type CGRKHeadMini struct {
-	FOrgNumber string
-	FSupplyId  string
-}
+//type CGRKHeadMini struct {
+//	FUseOrgNumber string
+//	FSupplierNumber   string
+//}
 
 var _ ModelBaseInterface = &cgrkModelBase{}
 
@@ -121,34 +121,34 @@ func (Q *cgrkModelBase) GetJson() []byte {
 }
 
 func (Q *cgrkModelBase) AddModelHead(in interface{}) {
-	inT, ok := in.(*CGRKHeadMini)
+	inT, ok := in.(*CGDDMain)
 	if !ok {
 		return
 	}
-	Q.Data.Model.FStockOrgId.FNumber = inT.FOrgNumber
-	Q.Data.Model.FSupplierId.FNumber = inT.FSupplyId
+	Q.Data.Model.FStockOrgId.FNumber = inT.FUseOrgNumber
+	Q.Data.Model.FSupplierId.FNumber = inT.FSuppNumber
 }
 
-func (Q *cgrkModelBase) addModelFEntity(inT *CGRKEntityMini, orgNumber string) {
+func (Q *cgrkModelBase) addModelFEntity(inT *CGDDEntry, orgNumber string) {
 	t := &cgrkModelsEntity{
 		FMaterialId: struct {
-			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.FNumber}),
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: inT.FNUMBER}),
 		FUnitID: struct {
-			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
-		FRealQty: inT.FQTY,
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
+		FRealQty: inT.FMustQty,
 		FPrice:   inT.FPrice,
 		FStockId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
 		FOWNERID: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
-		FPOOrderNo:      inT.FOrderNo,
+		FPOOrderNo:      inT.FSRCBILLNO,
 		FSRCBILLTYPEID:  inT.FSrcBillType,
-		FSRCBillNo:      inT.FSrcBillNo,
-		FPOORDERENTRYID: inT.FOrderEntryId,
+		FSRCBillNo:      inT.FBILLNO,
+		FPOORDERENTRYID: inT.FSRCENTRYID,
 	}
 	if inT.FLinkInfo != nil && len(inT.FLinkInfo) == 1 {
 		tempLinkMap := &cgrkFInStockEntry_Link{
@@ -165,7 +165,7 @@ func (Q *cgrkModelBase) addModelFEntity(inT *CGRKEntityMini, orgNumber string) {
 }
 
 func (Q *cgrkModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
-	ins, ok := ts.([]*CGRKEntityMini)
+	ins, ok := ts.([]*CGDDEntry)
 	if !ok {
 		return
 	}

@@ -3,7 +3,6 @@ package dbTools
 import (
 	"fmt"
 	"time"
-	"xkpdaserver/jsonTools"
 )
 
 const (
@@ -12,12 +11,12 @@ const (
 	defSCDDFSrcBillType = "PUR_ReceiveBill"
 )
 
-func GetPostSCRK(mini *jsonTools.SCRKMini) jsonTools.ModelBaseInterface {
-	if mini == nil || mini.SCRKHeadMini == nil || mini.SCRKHeadMini.FOrgNumber == "" {
+func GetPostSCRK(mini *SCRKMini) ModelBaseInterface {
+	if mini == nil || mini.SCRKHeadMini == nil || mini.SCRKHeadMini.FUseOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
-	i := jsonTools.InitScrkModel(&jsonTools.DefModelHeadBase{FBillTypeId: defSCDDBillType, FDate: time.Now(), FromId: defSCDDFromId})
+	i := InitScrkModel(&DefModelHeadBase{FBillTypeId: defSCDDBillType, FDate: time.Now(), FromId: defSCDDFromId})
 
 	for idx := 0; idx < len(mini.SCRKEntityMini); idx++ {
 		if mini.SCRKEntityMini[idx].FSrcBillType == "" {
@@ -27,6 +26,6 @@ func GetPostSCRK(mini *jsonTools.SCRKMini) jsonTools.ModelBaseInterface {
 
 	i.AddModelHead(mini.SCRKHeadMini)
 
-	i.AddModelFEntities(mini.SCRKEntityMini, mini.SCRKHeadMini.FOrgNumber)
+	i.AddModelFEntities(mini.SCRKEntityMini, mini.SCRKHeadMini.FUseOrgNumber)
 	return i
 }

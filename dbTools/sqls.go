@@ -36,9 +36,9 @@ package dbTools
 //									a.FNUMBER,
 //									a.FNAME,
 //									a.FUSEORGID,
-//									a.FOrgNumber
+//									a.FUseOrgNumber
 //					from xkPdaServer_stock_tool a
-//					where a.FUSEORGID = 0 or a.FOrgNumber = '%s'`
+//					where a.FUSEORGID = 0 or a.FUseOrgNumber = '%s'`
 //
 //	//供应商内码,供应商编码,供应商名称
 //	GetSupplierInfo = `select top 500 a.FMATERIALID,
@@ -47,21 +47,21 @@ package dbTools
 //							  		  a.FSUPPLYCLASSIFY,
 //									  a.FSUPPLYCLASSName,
 //									  a.FORGID,
-//									  a.FOrgNumber
+//									  a.FUseOrgNumber
 //						from xkPdaServer_supplier_tool a
-//						where a.FORGID = 0 or a.FOrgNumber = '%s'`
+//						where a.FORGID = 0 or a.FUseOrgNumber = '%s'`
 //
 //	//客户内码,客户编码,客户名称
 //	GetCustomerInfo = `select top 500 a.FMATERIALID,
 //										a.FNUMBER,
 //										b.FNAME,
 //										a.FORGID,
-//										a.FOrgNumber
+//										a.FUseOrgNumber
 //						from xkPdaServer_customer_tool a
-//						where a.FORGID = 0 or a.FOrgNumber = '%s'`
+//						where a.FORGID = 0 or a.FUseOrgNumber = '%s'`
 //
 //	//保管者编码,名字
-//	GetKeeperInfo = `select a.FNumber, b.FNAME, a.FItemID
+//	GetKeeperInfo = `select a.FNUMBER, b.FNAME, a.FItemID
 //						from v_itemclass_keeper a,
 //							 v_itemclass_keeper_L b,
 //							 V_SCM_KEEPERORG c
@@ -82,7 +82,7 @@ package dbTools
 //							   b.FENTRYID,
 //							   c.FNUMBER as FItemNumber,
 //							   d.FNUMBER as FBaseUnitNumber,
-//							   b.FQTY - b.FSTOCKQTY as FQTY
+//							   b.FMustQty - b.FSTOCKQTY as FMustQty
 //						from t_PUR_POOrder a,
 //							 T_PUR_POORDERENTRY b,
 //							 T_BD_MATERIAL c,
@@ -92,12 +92,12 @@ package dbTools
 //						  and b.FUNITID = d.FMATERIALID
 //						  and a.FDOCUMENTSTATUS = 'C'
 //						  and a.FCLOSESTATUS = 'A'
-//						  and b.FQTY - b.FSTOCKQTY > 0
+//						  and b.FMustQty - b.FSTOCKQTY > 0
 //						  and a.FBILLNO = '%s'`
 //
 //	GetCGDDMainInfo = `select a.FBILLNO,
-//							   max(f.FNUMBER) as FSuppNumber,
-//							   max(g.FNAME) as FSuppName
+//							   max(f.FNUMBER) as FSupplierNumber,
+//							   max(g.FNAME) as FSupplierName
 //						from t_PUR_POOrder a,
 //							 T_PUR_POORDERENTRY b,
 //							 V_SCM_KEEPERORG e,
@@ -109,7 +109,7 @@ package dbTools
 //						  and f.FDOCUMENTSTATUS = 'C'
 //						  and a.FDOCUMENTSTATUS = 'C'
 //						  and a.FCLOSESTATUS = 'A'
-//						  and b.FQTY - b.FSTOCKQTY > 0
+//						  and b.FMustQty - b.FSTOCKQTY > 0
 //						  and e.FNUMBER = '%s'
 //						  and e.FDOCUMENTSTATUS = 'C'
 //						  and e.FFORBIDSTATUS = 'A'
@@ -117,7 +117,7 @@ package dbTools
 //						  and a.FPURCHASEORGID in (e.FORGID, 0)
 //						group by a.FBILLNO`
 //
-//	GetSCDDEntryInfo = `select a.FID, a.FBILLNO, b.FENTRYID, c.FNUMBER as FItemNumber, d.FNUMBER as FBaseUnitNumber, b.FQTY
+//	GetSCDDEntryInfo = `select a.FID, a.FBILLNO, b.FENTRYID, c.FNUMBER as FItemNumber, d.FNUMBER as FBaseUnitNumber, b.FMustQty
 //						from T_PRD_MO a,
 //							 T_PRD_MOENTRY b,
 //							 T_BD_MATERIAL c,

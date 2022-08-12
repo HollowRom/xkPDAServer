@@ -25,7 +25,7 @@ func GetCustomer(number string) []*CustomerInfo {
 }
 
 func getCustomer(number string) (r []*CustomerInfo) {
-	e := db.Where(fmt.Sprintf("FName = '%s' or FNumber = '%s'", number, number)).Find(&r)
+	e := db.Where(fmt.Sprintf("FName = '%s' or FNUMBER = '%s'", number, number)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

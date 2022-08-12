@@ -1,4 +1,4 @@
-package jsonTools
+package dbTools
 
 import (
 	"encoding/json"
@@ -19,25 +19,25 @@ type qtrkModels struct {
 		Id string `json:"Id"`
 	} `json:"FBillTypeID"`
 	FStockOrgId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockOrgId"`
 	FStockDirect string `json:"FStockDirect"`
 	FDate        string `json:"FDate"`
 	FSUPPLIERID  struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FSUPPLIERID"`
 	FEntity []*qtrkModelsEntity `json:"FInStockEntry"`
 }
 
 type qtrkModelsEntity struct {
 	FMATERIALID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FMATERIALID"`
 	FUnitID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FUnitID"`
 	FSTOCKID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FSTOCKID"`
 	FSTOCKSTATUSID struct {
 		Id string `json:"Id"`
@@ -45,7 +45,7 @@ type qtrkModelsEntity struct {
 	FQty         string `json:"FQty"`
 	FOWNERTYPEID string `json:"FOWNERTYPEID"`
 	FOWNERID     struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FOWNERID"`
 }
 
@@ -115,10 +115,10 @@ func (Q *qtrkModelBase) AddModelHead(in interface{}) {
 func (Q *qtrkModelBase) addModelFEntity(inT *QTRKEntityMini, orgNumber string) {
 	t := &qtrkModelsEntity{
 		FMATERIALID: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FNumber}),
 		FUnitID: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
 		FQty:         inT.FQTY,
 		FOWNERTYPEID: "BD_OwnerOrg",
@@ -126,7 +126,7 @@ func (Q *qtrkModelBase) addModelFEntity(inT *QTRKEntityMini, orgNumber string) {
 			Id string `json:"Id"`
 		}(struct{ Id string }{Id: inT.FStockStatusId}),
 		FOWNERID: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
 	}
 	Q.Data.Model.FEntity = append(Q.Data.Model.FEntity, t)

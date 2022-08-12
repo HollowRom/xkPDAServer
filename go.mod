@@ -8,14 +8,11 @@ replace xkpdaserver/dbTools => ./dbTools
 
 replace xkpdaserver/controllers => ./controllers
 
-replace xkpdaserver/jsonTools => ./jsonTools
-
 require (
 	xkpdaserver/controllers v0.0.0
 	xkpdaserver/dbTools v0.0.0
 	xkpdaserver/netTools v0.0.0
 	xorm.io/xorm v1.3.1
-	xkpdaserver/jsonTools v0.0.0 // indirect
 )
 
 require (

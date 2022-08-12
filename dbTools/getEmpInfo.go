@@ -25,7 +25,7 @@ func GetEmp(number string, orgNum string) []*EmpInfo {
 }
 
 func getEmp(number string, orgNum string) (r []*EmpInfo) {
-	e := db.Where(fmt.Sprintf("(FName like '%%%s%%' or FNumber like '%%%s%%') and FUseOrgNumber = '%s'", number, number, orgNum)).Find(&r)
+	e := db.Where(fmt.Sprintf("(FName like '%%%s%%' or FNUMBER like '%%%s%%') and FUseOrgNumber = '%s'", number, number, orgNum)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

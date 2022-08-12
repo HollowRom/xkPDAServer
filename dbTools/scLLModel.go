@@ -1,4 +1,4 @@
-package jsonTools
+package dbTools
 
 import (
 	"encoding/json"
@@ -20,10 +20,10 @@ type scllModels struct {
 	} `json:"FBillType"`
 	FDate       string `json:"FDate"`
 	FStockOrgId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockOrgId"`
 	FPrdOrgId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FPrdOrgId"`
 	FIsOwnerTInclOrg string              `json:"FIsOwnerTInclOrg"`
 	FEntity          []*scllModelsEntity `json:"FInStockEntry"`
@@ -32,54 +32,54 @@ type scllModels struct {
 type scllModelsEntity struct {
 	FEntryID          int `json:"FEntryID"`
 	FParentMaterialId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FParentMaterialId"`
 	FBaseStockActualQty string `json:"FBaseStockActualQty"`
 	FMaterialId         struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FMaterialId"`
 	FUnitID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FUnitID"`
 	FAppQty    string `json:"FAppQty"`
 	FActualQty string `json:"FActualQty"`
 	FStockId   struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockId"`
 	FStockStatusId struct {
 		Id string `json:"Id"`
 	} `json:"FStockStatusId"`
-	FMoBillNo     string `json:"FMoBillNo"`
-	FMoEntryId    int    `json:"FMoEntryId"`
+	FMoBillNo     string `json:"FMOBILLNO"`
+	FMoEntryId    int    `json:"FMOENTRYID"`
 	FPPBomEntryId int    `json:"FPPBomEntryId"`
 	FOwnerTypeId  string `json:"FOwnerTypeId"`
 	FStockUnitId  struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockUnitId"`
-	FMoId        int    `json:"FMoId"`
-	FMoEntrySeq  int    `json:"FMoEntrySeq"`
-	FPPBomBillNo string `json:"FPPBomBillNo"`
+	FMoId        int    `json:"FMOID"`
+	FMoEntrySeq  int    `json:"FMOENTRYSEQ"`
+	FPPBomBillNo string `json:"FBILLNO"`
 	FBaseUnitId  struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FBaseUnitId"`
 	FBaseAppQty       string `json:"FBaseAppQty"`
 	FBaseActualQty    string `json:"FBaseActualQty"`
 	FBaseAllowOverQty string `json:"FBaseAllowOverQty"`
 	FKeeperTypeId     string `json:"FKeeperTypeId"`
 	FKeeperId         struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FKeeperId"`
 	FOwnerId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FOwnerId"`
 	FSrcBillType       string `json:"FSrcBillType"`
-	FSrcBillNo         string `json:"FSrcBillNo"`
-	FEntrySrcInterId   int    `json:"FEntrySrcInterId"`
+	FSrcBillNo         string `json:"FBILLNO"`
+	FEntrySrcInterId   int    `json:"FID"`
 	FEntrySrcEnteryId  int    `json:"FEntrySrcEnteryId"`
-	FEntrySrcEntrySeq  int    `json:"FEntrySrcEntrySeq"`
+	FEntrySrcEntrySeq  int    `json:"FSEQ"`
 	FParentOwnerTypeId string `json:"FParentOwnerTypeId"`
 	FParentOwnerId     struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FParentOwnerId"`
 	FentityLink []*scllFEntity_Link `json:"FEntity_Link"`
 }
@@ -93,33 +93,33 @@ type scllFEntity_Link struct {
 }
 
 type SCLLMini struct {
-	SCLLEntityMini []*scllEntityMini
-	SCLLHeadMini   *scllHeadMini
+	SCLLEntityMini []*SCTLEntry
+	SCLLHeadMini   *SCTLMain
 }
 
-type scllEntityMini struct {
-	FParentNumber     string
-	FNumber           string
-	UnitNumber        string
-	FQTY              string
-	FStockNumber      string
-	FStockStatusId    string
-	FMoBillNo         string
-	FMoEntryId        int
-	FPPBomEntryId     int
-	FMoId             int
-	FMoEntrySeq       int
-	FPPBomBillNo      string
-	FEntrySrcInterId  int
-	FEntrySrcEntrySeq int
-	FKeeperId         string
-	FLotNo            string
-	FLinkInfo         []map[string]string
-}
+//type scllEntityMini struct {
+//	FParentNumber string
+//	FNUMBER         string
+//	FBaseUnitNumber string
+//	FMustQty        string
+//	FStockNumber    string
+//	FStockStatusId string
+//	FMOBILLNO     string
+//	FMOENTRYID    int
+//	//FPPBomEntryId int
+//	FMOID        int
+//	FMOENTRYSEQ      int
+//	FBILLNO           string
+//	FID       int
+//	FSEQ      int
+//	FKeeperId string
+//	FLOT_TEXT string
+//	FLinkInfo []map[string]string
+//}
 
-type scllHeadMini struct {
-	FOrgNumber string
-}
+//type scllHeadMini struct {
+//	FUseOrgNumber string
+//}
 
 var _ ModelBaseInterface = &scllModelBase{}
 
@@ -155,67 +155,67 @@ func (Q *scllModelBase) GetJson() []byte {
 }
 
 func (Q *scllModelBase) AddModelHead(in interface{}) {
-	inT, ok := in.(*scllHeadMini)
+	inT, ok := in.(*SCTLMain)
 	if !ok {
 		return
 	}
-	Q.Data.Model.FStockOrgId.FNumber = inT.FOrgNumber
-	Q.Data.Model.FPrdOrgId.FNumber = inT.FOrgNumber
+	Q.Data.Model.FStockOrgId.FNumber = inT.FUseOrgNumber
+	Q.Data.Model.FPrdOrgId.FNumber = inT.FUseOrgNumber
 	Q.Data.Model.FIsOwnerTInclOrg = "false"
 }
 
-func (Q *scllModelBase) addModelFEntity(inT *scllEntityMini, orgNumber string) {
+func (Q *scllModelBase) addModelFEntity(inT *SCTLEntry, orgNumber string) {
 	t := &scllModelsEntity{
 		FEntryID: 0,
 		FParentMaterialId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FParentNumber}),
-		FBaseStockActualQty: inT.FQTY,
+		FBaseStockActualQty: inT.FMustQty,
 		FUnitID: struct {
-			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
 		FMaterialId: struct {
-			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.FNumber}),
-		FAppQty:    inT.FQTY,
-		FActualQty: inT.FQTY,
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: inT.FNUMBER}),
+		FAppQty:    inT.FMustQty,
+		FActualQty: inT.FMustQty,
 		FStockId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
 		FStockStatusId: struct {
 			Id string `json:"Id"`
 		}(struct{ Id string }{Id: inT.FStockStatusId}),
-		FMoBillNo:     inT.FMoBillNo,
-		FMoEntryId:    inT.FMoEntryId,
-		FPPBomEntryId: inT.FPPBomEntryId,
+		FMoBillNo:     inT.FMOBILLNO,
+		FMoEntryId:    inT.FMOENTRYID,
+		//FPPBomEntryId: inT.FPPBomEntryId,
 		FOwnerTypeId:  "BD_OwnerOrg",
 		FStockUnitId: struct {
-			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
-		FMoId:        inT.FMoId,
-		FMoEntrySeq:  inT.FMoEntrySeq,
-		FPPBomBillNo: inT.FPPBomBillNo,
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
+		FMoId:        inT.FMOID,
+		FMoEntrySeq:  inT.FMOENTRYSEQ,
+		FPPBomBillNo: inT.FBILLNO,
 		FBaseUnitId: struct {
-			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
-		FBaseAppQty:       inT.FQTY,
-		FBaseActualQty:    inT.FQTY,
-		FBaseAllowOverQty: inT.FQTY,
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
+		FBaseAppQty:       inT.FMustQty,
+		FBaseActualQty:    inT.FMustQty,
+		FBaseAllowOverQty: inT.FMustQty,
 		FKeeperTypeId:     "BD_KeeperOrg",
 		FKeeperId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
 		FOwnerId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
 		FSrcBillType:       "PRD_PPBOM",
-		FSrcBillNo:         inT.FPPBomBillNo,
-		FEntrySrcInterId:   inT.FEntrySrcInterId,
-		FEntrySrcEnteryId:  inT.FPPBomEntryId,
-		FEntrySrcEntrySeq:  inT.FEntrySrcEntrySeq,
+		FSrcBillNo:         inT.FBILLNO,
+		FEntrySrcInterId:   inT.FID,
+		//FEntrySrcEnteryId:  inT.FPPBomEntryId,
+		FEntrySrcEntrySeq:  inT.FSEQ,
 		FParentOwnerTypeId: "BD_OwnerOrg",
 		FParentOwnerId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
 	}
 	t.FentityLink = append(t.FentityLink, &scllFEntity_Link{
@@ -229,7 +229,7 @@ func (Q *scllModelBase) addModelFEntity(inT *scllEntityMini, orgNumber string) {
 }
 
 func (Q *scllModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
-	in, ok := ts.([]*scllEntityMini)
+	in, ok := ts.([]*SCTLEntry)
 	if !ok {
 		return
 	}

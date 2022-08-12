@@ -2,11 +2,8 @@ module xkpdaserver/dbTools/v0.0.0
 
 go 1.17
 
-replace xkpdaserver/jsonTools => ../jsonTools
-
 require (
 	github.com/denisenkom/go-mssqldb v0.10.0
-	xkpdaserver/jsonTools v0.0.0
 	xorm.io/xorm v1.2.5
 )
 

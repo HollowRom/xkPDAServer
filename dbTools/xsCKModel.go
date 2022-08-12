@@ -1,4 +1,4 @@
-package jsonTools
+package dbTools
 
 import (
 	"encoding/json"
@@ -20,45 +20,45 @@ type xsckModels struct {
 	} `json:"FBillTypeID"`
 	FDate      string `json:"FDate"`
 	FSaleOrgId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FSaleOrgId"`
 	FCustomerID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FCustomerID"`
 	FStockOrgId struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockOrgId"`
 	FSettleID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FSettleID"`
 	FEntity []*xsckModelsEntity `json:"FInStockEntry"`
 }
 
 type xsckModelsEntity struct {
 	FCustMatID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FCustMatID"`
 	FMaterialID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FMaterialID"`
 	FUnitID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FUnitID"`
 	FKeeperTypeId string `json:"FKeeperTypeId"`
 	FKeeperId     struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FKeeperId"`
 	FRealQty string `json:"FRealQty"`
 	FPrice   string `json:"FPrice"`
 	FStockID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FStockID"`
 	FAuxUnitQty    string `json:"FAuxUnitQty"`
 	FStockStatusID struct {
 		Id string `json:"Id"`
 	} `json:"FStockStatusID"`
 	FSalUnitID struct {
-		FNumber string `json:"FNumber"`
+		FNumber string `json:"FNUMBER"`
 	} `json:"FSalUnitID"`
 	FSALUNITQTY  string              `json:"FSALUNITQTY"`
 	FSALBASEQTY  string              `json:"FSALBASEQTY"`
@@ -147,29 +147,29 @@ func (Q *xsckModelBase) AddModelHead(in interface{}) {
 func (Q *xsckModelBase) addModelFEntity(inT *xsckEntityMini, orgNumber string) {
 	t := &xsckModelsEntity{
 		FUnitID: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
 		FCustMatID: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FCustMatID}),
 		FMaterialID: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FNumber}),
 		FKeeperTypeId: "BD_KeeperOrg",
 		FKeeperId: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
 		FRealQty: inT.FQTY,
 		FPrice:   inT.FPrice,
 		FStockID: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
 		FAuxUnitQty: inT.FQTY,
 		FStockStatusID: struct {
 			Id string `json:"Id"`
 		}(struct{ Id string }{Id: inT.FStockStatusId}),
 		FSalUnitID: struct {
-			FNumber string `json:"FNumber"`
+			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
 		FSALUNITQTY: inT.FQTY,
 		FSALBASEQTY: inT.FQTY,

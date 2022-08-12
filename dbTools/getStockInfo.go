@@ -25,7 +25,7 @@ func GetStock(number string, orgNum string) []*StockInto {
 }
 
 func getStock(number string, orgNum string) (r []*StockInto) {
-	e := db.Where(fmt.Sprintf("FName = '%s' or FNumber = '%s'", number, number)).Find(&r)
+	e := db.Where(fmt.Sprintf("FName = '%s' or FNUMBER = '%s'", number, number)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

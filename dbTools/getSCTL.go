@@ -9,6 +9,7 @@ type SCTLMain struct {
 	FParentNumber     string
 	FParentName       string
 	FParentUnitNumber string
+	FUseOrgNumber     string
 }
 
 func (*SCTLMain) TableName() string {
@@ -22,6 +23,7 @@ type SCTLEntry struct {
 	FParentName       string
 	FParentUnitNumber string
 	FENTRYID          int
+	FSEQ int
 	FMOBILLNO         string
 	FMOENTRYID        int
 	FMOID             int
@@ -35,6 +37,13 @@ type SCTLEntry struct {
 	SQTY              string
 	FLOT_TEXT         string
 	FUseOrgNumber     string
+	FPrice            string              `xorm:"-"`
+	FStockNumber      string              `xorm:"-"`
+	FNote             string              `xorm:"-"`
+	FStockStatusId    string              `xorm:"-"`
+	FSrcBillType      string              `xorm:"-"`
+	FLinkInfo         []map[string]string `xorm:"-"`
+	FKeeperId int
 }
 
 func (*SCTLEntry) TableName() string {
@@ -54,7 +63,7 @@ func getSCTLMain(orgNumber, fBillNo string) (r []*SCTLMain) {
 	if fBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", fBillNo))
 	}
-	e := siss.GroupBy("FBILLNO, FParentNumber, FParentName, FParentUnitNumber").Find(&r)
+	e := siss.GroupBy("FBILLNO, FParentNumber, FParentName, FParentUnitNumber, FUseOrgNumber").Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

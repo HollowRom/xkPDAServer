@@ -3,7 +3,6 @@ package dbTools
 import (
 	"fmt"
 	"time"
-	"xkpdaserver/jsonTools"
 )
 
 const (
@@ -11,15 +10,15 @@ const (
 	defWWLLFromId   = "SUB_PickMtrl"
 )
 
-func GetPostWWLL(mini *jsonTools.WWLLMini) jsonTools.ModelBaseInterface {
-	if mini == nil || mini.WWLLHeadMini == nil || mini.WWLLHeadMini.FOrgNumber == "" {
+func GetPostWWLL(mini *WWLLMini) ModelBaseInterface {
+	if mini == nil || mini.WWLLHeadMini == nil || mini.WWLLHeadMini.FUseOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
-	i := jsonTools.InitwwllModel(&jsonTools.DefModelHeadBase{FBillTypeId: defWWLLBillType, FDate: time.Now(), FromId: defWWLLFromId})
+	i := InitwwllModel(&DefModelHeadBase{FBillTypeId: defWWLLBillType, FDate: time.Now(), FromId: defWWLLFromId})
 
 	i.AddModelHead(mini.WWLLHeadMini)
 
-	i.AddModelFEntities(mini.WWLLEntityMini, mini.WWLLHeadMini.FOrgNumber)
+	i.AddModelFEntities(mini.WWLLEntityMini, mini.WWLLHeadMini.FUseOrgNumber)
 	return i
 }

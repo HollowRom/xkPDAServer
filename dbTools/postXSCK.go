@@ -3,7 +3,6 @@ package dbTools
 import (
 	"fmt"
 	"time"
-	"xkpdaserver/jsonTools"
 )
 
 const (
@@ -11,12 +10,12 @@ const (
 	defXSCKFromId   = "SAL_OUTSTOCK"
 )
 
-func GetPostXSCK(mini *jsonTools.XSCKMini) jsonTools.ModelBaseInterface {
+func GetPostXSCK(mini *XSCKMini) ModelBaseInterface {
 	if mini == nil || mini.XSCKHeadMini == nil || mini.XSCKHeadMini.FOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
-	i := jsonTools.InitScrkModel(&jsonTools.DefModelHeadBase{FBillTypeId: defXSCKBillType, FDate: time.Now(), FromId: defXSCKFromId})
+	i := InitScrkModel(&DefModelHeadBase{FBillTypeId: defXSCKBillType, FDate: time.Now(), FromId: defXSCKFromId})
 
 	i.AddModelHead(mini.XSCKHeadMini)
 

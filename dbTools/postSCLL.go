@@ -3,7 +3,6 @@ package dbTools
 import (
 	"fmt"
 	"time"
-	"xkpdaserver/jsonTools"
 )
 
 const (
@@ -11,15 +10,15 @@ const (
 	defSCLLFromId   = "PRD_PickMtrl"
 )
 
-func GetPostSCLL(mini *jsonTools.SCLLMini) jsonTools.ModelBaseInterface {
-	if mini == nil || mini.SCLLHeadMini == nil || mini.SCLLHeadMini.FOrgNumber == "" {
+func GetPostSCLL(mini *SCLLMini) ModelBaseInterface {
+	if mini == nil || mini.SCLLHeadMini == nil || mini.SCLLHeadMini.FUseOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
-	i := jsonTools.InitScrkModel(&jsonTools.DefModelHeadBase{FBillTypeId: defSCLLBillType, FDate: time.Now(), FromId: defSCLLFromId})
+	i := InitScllModel(&DefModelHeadBase{FBillTypeId: defSCLLBillType, FDate: time.Now(), FromId: defSCLLFromId})
 
 	i.AddModelHead(mini.SCLLHeadMini)
 
-	i.AddModelFEntities(mini.SCLLEntityMini, mini.SCLLHeadMini.FOrgNumber)
+	i.AddModelFEntities(mini.SCLLEntityMini, mini.SCLLHeadMini.FUseOrgNumber)
 	return i
 }

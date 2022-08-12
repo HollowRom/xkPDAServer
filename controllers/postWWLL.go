@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"strconv"
 	"xkpdaserver/dbTools"
-	"xkpdaserver/jsonTools"
 	"xkpdaserver/netTools"
 )
 
@@ -42,7 +41,7 @@ func postWWLL(context *gin.Context) { // 定义请求接口和处理匿名函数
 			fmt.Println(err)
 		}
 	}(context.Request.Body)
-	miniStr := &jsonTools.WWLLMini{}
+	miniStr := &dbTools.WWLLMini{}
 	e = json.Unmarshal(buf[0:i], miniStr)
 	if e != nil {
 		fmt.Println(e)
@@ -88,7 +87,7 @@ func postWWLL(context *gin.Context) { // 定义请求接口和处理匿名函数
 			qm.FLinkInfo[0]["FEntity_Link_FSId"] = strconv.Itoa(qm.FSrcEntryId)
 		}
 		if qm.FLinkInfo[0]["FEntity_Link_FBaseActualQty"] == "" {
-			qm.FLinkInfo[0]["FEntity_Link_FBaseActualQty"] = qm.FQTY
+			qm.FLinkInfo[0]["FEntity_Link_FBaseActualQty"] = qm.FMustQty
 		}
 	}
 

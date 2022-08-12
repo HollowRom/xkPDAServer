@@ -5,9 +5,10 @@ import (
 )
 
 type WWDDMain struct {
-	FBillNo     string
-	FSuppNumber string
-	FSuppName   string
+	FBILLNO         string
+	FSupplierNumber string
+	FSupplierName   string
+	FUseOrgNumber   string
 }
 
 func (*WWDDMain) TableName() string {
@@ -30,6 +31,12 @@ type WWDDEntry struct {
 	FMustQty        string
 	SQTY            string
 	FUseOrgNumber   string
+	FPrice          string              `xorm:"-"`
+	FStockNumber    string              `xorm:"-"`
+	FStockStatusId  string              `xorm:"-"`
+	FKeeperId       string              `xorm:"-"`
+	FLinkInfo       []map[string]string `xorm:"-"`
+	FSrcBillNo      string              //收料通知单
 }
 
 func (*WWDDEntry) TableName() string {
@@ -47,12 +54,12 @@ func GetWWDDMain(orgNumber, supplierNumber, FBillNo string) []*WWDDMain {
 func getWWDDMain(orgNumber, supplierNumber, FBillNo string) (r []*WWDDMain) {
 	siss := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNumber))
 	if supplierNumber != "" {
-		siss = siss.And(fmt.Sprintf("FSuppNumber = '%s'", supplierNumber))
+		siss = siss.And(fmt.Sprintf("FSupplierNumber = '%s'", supplierNumber))
 	}
 	if FBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", FBillNo))
 	}
-	e := siss.GroupBy("FBILLNO, FSuppNumber, FSuppName").Find(&r)
+	e := siss.GroupBy("FBILLNO, FSupplierNumber, FSupplierName, FUseOrgNumber").Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
