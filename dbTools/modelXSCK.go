@@ -24,7 +24,7 @@ type xsckModels struct {
 	} `json:"FSaleOrgId"`
 	FCustomerID struct {
 		FNumber string `json:"FNUMBER"`
-	} `json:"FCustomerID"`
+	} `json:"FCustNumber"`
 	FStockOrgId struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FStockOrgId"`
@@ -37,7 +37,7 @@ type xsckModels struct {
 type xsckModelsEntity struct {
 	FCustMatID struct {
 		FNumber string `json:"FNUMBER"`
-	} `json:"FCustMatID"`
+	} `json:"FCustNumber"`
 	FMaterialID struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FMaterialID"`
@@ -62,8 +62,8 @@ type xsckModelsEntity struct {
 	} `json:"FSalUnitID"`
 	FSALUNITQTY  string              `json:"FSALUNITQTY"`
 	FSALBASEQTY  string              `json:"FSALBASEQTY"`
-	FSOEntryId   int                 `json:"FSOEntryId"`
-	FSoorDerno   string              `json:"FSoorDerno"`
+	FSOEntryId   int                 `json:"FENTRYID"`
+	FSoorDerno   string              `json:"FBILLNO"`
 	FEntity_Link []*xsckFEntity_Link `json:"FEntity_Link"`
 }
 
@@ -76,28 +76,28 @@ type xsckFEntity_Link struct {
 }
 
 type XSCKMini struct {
-	XSCKEntityMini []*xsckEntityMini
-	XSCKHeadMini   *xsckHeadMini
+	XSCKEntityMini []*XSDDEntry
+	XSCKHeadMini   *XSDDMain
 }
 
-type xsckEntityMini struct {
-	FCustMatID     string
-	FNumber        string
-	UnitNumber     string
-	FQTY           string
-	FStockNumber   string
-	FPrice         string
-	FStockStatusId string
-	FSoorDerno     string
-	FSOEntryId     int
-	FSOInterId     int
-	FLinkInfo      []map[string]string
-}
+//type xsckEntityMini struct {
+//	FCustNumber string
+//	FNumber         string
+//	FBaseUnitNumber string
+//	FMustQty        string
+//	FStockNumber    string
+//	FPrice         string
+//	FStockStatusId string
+//	FBILLNO    string
+//	FENTRYID  int
+//	FID       int
+//	FLinkInfo []map[string]string
+//}
 
-type xsckHeadMini struct {
-	FOrgNumber  string
-	FCustomerID string
-}
+//type xsckHeadMini struct {
+//	FUseOrgNumber string
+//	FCustNumber   string
+//}
 
 var _ ModelBaseInterface = &xsckModelBase{}
 
@@ -133,48 +133,48 @@ func (Q *xsckModelBase) GetJson() []byte {
 }
 
 func (Q *xsckModelBase) AddModelHead(in interface{}) {
-	inT, ok := in.(*xsckHeadMini)
+	inT, ok := in.(*XSDDMain)
 	if !ok {
 		return
 	}
-	Q.Data.Model.FStockOrgId.FNumber = inT.FOrgNumber
-	Q.Data.Model.FSaleOrgId.FNumber = inT.FOrgNumber
-	Q.Data.Model.FCustomerID.FNumber = inT.FCustomerID
-	Q.Data.Model.FStockOrgId.FNumber = inT.FOrgNumber
-	Q.Data.Model.FSettleID.FNumber = inT.FOrgNumber
+	Q.Data.Model.FStockOrgId.FNumber = inT.FUseOrgNumber
+	Q.Data.Model.FSaleOrgId.FNumber = inT.FUseOrgNumber
+	Q.Data.Model.FCustomerID.FNumber = inT.FCustNumber
+	Q.Data.Model.FStockOrgId.FNumber = inT.FUseOrgNumber
+	Q.Data.Model.FSettleID.FNumber = inT.FUseOrgNumber
 }
 
-func (Q *xsckModelBase) addModelFEntity(inT *xsckEntityMini, orgNumber string) {
+func (Q *xsckModelBase) addModelFEntity(inT *XSDDEntry, orgNumber string) {
 	t := &xsckModelsEntity{
 		FUnitID: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
 		FCustMatID: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: inT.FCustMatID}),
+		}(struct{ FNumber string }{FNumber: inT.FCustNumber}),
 		FMaterialID: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: inT.FNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FNUMBER}),
 		FKeeperTypeId: "BD_KeeperOrg",
 		FKeeperId: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: orgNumber}),
-		FRealQty: inT.FQTY,
+		FRealQty: inT.FMustQty,
 		FPrice:   inT.FPrice,
 		FStockID: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
-		FAuxUnitQty: inT.FQTY,
+		FAuxUnitQty: inT.FMustQty,
 		FStockStatusID: struct {
 			Id string `json:"Id"`
 		}(struct{ Id string }{Id: inT.FStockStatusId}),
 		FSalUnitID: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
-		FSALUNITQTY: inT.FQTY,
-		FSALBASEQTY: inT.FQTY,
-		FSOEntryId:  inT.FSOEntryId,
-		FSoorDerno:  inT.FSoorDerno,
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
+		FSALUNITQTY: inT.FMustQty,
+		FSALBASEQTY: inT.FMustQty,
+		FSOEntryId:  inT.FENTRYID,
+		FSoorDerno:  inT.FBILLNO,
 	}
 	t.FEntity_Link = append(t.FEntity_Link, &xsckFEntity_Link{
 		FEntity_Link_FRuleId:         inT.FLinkInfo[0]["FEntity_Link_FRuleId"],
@@ -187,7 +187,7 @@ func (Q *xsckModelBase) addModelFEntity(inT *xsckEntityMini, orgNumber string) {
 }
 
 func (Q *xsckModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
-	in, ok := ts.([]*xsckEntityMini)
+	in, ok := ts.([]*XSDDEntry)
 	if !ok {
 		return
 	}

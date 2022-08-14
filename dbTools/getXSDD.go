@@ -8,6 +8,7 @@ type XSDDMain struct {
 	FBILLNO     string
 	FCustNumber string
 	FCustName   string
+	FUseOrgNumber string
 }
 
 func (*XSDDMain) TableName() string {
@@ -15,22 +16,27 @@ func (*XSDDMain) TableName() string {
 }
 
 type XSDDEntry struct {
-	FID            int
+	FID            int `json:",,string"`
 	FBILLNO        string
 	FCustNumber    string
 	FCustName      string
-	FENTRYID       int
-	FSEQ           int
+	FENTRYID       int `json:",,string"`
+	FSEQ           int `json:",,string"`
 	FORDERNO       string
-	FORDERSEQ      int
-	FMATERIALID    int
+	FORDERSEQ      int `json:",,string"`
+	FMATERIALID    int `json:",,string"`
 	FNUMBER        string
 	FNAME          string
+	FBaseUnitNumber string
 	FSPECIFICATION string
 	FLOT_TEXT      string
 	FMustQty       string
 	SQTY           string
 	FUseOrgNumber  string
+	FLinkInfo      []map[string]string `xorm:"-" json:"-"`
+	FStockNumber string `xorm:"-"`
+	FPrice string `xorm:"-"`
+	FStockStatusId string `xorm:"-"`
 }
 
 func (*XSDDEntry) TableName() string {
@@ -53,7 +59,7 @@ func getXSDDMain(orgNumber, custNumber, fBillNo string) (r []*XSDDMain) {
 	if fBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", fBillNo))
 	}
-	e := siss.GroupBy("FBILLNO, FCustNumber, FCustName").Find(&r)
+	e := siss.GroupBy("FBILLNO, FCustNumber, FCustName, FUseOrgNumber").Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

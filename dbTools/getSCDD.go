@@ -14,10 +14,10 @@ func (*SCDDMain) TableName() string {
 }
 
 type SCDDEntry struct {
-	FID             int
+	FID             int `json:",,string"`
 	FBILLNO         string
-	FENTRYID        int
-	FSEQ            int
+	FENTRYID        int `json:",,string"`
+	FSEQ            int `json:",,string"`
 	FNUMBER         string
 	FNAME           string
 	FSPECIFICATION  string
@@ -31,7 +31,7 @@ type SCDDEntry struct {
 	FNote             string              `xorm:"-"`
 	FStockStatusId    string              `xorm:"-"`
 	FSrcBillType      string              `xorm:"-"`
-	FLinkInfo         []map[string]string `xorm:"-"`
+	FLinkInfo         []map[string]string `xorm:"-" json:"-"`
 }
 
 func (*SCDDEntry) TableName() string {

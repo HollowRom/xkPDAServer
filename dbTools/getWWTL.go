@@ -16,19 +16,19 @@ func (*WWTLMain) TableName() string {
 }
 
 type WWTLEntry struct {
-	FID             int
+	FID             int `json:",,string"`
 	FBILLNO         string
 	FParentNumber   string
 	FParentName     string
 	FSuppNumber     string
 	FSuppName       string
-	FENTRYID        int
-	FSEQ            int
+	FENTRYID        int `json:",,string"`
+	FSEQ            int `json:",,string"`
 	FSUBREQBILLNO   string
-	FSUBREQID       int
-	FSUBREQENTRYSEQ int
-	FSUBREQENTRYID  int
-	FMATERIALID     int
+	FSUBREQID       int `json:",,string"`
+	FSUBREQENTRYSEQ int `json:",,string"`
+	FSUBREQENTRYID  int `json:",,string"`
+	FMATERIALID     int `json:",,string"`
 	FNUMBER         string
 	FNAME           string
 	FBaseUnitNumber string
@@ -38,8 +38,8 @@ type WWTLEntry struct {
 	FUseOrgNumber   string
 	FStockNumber    string              `xorm:"-"`
 	FStockStatusId  string              `xorm:"-"`
-	FKeeperId       int                 `xorm:"-"`
-	FLinkInfo       []map[string]string `xorm:"-"`
+	FKeeperId       int                 `xorm:"-"  json:",,string"`
+	FLinkInfo       []map[string]string `xorm:"-" json:"-"`
 	FSrcInterId     int
 	FSrcEntryId     int
 	FSrcBillNo      string

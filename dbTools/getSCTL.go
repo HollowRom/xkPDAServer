@@ -17,18 +17,18 @@ func (*SCTLMain) TableName() string {
 }
 
 type SCTLEntry struct {
-	FID               int
+	FID               int `json:",,string"`
 	FBILLNO           string
 	FParentNumber     string
 	FParentName       string
 	FParentUnitNumber string
-	FENTRYID          int
-	FSEQ int
+	FENTRYID          int `json:",,string"`
+	FSEQ              int `json:",,string"`
 	FMOBILLNO         string
-	FMOENTRYID        int
-	FMOID             int
-	FMOENTRYSEQ       int
-	FMATERIALID       int
+	FMOENTRYID        int `json:",,string"`
+	FMOID             int `json:",,string"`
+	FMOENTRYSEQ       int `json:",,string"`
+	FMATERIALID       int `json:",,string"`
 	FNUMBER           string
 	FName             string
 	FSPECIFICATION    string
@@ -42,8 +42,8 @@ type SCTLEntry struct {
 	FNote             string              `xorm:"-"`
 	FStockStatusId    string              `xorm:"-"`
 	FSrcBillType      string              `xorm:"-"`
-	FLinkInfo         []map[string]string `xorm:"-"`
-	FKeeperId int
+	FLinkInfo         []map[string]string `xorm:"-" json:"-"`
+	FKeeperId         int
 }
 
 func (*SCTLEntry) TableName() string {

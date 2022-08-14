@@ -16,13 +16,13 @@ func (*WWDDMain) TableName() string {
 }
 
 type WWDDEntry struct {
-	FID             int
+	FID             int `json:",,string"`
 	FBILLNO         string
 	FSupplierName   string
 	FSupplierNumber string
-	FENTRYID        int
-	FSEQ            int
-	FMATERIALID     int
+	FENTRYID        int `json:",,string"`
+	FSEQ            int `json:",,string"`
+	FMATERIALID     int `json:",,string"`
 	FNUMBER         string
 	FNAME           string
 	FSPECIFICATION  string
@@ -35,7 +35,7 @@ type WWDDEntry struct {
 	FStockNumber    string              `xorm:"-"`
 	FStockStatusId  string              `xorm:"-"`
 	FKeeperId       string              `xorm:"-"`
-	FLinkInfo       []map[string]string `xorm:"-"`
+	FLinkInfo       []map[string]string `xorm:"-" json:"-"`
 	FSrcBillNo      string              //收料通知单
 }
 

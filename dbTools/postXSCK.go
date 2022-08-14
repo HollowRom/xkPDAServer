@@ -11,14 +11,14 @@ const (
 )
 
 func GetPostXSCK(mini *XSCKMini) ModelBaseInterface {
-	if mini == nil || mini.XSCKHeadMini == nil || mini.XSCKHeadMini.FOrgNumber == "" {
+	if mini == nil || mini.XSCKHeadMini == nil || mini.XSCKHeadMini.FUseOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
-	i := InitScrkModel(&DefModelHeadBase{FBillTypeId: defXSCKBillType, FDate: time.Now(), FromId: defXSCKFromId})
+	i := InitxsckModel(&DefModelHeadBase{FBillTypeId: defXSCKBillType, FDate: time.Now(), FromId: defXSCKFromId})
 
 	i.AddModelHead(mini.XSCKHeadMini)
 
-	i.AddModelFEntities(mini.XSCKEntityMini, mini.XSCKHeadMini.FOrgNumber)
+	i.AddModelFEntities(mini.XSCKEntityMini, mini.XSCKHeadMini.FUseOrgNumber)
 	return i
 }

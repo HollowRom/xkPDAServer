@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"time"
@@ -11,7 +12,23 @@ import (
 )
 
 func main() {
+	a := AA{}
+	_ = json.Unmarshal([]byte(aa), &a)
+
+	fmt.Println(a)
+
+	return
 	someInit()
+}
+
+var aa = `{
+   "code": "200001",
+   "msg": "success"
+}`
+
+type AA struct {
+	Code int `json:",,string"`
+	Msg string `json:"msg"`
 }
 
 func someInit() {
