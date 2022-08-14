@@ -5,9 +5,9 @@ import (
 )
 
 type XSDDMain struct {
-	FBILLNO     string
-	FCustNumber string
-	FCustName   string
+	FBILLNO       string
+	FCustNumber   string
+	FCustName     string
 	FUseOrgNumber string
 }
 
@@ -16,27 +16,28 @@ func (*XSDDMain) TableName() string {
 }
 
 type XSDDEntry struct {
-	FID            int `json:",,string"`
-	FBILLNO        string
-	FCustNumber    string
-	FCustName      string
-	FENTRYID       int `json:",,string"`
-	FSEQ           int `json:",,string"`
-	FORDERNO       string
-	FORDERSEQ      int `json:",,string"`
-	FMATERIALID    int `json:",,string"`
-	FNUMBER        string
-	FNAME          string
+	FID             int `json:",,string"`
+	FBILLNO         string
+	FCustNumber     string
+	FCustName       string
+	FENTRYID        int `json:",,string"`
+	FSEQ            int `json:",,string"`
+	FORDERNO        string
+	FORDERSEQ       int `json:",,string"`
+	FMATERIALID     int `json:",,string"`
+	FNUMBER         string
+	FNAME           string
 	FBaseUnitNumber string
-	FSPECIFICATION string
-	FLOT_TEXT      string
-	FMustQty       string
-	SQTY           string
-	FUseOrgNumber  string
-	FLinkInfo      []map[string]string `xorm:"-" json:"-"`
-	FStockNumber string `xorm:"-"`
-	FPrice string `xorm:"-"`
-	FStockStatusId string `xorm:"-"`
+	FSPECIFICATION  string
+	FLOT_TEXT       string
+	FMustQty        string
+	SQTY            string
+	FUseOrgNumber   string
+	FLinkInfo       []map[string]string `xorm:"-" json:"-"`
+	FStockNumber    string              `xorm:"-"`
+	FPrice          string              `xorm:"-"`
+	FStockStatusId  string              `xorm:"-"`
+	FISBATCHMANAGE string
 }
 
 func (*XSDDEntry) TableName() string {

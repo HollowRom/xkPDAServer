@@ -45,6 +45,7 @@ type WWTLEntry struct {
 	FSrcBillNo      string
 	FSrcEntrySeq    int
 	FPOOrderBillNo  string
+	FISBATCHMANAGE string
 }
 
 func (*WWTLEntry) TableName() string {

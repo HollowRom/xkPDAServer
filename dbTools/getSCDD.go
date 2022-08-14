@@ -32,6 +32,7 @@ type SCDDEntry struct {
 	FStockStatusId    string              `xorm:"-"`
 	FSrcBillType      string              `xorm:"-"`
 	FLinkInfo         []map[string]string `xorm:"-" json:"-"`
+	FISBATCHMANAGE string
 }
 
 func (*SCDDEntry) TableName() string {

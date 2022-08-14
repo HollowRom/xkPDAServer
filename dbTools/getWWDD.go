@@ -37,6 +37,7 @@ type WWDDEntry struct {
 	FKeeperId       string              `xorm:"-"`
 	FLinkInfo       []map[string]string `xorm:"-" json:"-"`
 	FSrcBillNo      string              //收料通知单
+	FISBATCHMANAGE string
 }
 
 func (*WWDDEntry) TableName() string {

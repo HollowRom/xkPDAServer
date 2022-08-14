@@ -44,6 +44,7 @@ type CGDDEntry struct {
 	FNote           string              `xorm:"-"`
 	FStockStatusId  string              `xorm:"-"`
 	FLinkInfo       []map[string]string `xorm:"-" json:"-"`
+	FISBATCHMANAGE string
 }
 
 func (*CGDDEntry) TableName() string {

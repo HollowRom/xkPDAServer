@@ -8,6 +8,8 @@ import (
 
 var confMap = map[string]string{}
 
+const XkPdaCantAllow = "xkPdaCantAllow"
+
 func GetConfFromKey(key string) string {
 	return confMap[key]
 }
