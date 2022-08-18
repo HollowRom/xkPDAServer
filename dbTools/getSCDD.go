@@ -5,8 +5,8 @@ import (
 )
 
 type SCDDMain struct {
-	FBILLNO string
-	FUseOrgNumber     string
+	FBILLNO       string
+	FUseOrgNumber string
 }
 
 func (*SCDDMain) TableName() string {
@@ -26,13 +26,13 @@ type SCDDEntry struct {
 	FMustQty        string
 	SQTY            string
 	FUseOrgNumber   string
-	FPrice            string              `xorm:"-"`
-	FStockNumber      string              `xorm:"-"`
-	FNote             string              `xorm:"-"`
-	FStockStatusId    string              `xorm:"-"`
-	FSrcBillType      string              `xorm:"-"`
-	FLinkInfo         []map[string]string `xorm:"-" json:"-"`
-	FISBATCHMANAGE string
+	FPrice          string              `xorm:"-"`
+	FStockNumber    string              `xorm:"-"`
+	FNote           string              `xorm:"-"`
+	FStockStatusId  string              `xorm:"-"`
+	FSrcBillType    string              `xorm:"-"`
+	FLinkInfo       []map[string]string `xorm:"-" json:"-"`
+	FISBATCHMANAGE  string
 }
 
 func (*SCDDEntry) TableName() string {

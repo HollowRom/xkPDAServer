@@ -37,7 +37,7 @@ type XSDDEntry struct {
 	FStockNumber    string              `xorm:"-"`
 	FPrice          string              `xorm:"-"`
 	FStockStatusId  string              `xorm:"-"`
-	FISBATCHMANAGE string
+	FISBATCHMANAGE  string
 }
 
 func (*XSDDEntry) TableName() string {

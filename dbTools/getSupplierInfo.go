@@ -18,16 +18,23 @@ func (*SupplierInfo) TableName() string {
 	return "xkPdaServer_supplier_tool"
 }
 
-func GetAllSupplier() []*SupplierInfo {
-	return getSupplier("")
+func GetAllSupplier(orgNum string) []*SupplierInfo {
+	return getSupplier(orgNum, "")
 }
 
-func GetSupplier(number string) []*SupplierInfo {
-	return getSupplier(number)
+func GetSupplier(orgNum, number string) []*SupplierInfo {
+	return getSupplier(orgNum, number)
 }
 
-func getSupplier(number string) (r []*SupplierInfo) {
-	e := db.Where(fmt.Sprintf("FName = '%s' or FNUMBER = '%s'", number, number)).Find(&r)
+func getSupplier(orgNum, number string) (r []*SupplierInfo) {
+	if orgNum == "" {
+		return nil
+	}
+	ssis := db.Where(fmt.Sprintf("ForgNumber = '%s'", orgNum))
+	if number != "" {
+		ssis = ssis.And(fmt.Sprintf(" (FName like '%s%%' or FNUMBER like '%s%%') ", number, number))
+	}
+	e := ssis.Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

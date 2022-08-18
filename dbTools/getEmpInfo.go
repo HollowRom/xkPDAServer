@@ -17,15 +17,22 @@ func (*EmpInfo) TableName() string {
 }
 
 func GetAllEmp(orgNum string) []*EmpInfo {
-	return getEmp("", orgNum)
+	return getEmp(orgNum, "")
 }
 
-func GetEmp(number string, orgNum string) []*EmpInfo {
-	return getEmp(number, orgNum)
+func GetEmp(orgNum, number string) []*EmpInfo {
+	return getEmp(orgNum, number)
 }
 
-func getEmp(number string, orgNum string) (r []*EmpInfo) {
-	e := db.Where(fmt.Sprintf("(FName like '%%%s%%' or FNUMBER like '%%%s%%') and FUseOrgNumber = '%s'", number, number, orgNum)).Find(&r)
+func getEmp(orgNum, number string) (r []*EmpInfo) {
+	if orgNum == "" {
+		return nil
+	}
+	ssis := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNum))
+	if number != "" {
+		ssis = ssis.And(fmt.Sprintf(" (FName like '%s%%' or FNUMBER like '%s%%') ", number, number))
+	}
+	e := ssis.Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

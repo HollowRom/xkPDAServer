@@ -16,7 +16,7 @@ func getAllGood(context *gin.Context) { // 定义请求接口和处理匿名函�
 }
 
 func getGood(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetGood(context.Query(defNumberKey), context.Query(defOrgKey))
+	info := dbTools.GetGood(context.Query(defOrgKey), context.Query(defNumberKey))
 	if info == nil {
 		setErrJson(context, nil)
 		return

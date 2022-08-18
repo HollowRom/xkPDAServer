@@ -38,7 +38,6 @@ type WWTLEntry struct {
 	FUseOrgNumber   string
 	FStockNumber    string              `xorm:"-"`
 	FStockStatusId  string              `xorm:"-"`
-	FKeeperId       int                 `xorm:"-"  json:",,string"`
 	FLinkInfo       []map[string]string `xorm:"-" json:"-"`
 	FSrcInterId     int
 	FSrcEntryId     int

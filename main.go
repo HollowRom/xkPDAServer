@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"strconv"
 	"time"
@@ -12,50 +11,49 @@ import (
 )
 
 func main() {
-	a := AA{}
-	_ = json.Unmarshal([]byte(aa), &a)
-
-	fmt.Println(a)
-
-	return
+	//a := AA{}
+	//_ = json.Unmarshal([]byte(aa), &a)
+	//
+	//fmt.Println(a)
+	//
+	//return
 	someInit()
 }
 
-var aa = `{
-   "code": "200001",
-   "msg": "success"
-}`
+//var aa = `{
+//   "code": "200001",
+//   "msg": "success"
+//}`
 
-type AA struct {
-	Code int `json:",,string"`
-	Msg string `json:"msg"`
-}
+//type AA struct {
+//	Code int `json:",,string"`
+//	Msg string `json:"msg"`
+//}
 
 func someInit() {
-	//netTools.Init()
+	netTools.Init()
 	dbTools.Init("driver={SQL Server};Server=127.0.0.1;Database=AIS20210805182552;user id=sa;password=sa;")
-	db1 := dbTools.GetDB()
 
-	defer func(db1 *xorm.Engine) {
-		err := db1.Close()
-		if err != nil {
-			fmt.Println(err)
+	defer func(d *xorm.Engine) {
+		e := d.Close()
+		if e != nil {
+			fmt.Println(e)
 		}
-	}(db1)
+	}(dbTools.GetDB())
 
 	//db := dbTools.GetDB()
 
-	var cgMain []*dbTools.GoodsInto
+	//var cgMain []*dbTools.GoodsInto
 
 	//ss := db1.Where(fmt.Sprintf("FUseOrgNumber = '%d'", 100)) //.Find(&cgMain)
 	//_ = ss.Find(&cgMain)
-	cgMain = dbTools.GetGood("3.03", "100")
-
-	for idx := 0; idx < len(cgMain); idx++ {
-		fmt.Println(*cgMain[idx])
-	}
-	fmt.Println("cgmain:", len(cgMain))
-	return
+	//cgMain = dbTools.GetGood("3.03", "100")
+	//
+	//for idx := 0; idx < len(cgMain); idx++ {
+	//	fmt.Println(*cgMain[idx])
+	//}
+	//fmt.Println("cgmain:", len(cgMain))
+	//return
 	if !netTools.TryLogin(nil) {
 		fmt.Println("登录失败")
 		panic(nil)

@@ -70,7 +70,7 @@ func postSCRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		if qm.FStockStatusId == "" {
 			qm.FStockStatusId = defSCRKFStockStatusId
 		}
-		if qm.FMOBILLNO != "" && qm.FLinkInfo != nil {
+		if qm.FBILLNO != "" && qm.FLinkInfo != nil {
 			if len(qm.FLinkInfo) == 0 {
 				qm.FLinkInfo = append(qm.FLinkInfo, map[string]string{})
 			}
@@ -84,10 +84,10 @@ func postSCRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 				qm.FLinkInfo[0]["FENTITY_Link_FSTableName"] = defSCRKLinkFSTableName
 			}
 			if qm.FLinkInfo[0]["FENTITY_Link_FSBillId"] == "" {
-				qm.FLinkInfo[0]["FENTITY_Link_FSBillId"] = strconv.Itoa(qm.FMoId)
+				qm.FLinkInfo[0]["FENTITY_Link_FSBillId"] = strconv.Itoa(qm.FID)
 			}
 			if qm.FLinkInfo[0]["FENTITY_Link_FSId"] == "" {
-				qm.FLinkInfo[0]["FENTITY_Link_FSId"] = strconv.Itoa(qm.FMOENTRYID)
+				qm.FLinkInfo[0]["FENTITY_Link_FSId"] = strconv.Itoa(qm.FENTRYID)
 			}
 			if qm.FLinkInfo[0]["FENTITY_Link_FBaseActualQty"] == "" {
 				qm.FLinkInfo[0]["FENTITY_Link_FBaseActualQty"] = qm.FMustQty

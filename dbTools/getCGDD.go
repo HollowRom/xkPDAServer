@@ -24,18 +24,18 @@ type CGDDEntry struct {
 	FPURCHASERID    int `json:",,string"`
 	FSRCBILLNO      string
 	FSRCENTRYID     int `json:",,string"`
-	FSRCID          int  `json:",,string"`
+	FSRCID          int `json:",,string"`
 	FSRCSEQ         int `json:",,string"`
 	FMATERIALID     int `json:",,string"`
 	FENTRYID        int `json:",,string"`
-	FSEQ            int  `json:",,string"`
+	FSEQ            int `json:",,string"`
 	FNUMBER         string
 	FNAME           string
 	FSPECIFICATION  string
 	FBaseUnitNumber string
 	FLOT_TEXT       string
 	FMustQty        string
-	SQTY string
+	SQTY            string
 	FUseOrgNumber   string
 	FSrcBillType    string              `xorm:"-"`
 	FKeeperId       string              `xorm:"-"`
@@ -44,7 +44,7 @@ type CGDDEntry struct {
 	FNote           string              `xorm:"-"`
 	FStockStatusId  string              `xorm:"-"`
 	FLinkInfo       []map[string]string `xorm:"-" json:"-"`
-	FISBATCHMANAGE string
+	FISBATCHMANAGE  string
 }
 
 func (*CGDDEntry) TableName() string {

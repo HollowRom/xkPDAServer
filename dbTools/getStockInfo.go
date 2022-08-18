@@ -17,15 +17,22 @@ func (*StockInto) TableName() string {
 }
 
 func GetAllStock(orgNum string) []*StockInto {
-	return getStock("", orgNum)
+	return getStock(orgNum, "")
 }
 
-func GetStock(number string, orgNum string) []*StockInto {
-	return getStock(number, orgNum)
+func GetStock(orgNum, number string) []*StockInto {
+	return getStock(orgNum, number)
 }
 
-func getStock(number string, orgNum string) (r []*StockInto) {
-	e := db.Where(fmt.Sprintf("FName = '%s' or FNUMBER = '%s'", number, number)).Find(&r)
+func getStock(orgNum, number string) (r []*StockInto) {
+	if orgNum == "" {
+		return nil
+	}
+	ssis := db.Where(fmt.Sprintf("ForgNumber = '%s'", orgNum))
+	if number != "" {
+		ssis = ssis.And(fmt.Sprintf(" (FName like '%s%%' or FNUMBER like '%s%%') ", number, number))
+	}
+	e := ssis.Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

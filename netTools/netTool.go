@@ -62,7 +62,7 @@ func Init() {
 	if tempValue != "" {
 		xkLoginUrl = "http://" + tempValue + "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
 	}
-
+	fmt.Println("读取登录信息为:", *defLoginBase)
 	fmt.Println("星空登陆数据初始化完成")
 }
 

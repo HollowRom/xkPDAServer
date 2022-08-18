@@ -9,7 +9,7 @@ type GoodsInto struct {
 	FNUMBER         string
 	FNAME           string
 	FSPECIFICATION  string
-	FERPCLSID       int
+	FERPCLSID       string
 	FErpClass       string
 	FSUITE          byte
 	FBASEUNITID     int
@@ -41,14 +41,17 @@ func (*GoodsInto) TableName() string {
 }
 
 func GetAllGood(orgNum string) []*GoodsInto {
-	return getGood("", orgNum)
+	return getGood(orgNum, "")
 }
 
-func GetGood(number string, orgNum string) []*GoodsInto {
-	return getGood(number, orgNum)
+func GetGood(orgNum, number string) []*GoodsInto {
+	return getGood(orgNum, number)
 }
 
-func getGood(number string, orgNum string) (r []*GoodsInto) {
+func getGood(orgNum, number string) (r []*GoodsInto) {
+	if orgNum == "" {
+		return nil
+	}
 	siss := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNum))
 
 	if number != "" {

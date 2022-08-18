@@ -53,25 +53,28 @@ type qtckModelsEntity struct {
 }
 
 type QTCKMini struct {
-	QTCKEntityMini []*QTCKEntityMini
-	QTCKHeadMini   *QTCKHeadMini
+	QTCKEntityMini []*QTCKEntry
+	//QTCKHeadMini   *QTCKHeadMini
 }
 
-type QTCKEntityMini struct {
-	FNumber        string
-	UnitNumber     string
-	FQTY           string
-	FStockNumber   string
-	FStockStatusId string
-	FLotNo         string
-	FLinkInfo      []map[string]string
-}
+//type QTCKEntityMini struct {
+//	FUseOrgNumber string
+//	FCustNumber string
+//	FNumber         string
+//	FBaseUnitNumber string
+//	FQTY            string
+//	FPrice string
+//	FStockNumber   string
+//	FStockStatusId string
+//	FLOT_TEXT      string
+//	FLinkInfo      []map[string]string
+//}
 
-type QTCKHeadMini struct {
-	FOrgNumber   string
-	FStockDirect string
-	FCustId      string
-}
+//type QTCKHeadMini struct {
+//	FUseOrgNumber   string
+//	FStockDirect string
+//	FCustId      string
+//}
 
 var _ ModelBaseInterface = &qtckModelBase{}
 
@@ -108,26 +111,26 @@ func (Q *qtckModelBase) GetJson() []byte {
 }
 
 func (Q *qtckModelBase) AddModelHead(in interface{}) {
-	inT, ok := in.(*QTCKHeadMini)
+	inT, ok := in.(*QTCKEntry)
 	if !ok {
 		return
 	}
-	Q.Data.Model.FStockOrgId.FNumber = inT.FOrgNumber
-	Q.Data.Model.FCustId.FNumber = inT.FCustId
+	Q.Data.Model.FStockOrgId.FNumber = inT.FUseOrgNumber
+	Q.Data.Model.FCustId.FNumber = inT.FCustNumber
 }
 
-func (Q *qtckModelBase) addModelFEntity(inT *QTCKEntityMini, orgNumber string) {
+func (Q *qtckModelBase) addModelFEntity(inT *QTCKEntry, orgNumber string) {
 	t := &qtckModelsEntity{
 		FMaterialId: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FNumber}),
 		FUnitID: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
 		FQty: inT.FQTY,
 		FBaseUnitId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
 		FStockId: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
@@ -143,7 +146,7 @@ func (Q *qtckModelBase) addModelFEntity(inT *QTCKEntityMini, orgNumber string) {
 }
 
 func (Q *qtckModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
-	ins, ok := ts.([]*QTCKEntityMini)
+	ins, ok := ts.([]*QTCKEntry)
 	if !ok {
 		return
 	}

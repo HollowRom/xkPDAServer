@@ -15,7 +15,7 @@ const (
 	defOrgKey      = "FUseOrgNumber"
 	defBillKey     = "FBILLNO"
 	defSuppKey     = "FSupplierNumber"
-	defNumberKey   = "FNUMBER"
+	defNumberKey   = "FNumber"
 )
 
 var defPort = ":8090"

@@ -43,8 +43,7 @@ type SCTLEntry struct {
 	FStockStatusId    string              `xorm:"-"`
 	FSrcBillType      string              `xorm:"-"`
 	FLinkInfo         []map[string]string `xorm:"-" json:"-"`
-	FKeeperId         int
-	FISBATCHMANAGE string
+	FISBATCHMANAGE    string
 }
 
 func (*SCTLEntry) TableName() string {

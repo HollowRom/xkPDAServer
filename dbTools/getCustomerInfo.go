@@ -16,16 +16,24 @@ func (*CustomerInfo) TableName() string {
 	return "xkPdaServer_customer_tool"
 }
 
-func GetAllCustomer() []*CustomerInfo {
-	return getCustomer("")
+func GetAllCustomer(orgNum string) []*CustomerInfo {
+	return getCustomer(orgNum, "")
 }
 
-func GetCustomer(number string) []*CustomerInfo {
-	return getCustomer(number)
+func GetCustomer(orgNum, number string) []*CustomerInfo {
+	return getCustomer(orgNum, number)
 }
 
-func getCustomer(number string) (r []*CustomerInfo) {
-	e := db.Where(fmt.Sprintf("FName = '%s' or FNUMBER = '%s'", number, number)).Find(&r)
+func getCustomer(orgNum, number string) (r []*CustomerInfo) {
+	if orgNum == "" {
+		return nil
+	}
+	ssis := db.Where(fmt.Sprintf("ForgNumber = '%s'", orgNum))
+	if number != "" {
+		ssis = ssis.And(fmt.Sprintf(" (FName like '%s%%' or FNUMBER like '%s%%') ", number, number))
+	}
+	e := ssis.Find(&r)
+
 	if e != nil {
 		fmt.Println(e)
 		return nil
