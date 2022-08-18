@@ -23,4 +23,4 @@ DBpwdls-kingdeesoft.123
 DBpwdhome-sa
 DBpwdls-sa
 listenPort-8090
-serverTimeOut-30
+serverTimeOut-300
