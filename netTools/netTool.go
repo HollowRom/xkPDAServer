@@ -113,7 +113,7 @@ func TryLogin(b *LoginBase) bool {
 		return false
 	}
 
-	fmt.Println("登录返回信息:" + string(buf[0:i]))
+	//fmt.Println("登录返回信息:" + string(buf[0:i]))
 
 	defCookieManger.rwLock.Lock()
 	defer defCookieManger.rwLock.Unlock()

@@ -16,7 +16,7 @@ func getAllXSDDMain(context *gin.Context) { // 定义请求接口和处理匿名
 }
 
 func getXSDDMain(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetXSDDMain(context.Query(defOrgKey), context.Query(defSuppKey), context.Query(defBillKey))
+	info := dbTools.GetXSDDMain(context.Query(defOrgKey), context.Query(defCustNumberKey), context.Query(defBillKey))
 	if info == nil {
 		setErrJson(context, nil)
 		return

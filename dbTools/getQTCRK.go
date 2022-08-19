@@ -1,6 +1,6 @@
 package dbTools
 
-type QTCKEntry struct {
+type QTCRKEntry struct {
 	FUseOrgNumber   string
 	FCustName       string `json:"-"`
 	FCustNumber     string

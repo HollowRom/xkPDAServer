@@ -11,7 +11,7 @@ const (
 )
 
 func GetPostQTRK(mini *QTRKMini) ModelBaseInterface {
-	if mini == nil || mini.QTRKHeadMini == nil || mini.QTRKHeadMini.FOrgNumber == "" {
+	if mini == nil {
 		fmt.Println("qtrk入参异常")
 		return nil
 	}
@@ -21,8 +21,8 @@ func GetPostQTRK(mini *QTRKMini) ModelBaseInterface {
 		return nil
 	}
 
-	i.AddModelHead(mini.QTRKHeadMini)
+	//i.AddModelHead(mini.QTRKHeadMini)
 
-	i.AddModelFEntities(mini.QTRKEntityMini, mini.QTRKHeadMini.FOrgNumber)
+	i.AddModelFEntities(mini.QTRKEntityMini, mini.QTRKEntityMini[0].FUseOrgNumber)
 	return i
 }

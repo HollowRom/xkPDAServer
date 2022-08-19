@@ -50,8 +50,8 @@ type qtrkModelsEntity struct {
 }
 
 type QTRKMini struct {
-	QTRKEntityMini []*QTRKEntityMini
-	QTRKHeadMini   *QTRKHeadMini
+	QTRKEntityMini []*QTCRKEntry
+	//QTRKHeadMini   *QTRKHeadMini
 }
 
 type QTRKEntityMini struct {
@@ -104,12 +104,12 @@ func (Q *qtrkModelBase) GetJson() []byte {
 }
 
 func (Q *qtrkModelBase) AddModelHead(in interface{}) {
-	inT, ok := in.(*QTRKHeadMini)
-	if !ok {
-		return
-	}
-	Q.Data.Model.FStockOrgId.FNumber = inT.FOrgNumber
-	Q.Data.Model.FSUPPLIERID.FNumber = inT.FSUPPLIERID
+	//inT, ok := in.(*QTRKHeadMini)
+	//if !ok {
+	//	return
+	//}
+	//Q.Data.Model.FStockOrgId.FNumber = inT.FOrgNumber
+	//Q.Data.Model.FSUPPLIERID.FNumber = inT.FSUPPLIERID
 }
 
 func (Q *qtrkModelBase) addModelFEntity(inT *QTRKEntityMini, orgNumber string) {

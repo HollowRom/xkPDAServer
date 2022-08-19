@@ -53,7 +53,7 @@ type qtckModelsEntity struct {
 }
 
 type QTCKMini struct {
-	QTCKEntityMini []*QTCKEntry
+	QTCKEntityMini []*QTCRKEntry
 	//QTCKHeadMini   *QTCKHeadMini
 }
 
@@ -111,15 +111,10 @@ func (Q *qtckModelBase) GetJson() []byte {
 }
 
 func (Q *qtckModelBase) AddModelHead(in interface{}) {
-	inT, ok := in.(*QTCKEntry)
-	if !ok {
-		return
-	}
-	Q.Data.Model.FStockOrgId.FNumber = inT.FUseOrgNumber
-	Q.Data.Model.FCustId.FNumber = inT.FCustNumber
+
 }
 
-func (Q *qtckModelBase) addModelFEntity(inT *QTCKEntry, orgNumber string) {
+func (Q *qtckModelBase) addModelFEntity(inT *QTCRKEntry, orgNumber string) {
 	t := &qtckModelsEntity{
 		FMaterialId: struct {
 			FNumber string `json:"FNUMBER"`
@@ -146,7 +141,7 @@ func (Q *qtckModelBase) addModelFEntity(inT *QTCKEntry, orgNumber string) {
 }
 
 func (Q *qtckModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
-	ins, ok := ts.([]*QTCKEntry)
+	ins, ok := ts.([]*QTCRKEntry)
 	if !ok {
 		return
 	}

@@ -46,11 +46,11 @@ func postQTRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		return
 	}
 
-	if miniStr.QTRKHeadMini == nil {
-		fmt.Println("解析post异常,QTCKHeadMini不能为空")
-		setErrJson(context, e)
-		return
-	}
+	//if miniStr.QTRKHeadMini == nil {
+	//	fmt.Println("解析post异常,QTCKHeadMini不能为空")
+	//	setErrJson(context, e)
+	//	return
+	//}
 
 	if miniStr.QTRKEntityMini == nil {
 		fmt.Println("解析post异常,QTCKEntityMini不能为空")
@@ -58,9 +58,9 @@ func postQTRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		return
 	}
 
-	if miniStr.QTRKHeadMini.FStockDirect == "" {
-		miniStr.QTRKHeadMini.FStockDirect = defQTRKFStockDirect
-	}
+	//if miniStr.QTRKHeadMini.FStockDirect == "" {
+	//	miniStr.QTRKHeadMini.FStockDirect = defQTRKFStockDirect
+	//}
 
 	for _, qm := range miniStr.QTRKEntityMini {
 		if qm == nil {

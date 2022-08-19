@@ -11,7 +11,7 @@ const (
 )
 
 func GetPostQTCK(mini *QTCKMini) ModelBaseInterface {
-	if mini == nil || mini.QTCKHeadMini == nil || mini.QTCKHeadMini.FOrgNumber == "" {
+	if mini == nil {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
@@ -21,8 +21,8 @@ func GetPostQTCK(mini *QTCKMini) ModelBaseInterface {
 		return nil
 	}
 
-	i.AddModelHead(mini.QTCKHeadMini)
+	//i.AddModelHead(mini.QTCKHeadMini)
 
-	i.AddModelFEntities(mini.QTCKEntityMini, mini.QTCKHeadMini.FOrgNumber)
+	i.AddModelFEntities(mini.QTCKEntityMini, mini.QTCKEntityMini[0].FUseOrgNumber)
 	return i
 }

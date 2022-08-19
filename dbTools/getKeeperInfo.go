@@ -17,14 +17,14 @@ func (*KeeperInfo) TableName() string {
 }
 
 func GetAllKeeper(orgNum string) []*KeeperInfo {
-	return getKeeper("", orgNum)
+	return getKeeper(orgNum, "")
 }
 
-func GetKeeper(number string, orgNum string) []*KeeperInfo {
-	return getKeeper(number, orgNum)
+func GetKeeper(orgNum, number string) []*KeeperInfo {
+	return getKeeper(orgNum, number)
 }
 
-func getKeeper(number string, orgNum string) (r []*KeeperInfo) {
+func getKeeper(orgNum, number string) (r []*KeeperInfo) {
 	e := db.Where(fmt.Sprintf("(FName = '%s' or FNUMBER = '%s') and FUseOrgNumber = '%s' ", number, number, orgNum)).Find(&r)
 	if e != nil {
 		fmt.Println(e)
