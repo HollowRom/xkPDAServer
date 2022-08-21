@@ -30,7 +30,7 @@ func getStock(orgNum, number string) (r []*StockInto) {
 	}
 	ssis := db.Where(fmt.Sprintf("ForgNumber = '%s'", orgNum))
 	if number != "" {
-		ssis = ssis.And(fmt.Sprintf(" (FName like '%s%%' or FNUMBER like '%s%%') ", number, number))
+		ssis = ssis.And(fmt.Sprintf(" (FNAME like '%s%%' or FNUMBER like '%s%%') ", number, number))
 	}
 	e := ssis.Find(&r)
 	if e != nil {
