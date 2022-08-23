@@ -49,7 +49,7 @@ type wwllModelsEntity struct {
 	FSrcBillNo      string `json:"FBILLNO"`
 	FSrcEntrySeq    int    `json:"FSrcEntrySeq"`
 	FSubReqId       int    `json:"FSUBREQID"`
-	FPPbomBillNo    string `json:"FBILLNO"`
+	FPPbomBillNo    string `json:"FPPbomBillNo"`
 	FSubReqEntryId  int    `json:"FSubReqEntryId"`
 	FSubReqBillNo   string `json:"FSUBREQBILLNO"`
 	FSubReqEntrySeq int    `json:"FSubReqEntrySeq"`
@@ -64,8 +64,8 @@ type wwllModelsEntity struct {
 	FStockAppQty           string `json:"FStockAppQty"`
 	FStockAllowOverQty     string `json:"FStockAllowOverQty"`
 	FStockSelPrcdReturnQty string `json:"FStockSelPrcdReturnQty"`
-	FPPbomEntryId          int    `json:"FENTRYID"`
-	FPOOrderBillNo         string `json:"FBILLNO"`
+	FPPbomEntryId          int    `json:"FPPbomEntryId"`
+	FPOOrderBillNo         string `json:"FPOOrderBillNo"`
 	FPOOrderSeq            int    `json:"FPOOrderSeq"`
 	FSupplierId            struct {
 		FNumber string `json:"FNUMBER"`
@@ -97,8 +97,8 @@ type wwllFEntity_Link struct {
 }
 
 type WWLLMini struct {
-	WWLLEntityMini []*WWTLEntry
-	WWLLHeadMini   *WWTLMain
+	EntityMini []*WWTLEntry
+	HeadMini   *WWTLMain
 }
 
 //type wwllEntityMini struct {
@@ -173,7 +173,7 @@ func (Q *wwllModelBase) AddModelHead(in interface{}) {
 	Q.Data.Model.FSubOrgId.FNumber = inT.FUseOrgNumber
 }
 
-func (Q *wwllModelBase) addModelFEntity(inT *WWTLEntry, orgNumber string) {
+func (Q *wwllModelBase) addModelFEntity(inT *WWTLEntry) {
 	t := &wwllModelsEntity{
 		FParentMaterialId: struct {
 			FNumber string `json:"FNUMBER"`
@@ -214,18 +214,18 @@ func (Q *wwllModelBase) addModelFEntity(inT *WWTLEntry, orgNumber string) {
 		FKeeperTypeId:          "BD_KeeperOrg",
 		FKeeperId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 		FStockStatusId: struct {
 			Id string `json:"Id"`
 		}(struct{ Id string }{Id: inT.FStockStatusId}),
 		FOwnerTypeId: "BD_OwnerOrg",
 		FOwnerId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 		FParentOwnerTypeId: "BD_OwnerOrg",
 		FParentOwnerId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 	}
 	t.FentityLink = append(t.FentityLink, &wwllFEntity_Link{
 		FEntityLinkFRuleId:        inT.FLinkInfo[0]["FEntity_Link_FRuleId"],
@@ -237,12 +237,12 @@ func (Q *wwllModelBase) addModelFEntity(inT *WWTLEntry, orgNumber string) {
 	Q.Data.Model.FEntity = append(Q.Data.Model.FEntity, t)
 }
 
-func (Q *wwllModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
+func (Q *wwllModelBase) AddModelFEntities(ts interface{}) {
 	in, ok := ts.([]*WWTLEntry)
 	if !ok {
 		return
 	}
 	for _, inT := range in {
-		Q.addModelFEntity(inT, orgNumber)
+		Q.addModelFEntity(inT)
 	}
 }

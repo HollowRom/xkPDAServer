@@ -86,8 +86,8 @@ type scrkFENTITY_Link struct {
 }
 
 type SCRKMini struct {
-	SCRKEntityMini []*SCDDEntry
-	SCRKHeadMini   *SCDDMain
+	EntityMini []*SCDDEntry
+	HeadMini   *SCDDMain
 }
 
 //type scrkEntityMini struct {
@@ -159,7 +159,7 @@ func (Q *scrkModelBase) AddModelHead(in interface{}) {
 	Q.Data.Model.FOwnerId0.FNumber = inT.FUseOrgNumber
 }
 
-func (Q *scrkModelBase) addModelFEntity(inT *SCDDEntry, orgNumber string) {
+func (Q *scrkModelBase) addModelFEntity(inT *SCDDEntry) {
 	t := &scrkModelsEntity{
 		FSrcEntryId: inT.FENTRYID,
 		FMaterialId: struct {
@@ -176,7 +176,7 @@ func (Q *scrkModelBase) addModelFEntity(inT *SCDDEntry, orgNumber string) {
 		FOwnerTypeId: "BD_OwnerOrg",
 		FOwnerId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 		FStockId: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
@@ -192,7 +192,7 @@ func (Q *scrkModelBase) addModelFEntity(inT *SCDDEntry, orgNumber string) {
 		FKeeperTypeId: "BD_KeeperOrg",
 		FKeeperId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 	}
 
 	if inT.FLinkInfo != nil && len(inT.FLinkInfo) == 1 {
@@ -216,12 +216,12 @@ func (Q *scrkModelBase) addModelFEntity(inT *SCDDEntry, orgNumber string) {
 	Q.Data.Model.FEntity = append(Q.Data.Model.FEntity, t)
 }
 
-func (Q *scrkModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
+func (Q *scrkModelBase) AddModelFEntities(ts interface{}) {
 	ins, ok := ts.([]*SCDDEntry)
 	if !ok {
 		return
 	}
 	for _, inT := range ins {
-		Q.addModelFEntity(inT, orgNumber)
+		Q.addModelFEntity(inT)
 	}
 }

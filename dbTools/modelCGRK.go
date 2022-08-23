@@ -60,11 +60,11 @@ type cgrkFInStockEntry_Link struct {
 }
 
 type CGRKMini struct {
-	CGRKEntityMini []*CGDDEntry
-	CGRKHeadMini   *CGDDMain
+	EntityMini []*CGDDEntry
+	HeadMini   *CGDDMain
 }
 
-//type CGRKEntityMini struct {
+//type EntityMini struct {
 //	FNUMBER         string
 //	FBaseUnitNumber string
 //	FMustQty        string
@@ -82,7 +82,7 @@ type CGRKMini struct {
 //	FLinkInfo   []map[string]string
 //}
 
-//type CGRKHeadMini struct {
+//type HeadMini struct {
 //	FUseOrgNumber string
 //	FSupplierNumber   string
 //}
@@ -129,7 +129,7 @@ func (Q *cgrkModelBase) AddModelHead(in interface{}) {
 	Q.Data.Model.FSupplierId.FNumber = inT.FSuppNumber
 }
 
-func (Q *cgrkModelBase) addModelFEntity(inT *CGDDEntry, orgNumber string) {
+func (Q *cgrkModelBase) addModelFEntity(inT *CGDDEntry) {
 	t := &cgrkModelsEntity{
 		FMaterialId: struct {
 			FNumber string `json:"FNUMBER"`
@@ -144,7 +144,7 @@ func (Q *cgrkModelBase) addModelFEntity(inT *CGDDEntry, orgNumber string) {
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
 		FOWNERID: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 		FPOOrderNo:      inT.FSRCBILLNO,
 		FSRCBILLTYPEID:  inT.FSrcBillType,
 		FSRCBillNo:      inT.FBILLNO,
@@ -164,12 +164,12 @@ func (Q *cgrkModelBase) addModelFEntity(inT *CGDDEntry, orgNumber string) {
 	Q.Data.Model.FInStockEntry = append(Q.Data.Model.FInStockEntry, t)
 }
 
-func (Q *cgrkModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
+func (Q *cgrkModelBase) AddModelFEntities(ts interface{}) {
 	ins, ok := ts.([]*CGDDEntry)
 	if !ok {
 		return
 	}
 	for _, inT := range ins {
-		Q.addModelFEntity(inT, orgNumber)
+		Q.addModelFEntity(inT)
 	}
 }

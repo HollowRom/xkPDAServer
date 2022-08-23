@@ -32,6 +32,7 @@ func postQTCK(context *gin.Context) { // 定义请求接口和处理匿名函数
 			return
 		}
 	}
+	fmt.Println("接受到的post信息:" + string(buf[0:i]))
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
@@ -51,7 +52,7 @@ func postQTCK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	//	return
 	//}
 
-	if miniStr.QTCKEntityMini == nil {
+	if miniStr.EntityMini == nil {
 		fmt.Println("解析post异常,QTCKEntityMini不能为空")
 		setErrJson(context, e)
 		return
@@ -61,7 +62,7 @@ func postQTCK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	//	miniStr.QTCKHeadMini.FStockDirect = defQTCKFStockDirect
 	//}
 
-	for _, qm := range miniStr.QTCKEntityMini {
+	for _, qm := range miniStr.EntityMini {
 		if qm == nil {
 			fmt.Println("解析post异常,QTCKEntityMini不能为空")
 			setErrJson(context, e)
@@ -91,5 +92,14 @@ func postQTCK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		return
 	}
 
-	context.JSON(http.StatusOK, string(reb))
+	resp := &dbTools.ResponseStatus{}
+
+	e = json.Unmarshal(reb, resp)
+
+	if e != nil {
+		setErrJson(context, nil)
+		return
+	}
+
+	context.JSON(http.StatusOK, resp)
 }

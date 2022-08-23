@@ -101,8 +101,8 @@ type wwrkFEntity_Link struct {
 }
 
 type WWRKMini struct {
-	WWRKEntityMini []*WWDDEntry
-	WWRKHeadMini   *WWDDMain
+	EntityMini []*WWDDEntry
+	HeadMini   *WWDDMain
 }
 
 //type wwrkEntityMini struct {
@@ -189,7 +189,7 @@ func (Q *wwrkModelBase) AddModelHead(in interface{}) {
 	}
 }
 
-func (Q *wwrkModelBase) addModelFEntity(inT *WWDDEntry, orgNumber string) {
+func (Q *wwrkModelBase) addModelFEntity(inT *WWDDEntry) {
 	t := &wwrkModelsEntity{
 		FWWInType: "QLI",
 		FMaterialId: struct {
@@ -215,7 +215,7 @@ func (Q *wwrkModelBase) addModelFEntity(inT *WWDDEntry, orgNumber string) {
 		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
 		FOWNERID: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 		FPOOrderNo:      inT.FBILLNO,
 		FSRCBILLTYPEID:  "PUR_PurchaseOrder",
 		FSRCBillNo:      inT.FSrcBillNo,
@@ -231,12 +231,12 @@ func (Q *wwrkModelBase) addModelFEntity(inT *WWDDEntry, orgNumber string) {
 	Q.Data.Model.FInStockEntry = append(Q.Data.Model.FInStockEntry, t)
 }
 
-func (Q *wwrkModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
+func (Q *wwrkModelBase) AddModelFEntities(ts interface{}) {
 	in, ok := ts.([]*WWDDEntry)
 	if !ok {
 		return
 	}
 	for _, inT := range in {
-		Q.addModelFEntity(inT, orgNumber)
+		Q.addModelFEntity(inT)
 	}
 }

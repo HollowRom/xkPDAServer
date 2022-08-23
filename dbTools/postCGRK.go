@@ -11,14 +11,14 @@ const (
 )
 
 func GetPostCGRK(mini *CGRKMini) ModelBaseInterface {
-	if mini == nil || mini.CGRKHeadMini == nil || mini.CGRKHeadMini.FUseOrgNumber == "" {
+	if mini == nil || mini.HeadMini == nil || mini.HeadMini.FUseOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
 	i := InitCgrkModel(&DefModelHeadBase{FBillTypeId: defCGDDBillType, FDate: time.Now(), FromId: defCGDDFromId})
 
-	i.AddModelHead(mini.CGRKHeadMini)
+	i.AddModelHead(mini.HeadMini)
 
-	i.AddModelFEntities(mini.CGRKEntityMini, mini.CGRKHeadMini.FUseOrgNumber)
+	i.AddModelFEntities(mini.EntityMini)
 	return i
 }

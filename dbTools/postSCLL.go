@@ -11,14 +11,14 @@ const (
 )
 
 func GetPostSCLL(mini *SCLLMini) ModelBaseInterface {
-	if mini == nil || mini.SCLLHeadMini == nil || mini.SCLLHeadMini.FUseOrgNumber == "" {
+	if mini == nil || mini.HeadMini == nil || mini.HeadMini.FUseOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
 	i := InitScllModel(&DefModelHeadBase{FBillTypeId: defSCLLBillType, FDate: time.Now(), FromId: defSCLLFromId})
 
-	i.AddModelHead(mini.SCLLHeadMini)
+	i.AddModelHead(mini.HeadMini)
 
-	i.AddModelFEntities(mini.SCLLEntityMini, mini.SCLLHeadMini.FUseOrgNumber)
+	i.AddModelFEntities(mini.EntityMini)
 	return i
 }

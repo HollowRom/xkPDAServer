@@ -10,12 +10,12 @@ import (
 var engine = gin.Default()
 
 const (
-	defICUrl       = "http://127.0.0.1/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
+	defICUrl       = "http://121.37.169.235/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
 	defReadBufSize = 10240
 	defOrgKey      = "FOrgNumber"
 	defBillKey     = "FBillNo"
 	defSuppKey     = "FSupplierNumber"
-	defNumberKey   = "FNumber"
+	defNumberKey   = "Id"
 	defGoodNumberKey = "FGoodNumber"
 	defStockNumberKey = "FStockNumber"
 	defCustNumberKey = "FCustNumber"

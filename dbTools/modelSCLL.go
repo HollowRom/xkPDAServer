@@ -73,7 +73,7 @@ type scllModelsEntity struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FOwnerId"`
 	FSrcBillType       string `json:"FSrcBillType"`
-	FSrcBillNo         string `json:"FBILLNO"`
+	FSrcBillNo         string `json:"FSrcBillNo"`
 	FEntrySrcInterId   int    `json:"FID"`
 	FEntrySrcEnteryId  int    `json:"FEntrySrcEnteryId"`
 	FEntrySrcEntrySeq  int    `json:"FSEQ"`
@@ -93,8 +93,8 @@ type scllFEntity_Link struct {
 }
 
 type SCLLMini struct {
-	SCLLEntityMini []*SCTLEntry
-	SCLLHeadMini   *SCTLMain
+	EntityMini []*SCTLEntry
+	HeadMini   *SCTLMain
 }
 
 //type scllEntityMini struct {
@@ -164,7 +164,7 @@ func (Q *scllModelBase) AddModelHead(in interface{}) {
 	Q.Data.Model.FIsOwnerTInclOrg = "false"
 }
 
-func (Q *scllModelBase) addModelFEntity(inT *SCTLEntry, orgNumber string) {
+func (Q *scllModelBase) addModelFEntity(inT *SCTLEntry) {
 	t := &scllModelsEntity{
 		FEntryID: 0,
 		FParentMaterialId: struct {
@@ -204,10 +204,10 @@ func (Q *scllModelBase) addModelFEntity(inT *SCTLEntry, orgNumber string) {
 		FKeeperTypeId:     "BD_KeeperOrg",
 		FKeeperId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 		FOwnerId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 		FSrcBillType:       "PRD_PPBOM",
 		FSrcBillNo:         inT.FBILLNO,
 		FEntrySrcInterId:   inT.FID,
@@ -216,7 +216,7 @@ func (Q *scllModelBase) addModelFEntity(inT *SCTLEntry, orgNumber string) {
 		FParentOwnerTypeId: "BD_OwnerOrg",
 		FParentOwnerId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 	}
 	t.FentityLink = append(t.FentityLink, &scllFEntity_Link{
 		FentityLinkFruleid:         inT.FLinkInfo[0]["FEntity_Link_FRuleId"],
@@ -228,12 +228,12 @@ func (Q *scllModelBase) addModelFEntity(inT *SCTLEntry, orgNumber string) {
 	Q.Data.Model.FEntity = append(Q.Data.Model.FEntity, t)
 }
 
-func (Q *scllModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
+func (Q *scllModelBase) AddModelFEntities(ts interface{}) {
 	in, ok := ts.([]*SCTLEntry)
 	if !ok {
 		return
 	}
 	for _, inT := range in {
-		Q.addModelFEntity(inT, orgNumber)
+		Q.addModelFEntity(inT)
 	}
 }

@@ -25,8 +25,8 @@ type qtrkModels struct {
 	FDate        string `json:"FDate"`
 	FSUPPLIERID  struct {
 		FNumber string `json:"FNUMBER"`
-	} `json:"FSUPPLIERID"`
-	FEntity []*qtrkModelsEntity `json:"FInStockEntry"`
+	} `json:"FSUPPLIERID"` //合并了出入库单所以供应商和客户分不开
+	FEntity []*qtrkModelsEntity `json:"FEntity"`
 }
 
 type qtrkModelsEntity struct {
@@ -42,31 +42,18 @@ type qtrkModelsEntity struct {
 	FSTOCKSTATUSID struct {
 		Id string `json:"Id"`
 	} `json:"FSTOCKSTATUSID"`
+	FLOT struct {
+		FNumber string `json:"FNumber"`
+	} `json:"FLOT"`
 	FQty         string `json:"FQty"`
 	FOWNERTYPEID string `json:"FOWNERTYPEID"`
 	FOWNERID     struct {
-		FNumber string `json:"FNUMBER"`
+		Id string `json:"Id"`
 	} `json:"FOWNERID"`
 }
 
 type QTRKMini struct {
-	QTRKEntityMini []*QTCRKEntry
-	//QTRKHeadMini   *QTRKHeadMini
-}
-
-type QTRKEntityMini struct {
-	FNumber        string
-	UnitNumber     string
-	FQTY           string
-	FStockStatusId string
-	FLotNo         string
-	FLinkInfo      []map[string]string
-}
-
-type QTRKHeadMini struct {
-	FOrgNumber   string
-	FStockDirect string
-	FSUPPLIERID  string
+	EntityMini []*QTCRKEntry
 }
 
 var _ ModelBaseInterface = &qtrkModelBase{}
@@ -104,40 +91,46 @@ func (Q *qtrkModelBase) GetJson() []byte {
 }
 
 func (Q *qtrkModelBase) AddModelHead(in interface{}) {
-	//inT, ok := in.(*QTRKHeadMini)
-	//if !ok {
-	//	return
-	//}
-	//Q.Data.Model.FStockOrgId.FNumber = inT.FOrgNumber
-	//Q.Data.Model.FSUPPLIERID.FNumber = inT.FSUPPLIERID
+	inT, ok := in.([]*QTCRKEntry)
+	if !ok || len(inT) < 1 {
+		return
+	}
+	Q.Data.Model.FStockOrgId.FNumber = inT[0].FUseOrgNumber
+	Q.Data.Model.FSUPPLIERID.FNumber = inT[0].FCustNumber
 }
 
-func (Q *qtrkModelBase) addModelFEntity(inT *QTRKEntityMini, orgNumber string) {
+func (Q *qtrkModelBase) addModelFEntity(inT *QTCRKEntry) {
 	t := &qtrkModelsEntity{
 		FMATERIALID: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FNumber}),
 		FUnitID: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: inT.UnitNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
 		FQty:         inT.FQTY,
 		FOWNERTYPEID: "BD_OwnerOrg",
 		FSTOCKSTATUSID: struct {
 			Id string `json:"Id"`
 		}(struct{ Id string }{Id: inT.FStockStatusId}),
+		FLOT: struct {
+			FNumber string `json:"FNumber"`
+		}(struct{ FNumber string }{FNumber: inT.FLOT_TEXT}),
 		FOWNERID: struct {
+			Id string `json:"Id"`
+		}(struct{ Id string }{Id: inT.FUseOrgNumber}),
+		FSTOCKID: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
 	}
 	Q.Data.Model.FEntity = append(Q.Data.Model.FEntity, t)
 }
 
-func (Q *qtrkModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
-	in, ok := ts.([]*QTRKEntityMini)
+func (Q *qtrkModelBase) AddModelFEntities(ts interface{}) {
+	in, ok := ts.([]*QTCRKEntry)
 	if !ok {
 		return
 	}
 	for _, inT := range in {
-		Q.addModelFEntity(inT, orgNumber)
+		Q.addModelFEntity(inT)
 	}
 }

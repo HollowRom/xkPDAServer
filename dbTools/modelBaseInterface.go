@@ -5,7 +5,7 @@ import "time"
 type ModelBaseInterface interface {
 	CheckVerify() bool
 	GetJson() []byte
-	AddModelFEntities(interface{}, string)
+	AddModelFEntities(interface{})
 	AddModelHead(interface{})
 }
 

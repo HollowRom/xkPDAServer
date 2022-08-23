@@ -11,14 +11,14 @@ const (
 )
 
 func GetPostWWRK(mini *WWRKMini) ModelBaseInterface {
-	if mini == nil || mini.WWRKHeadMini == nil || mini.WWRKHeadMini.FUseOrgNumber == "" {
+	if mini == nil || mini.HeadMini == nil || mini.HeadMini.FUseOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
 	i := InitwwrkModel(&DefModelHeadBase{FBillTypeId: defWWRKBillType, FDate: time.Now(), FromId: defWWRKFromId})
 
-	i.AddModelHead(mini.WWRKHeadMini)
+	i.AddModelHead(mini.HeadMini)
 
-	i.AddModelFEntities(mini.WWRKEntityMini, mini.WWRKHeadMini.FUseOrgNumber)
+	i.AddModelFEntities(mini.EntityMini)
 	return i
 }

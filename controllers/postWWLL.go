@@ -49,19 +49,19 @@ func postWWLL(context *gin.Context) { // 定义请求接口和处理匿名函数
 		return
 	}
 
-	if miniStr.WWLLHeadMini == nil {
+	if miniStr.HeadMini == nil {
 		fmt.Println("解析post异常,QTCKHeadMini不能为空")
 		setErrJson(context, e)
 		return
 	}
 
-	if miniStr.WWLLEntityMini == nil {
+	if miniStr.EntityMini == nil {
 		fmt.Println("解析post异常,QTCKEntityMini不能为空")
 		setErrJson(context, e)
 		return
 	}
 
-	for _, qm := range miniStr.WWLLEntityMini {
+	for _, qm := range miniStr.EntityMini {
 		if qm == nil {
 			fmt.Println("解析post异常,QTCKEntityMini不能为空")
 			setErrJson(context, e)
@@ -109,5 +109,14 @@ func postWWLL(context *gin.Context) { // 定义请求接口和处理匿名函数
 		return
 	}
 
-	context.JSON(http.StatusOK, string(reb))
+	resp := &dbTools.ResponseStatus{}
+
+	e = json.Unmarshal(reb, resp)
+
+	if e != nil {
+		setErrJson(context, nil)
+		return
+	}
+
+	context.JSON(http.StatusOK, resp)
 }

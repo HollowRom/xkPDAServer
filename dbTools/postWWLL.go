@@ -11,14 +11,14 @@ const (
 )
 
 func GetPostWWLL(mini *WWLLMini) ModelBaseInterface {
-	if mini == nil || mini.WWLLHeadMini == nil || mini.WWLLHeadMini.FUseOrgNumber == "" {
+	if mini == nil || mini.HeadMini == nil || mini.HeadMini.FUseOrgNumber == "" {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
 	i := InitwwllModel(&DefModelHeadBase{FBillTypeId: defWWLLBillType, FDate: time.Now(), FromId: defWWLLFromId})
 
-	i.AddModelHead(mini.WWLLHeadMini)
+	i.AddModelHead(mini.HeadMini)
 
-	i.AddModelFEntities(mini.WWLLEntityMini, mini.WWLLHeadMini.FUseOrgNumber)
+	i.AddModelFEntities(mini.EntityMini)
 	return i
 }

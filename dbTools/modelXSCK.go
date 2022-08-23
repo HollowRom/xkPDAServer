@@ -76,13 +76,13 @@ type xsckFEntity_Link struct {
 }
 
 type XSCKMini struct {
-	XSCKEntityMini []*XSDDEntry
-	XSCKHeadMini   *XSDDMain
+	EntityMini []*XSDDEntry
+	HeadMini   *XSDDMain
 }
 
 //type xsckEntityMini struct {
 //	FCustNumber string
-//	FNumber         string
+//	Id         string
 //	FBaseUnitNumber string
 //	FMustQty        string
 //	FStockNumber    string
@@ -144,7 +144,7 @@ func (Q *xsckModelBase) AddModelHead(in interface{}) {
 	Q.Data.Model.FSettleID.FNumber = inT.FUseOrgNumber
 }
 
-func (Q *xsckModelBase) addModelFEntity(inT *XSDDEntry, orgNumber string) {
+func (Q *xsckModelBase) addModelFEntity(inT *XSDDEntry) {
 	t := &xsckModelsEntity{
 		FUnitID: struct {
 			FNumber string `json:"FNUMBER"`
@@ -158,7 +158,7 @@ func (Q *xsckModelBase) addModelFEntity(inT *XSDDEntry, orgNumber string) {
 		FKeeperTypeId: "BD_KeeperOrg",
 		FKeeperId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: orgNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 		FRealQty: inT.FMustQty,
 		FPrice:   inT.FPrice,
 		FStockID: struct {
@@ -186,12 +186,12 @@ func (Q *xsckModelBase) addModelFEntity(inT *XSDDEntry, orgNumber string) {
 	Q.Data.Model.FEntity = append(Q.Data.Model.FEntity, t)
 }
 
-func (Q *xsckModelBase) AddModelFEntities(ts interface{}, orgNumber string) {
+func (Q *xsckModelBase) AddModelFEntities(ts interface{}) {
 	in, ok := ts.([]*XSDDEntry)
 	if !ok {
 		return
 	}
 	for _, inT := range in {
-		Q.addModelFEntity(inT, orgNumber)
+		Q.addModelFEntity(inT)
 	}
 }
