@@ -67,7 +67,7 @@ func getWWTLMain(orgNumber, supplierNumber, FBillNo string) (r []*WWTLMain) {
 	if FBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", FBillNo))
 	}
-	e := siss.GroupBy("FBILLNO, FSupplierNumber, FSupplierName, FUseOrgNumber").Find(&r)
+	e := siss.Distinct("FBILLNO, FSupplierNumber, FSupplierName, FUseOrgNumber").Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -86,7 +86,7 @@ func GetWWTLEntry(FBillNo string) []*WWTLEntry {
 }
 
 func getWWTLEntry(FBillNo string) (r []*WWTLEntry) {
-	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Find(&r)
+	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

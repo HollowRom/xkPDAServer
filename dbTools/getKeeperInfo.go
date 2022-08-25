@@ -25,7 +25,7 @@ func GetKeeper(orgNum, number string) []*KeeperInfo {
 }
 
 func getKeeper(orgNum, number string) (r []*KeeperInfo) {
-	e := db.Where(fmt.Sprintf("(FName = '%s' or FNUMBER = '%s') and FUseOrgNumber = '%s' ", number, number, orgNum)).Find(&r)
+	e := db.Where(fmt.Sprintf("(FName = '%s' or FNUMBER = '%s') and FUseOrgNumber = '%s' ", number, number, orgNum)).Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

@@ -23,7 +23,7 @@ func GetOrg(number string) []*OrgInfo {
 }
 
 func getOrg(number string) (r []*OrgInfo) {
-	e := db.Where(fmt.Sprintf("FName like '%%%s%%' or FNUMBER like '%%%s%%'", number, number)).Find(&r)
+	e := db.Where(fmt.Sprintf("FName like '%%%s%%' or FNUMBER like '%%%s%%'", number, number)).Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

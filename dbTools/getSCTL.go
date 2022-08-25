@@ -63,7 +63,7 @@ func getSCTLMain(orgNumber, fBillNo string) (r []*SCTLMain) {
 	if fBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", fBillNo))
 	}
-	e := siss.GroupBy("FBILLNO, FParentNumber, FParentName, FParentUnitNumber, FUseOrgNumber").Find(&r)
+	e := siss.Distinct("FBILLNO, FParentNumber, FParentName, FParentUnitNumber, FUseOrgNumber").Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -82,7 +82,7 @@ func GetSCTLEntry(FBillNo string) []*SCTLEntry {
 }
 
 func getSCTLEntry(FBillNo string) (r []*SCTLEntry) {
-	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Find(&r)
+	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

@@ -7,6 +7,7 @@ import (
 type SCDDMain struct {
 	FBILLNO       string
 	FUseOrgNumber string
+	FNUMBER string
 }
 
 func (*SCDDMain) TableName() string {
@@ -40,24 +41,28 @@ func (*SCDDEntry) TableName() string {
 }
 
 func GetAllSCDDMain(orgNumber string) []*SCDDMain {
-	return getSCDDMain(orgNumber, "")
+	return getSCDDMain(orgNumber, "", "")
 }
 
-func GetSCDDMain(orgNumber, fBillNo string) []*SCDDMain {
-	return getSCDDMain(orgNumber, fBillNo)
+func GetSCDDMain(orgNumber, fNumber, fBillNo string) []*SCDDMain {
+	return getSCDDMain(orgNumber, fNumber, fBillNo)
 }
 
-func getSCDDMain(orgNumber, fBillNo string) (r []*SCDDMain) {
+func getSCDDMain(orgNumber, fNumber, fBillNo string) (r []*SCDDMain) {
 	siss := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNumber))
 	if fBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", fBillNo))
 	}
-	e := siss.GroupBy("FBILLNO, FUseOrgNumber").Find(&r)
+	if fNumber != "" {
+		siss = siss.And(fmt.Sprintf("FNUMBER like '%s%%'", fNumber))
+	}
+	e := siss.Distinct("FBILLNO, FUseOrgNumber, FNUMBER").Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
 	}
-
+	parseSQL, _ := siss.LastSQL()
+	fmt.Println(parseSQL)
 	if len(r) == 0 {
 		fmt.Println("返回nil")
 		return nil
@@ -71,7 +76,7 @@ func GetSCDDEntry(FBillNo string) []*SCDDEntry {
 }
 
 func getSCDDEntry(FBillNo string) (r []*SCDDEntry) {
-	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Find(&r)
+	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

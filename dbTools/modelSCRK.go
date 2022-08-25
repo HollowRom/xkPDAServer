@@ -86,8 +86,8 @@ type scrkFENTITY_Link struct {
 }
 
 type SCRKMini struct {
-	EntityMini []*SCDDEntry
-	HeadMini   *SCDDMain
+	EntityMini []*SCDDEntry `json:"EntityMini"`
+	//HeadMini   *SCDDMain `json:"HeadMini"`
 }
 
 //type scrkEntityMini struct {

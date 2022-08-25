@@ -58,7 +58,7 @@ func getGood(orgNum, number string) (r []*GoodsInto) {
 		siss = siss.And(fmt.Sprintf(" (FNUMBER like '%s%%' or FNAME like '%s%%') ", number, number))
 	}
 
-	e := siss.Find(&r)
+	e := siss.Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

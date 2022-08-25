@@ -16,7 +16,7 @@ func getAllSCDDMain(context *gin.Context) { // 定义请求接口和处理匿名
 }
 
 func getSCDDMain(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetSCDDMain(context.Query(defOrgKey), context.Query(defBillKey))
+	info := dbTools.GetSCDDMain(context.Query(defOrgKey), context.Query(defNumberKey), context.Query(defBillKey))
 	if info == nil {
 		setErrJson(context, nil)
 		return

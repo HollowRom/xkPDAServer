@@ -35,6 +35,7 @@ func postSCRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 			return
 		}
 	}
+	fmt.Println("接受到的post信息:" + string(buf[0:i]))
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
@@ -44,16 +45,16 @@ func postSCRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	miniStr := &dbTools.SCRKMini{}
 	e = json.Unmarshal(buf[0:i], miniStr)
 	if e != nil {
-		fmt.Println(e)
+		fmt.Println("解析post异常:" + e.Error())
 		setErrJson(context, e)
 		return
 	}
 
-	if miniStr.HeadMini == nil {
-		fmt.Println("解析post异常,QTCKHeadMini不能为空")
-		setErrJson(context, e)
-		return
-	}
+	//if miniStr.HeadMini == nil {
+	//	fmt.Println("解析post异常,QTCKHeadMini不能为空")
+	//	setErrJson(context, e)
+	//	return
+	//}
 
 	if miniStr.EntityMini == nil {
 		fmt.Println("解析post异常,QTCKEntityMini不能为空")
@@ -94,6 +95,11 @@ func postSCRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 			}
 		}
 	}
+	//fmt.Println("miniStr.HeadMini:", *miniStr.HeadMini)
+	//
+	//for idx := 0; idx < len(miniStr.EntityMini) - 1; idx++ {
+	//	fmt.Println(idx, ":miniStr.EntityMini:", *miniStr.EntityMini[idx])
+	//}
 
 	info := dbTools.GetPostSCRK(miniStr)
 	if info == nil {
@@ -101,6 +107,7 @@ func postSCRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		setErrJson(context, nil)
 		return
 	}
+
 	infoJ := info.GetJson()
 	if infoJ == nil {
 		setErrJson(context, nil)

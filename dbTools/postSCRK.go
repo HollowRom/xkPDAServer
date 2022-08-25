@@ -12,7 +12,7 @@ const (
 )
 
 func GetPostSCRK(mini *SCRKMini) ModelBaseInterface {
-	if mini == nil || mini.HeadMini == nil || mini.HeadMini.FUseOrgNumber == "" {
+	if mini == nil || mini.EntityMini == nil || len(mini.EntityMini) == 0 {
 		fmt.Println("输入mini缺少必须的数据")
 		return nil
 	}
@@ -24,7 +24,7 @@ func GetPostSCRK(mini *SCRKMini) ModelBaseInterface {
 		}
 	}
 
-	i.AddModelHead(mini.HeadMini)
+	i.AddModelHead(mini.EntityMini[0])
 
 	i.AddModelFEntities(mini.EntityMini)
 	return i

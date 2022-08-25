@@ -32,7 +32,7 @@ func getCustomer(orgNum, number string) (r []*CustomerInfo) {
 	if number != "" {
 		ssis = ssis.And(fmt.Sprintf(" (FName like '%s%%' or FNUMBER like '%s%%') ", number, number))
 	}
-	e := ssis.Find(&r)
+	e := ssis.Limit(500).Find(&r)
 
 	if e != nil {
 		fmt.Println(e)

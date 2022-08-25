@@ -22,7 +22,7 @@ func GetUser(number string) []*UserInfo {
 }
 
 func getUser(number string) (r []*UserInfo) {
-	e := db.Where(fmt.Sprintf("FName = '%s' or FUSERID = %s", number, number)).Find(&r)
+	e := db.Where(fmt.Sprintf("FName = '%s' or FUSERID = %s", number, number)).Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

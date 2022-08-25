@@ -32,7 +32,7 @@ func getStock(orgNum, number string) (r []*StockInto) {
 	if number != "" {
 		ssis = ssis.And(fmt.Sprintf(" (FNAME like '%s%%' or FNUMBER like '%s%%') ", number, number))
 	}
-	e := ssis.Find(&r)
+	e := ssis.Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

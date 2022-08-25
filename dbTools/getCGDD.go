@@ -67,7 +67,7 @@ func getCGDDMain(orgNumber, supplierNumber, FBillNo string) (r []*CGDDMain) {
 	if FBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", FBillNo))
 	}
-	e := siss.GroupBy("FBILLNO, FSuppNumber, FSuppName, FUseOrgNumber").Find(&r)
+	e := siss.Distinct("FBILLNO, FSuppNumber, FSuppName, FUseOrgNumber").Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -86,7 +86,7 @@ func GetCGDDEntry(FBillNo string) []*CGDDEntry {
 }
 
 func getCGDDEntry(FBillNo string) (r []*CGDDEntry) {
-	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Find(&r)
+	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil

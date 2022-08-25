@@ -60,7 +60,7 @@ func getXSDDMain(orgNumber, custNumber, fBillNo string) (r []*XSDDMain) {
 	if fBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", fBillNo))
 	}
-	e := siss.GroupBy("FBILLNO, FCustNumber, FCustName, FUseOrgNumber").Find(&r)
+	e := siss.Distinct("FBILLNO, FCustNumber, FCustName, FUseOrgNumber").Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
@@ -79,7 +79,7 @@ func GetXSDDEntry(FBillNo string) []*XSDDEntry {
 }
 
 func getXSDDEntry(FBillNo string) (r []*XSDDEntry) {
-	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Find(&r)
+	e := db.Where(fmt.Sprintf("FBILLNO = '%s'", FBillNo)).Limit(500).Find(&r)
 	if e != nil {
 		fmt.Println(e)
 		return nil
