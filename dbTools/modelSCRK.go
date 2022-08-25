@@ -86,7 +86,7 @@ type scrkFENTITY_Link struct {
 }
 
 type SCRKMini struct {
-	EntityMini []*SCDDEntry `json:"EntityMini"`
+	EntityMini []*SCDDEntry `json:"FInStockEntry"`
 	//HeadMini   *SCDDMain `json:"HeadMini"`
 }
 
@@ -148,7 +148,7 @@ func (Q *scrkModelBase) GetJson() []byte {
 }
 
 func (Q *scrkModelBase) AddModelHead(in interface{}) {
-	inT, ok := in.(*SCDDMain)
+	inT, ok := in.(*SCDDEntry)
 	if !ok {
 		return
 	}
@@ -168,11 +168,11 @@ func (Q *scrkModelBase) addModelFEntity(inT *SCDDEntry) {
 		FUnitID: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
-		FMustQty: inT.FMustQty,
+		FMustQty: inT.SQTY,
 		FBaseUnitId: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
-		FRealQty:     inT.FMustQty,
+		FRealQty:     inT.SQTY,
 		FOwnerTypeId: "BD_OwnerOrg",
 		FOwnerId: struct {
 			FNumber string `json:"FNUMBER"`
@@ -195,24 +195,23 @@ func (Q *scrkModelBase) addModelFEntity(inT *SCDDEntry) {
 		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 	}
 
-	if inT.FLinkInfo != nil && len(inT.FLinkInfo) == 1 {
-		t.FentityLink = append(t.FentityLink, &scrkFENTITY_Link{
-			FENTITYLinkFRuleId:        inT.FLinkInfo[0]["FENTITY_Link_FRuleId"],
-			FENTITYLinkFSTableName:    inT.FLinkInfo[0]["FENTITY_Link_FSTableName"],
-			FENTITYLinkFSBillId:       inT.FLinkInfo[0]["FENTITY_Link_FSBillId"],
-			FENTITYLinkFSId:           inT.FLinkInfo[0]["FENTITY_Link_FSId"],
-			FENTITYLinkFBaseActualQty: inT.FLinkInfo[0]["FENTITY_Link_FBaseActualQty"],
-		})
-		t.FMoBillNo = inT.FBILLNO
-		t.FMoId = inT.FID
-		t.FMoEntrySeq = inT.FSEQ
-		t.FSrcEntryId = inT.FENTRYID
-		t.FSrcBillType = inT.FSrcBillType
-		t.FSrcBillNo = inT.FBILLNO
-		t.FSrcInterId = inT.FID
-		t.FSrcEntrySeq = inT.FENTRYID
-		t.FMOMAINENTRYID = inT.FENTRYID
-	}
+	t.FentityLink = append(t.FentityLink, &scrkFENTITY_Link{
+		FENTITYLinkFRuleId:        inT.FLinkInfo[0]["FENTITY_Link_FRuleId"],
+		FENTITYLinkFSTableName:    inT.FLinkInfo[0]["FENTITY_Link_FSTableName"],
+		FENTITYLinkFSBillId:       inT.FLinkInfo[0]["FENTITY_Link_FSBillId"],
+		FENTITYLinkFSId:           inT.FLinkInfo[0]["FENTITY_Link_FSId"],
+		FENTITYLinkFBaseActualQty: inT.FLinkInfo[0]["FENTITY_Link_FBaseActualQty"],
+	})
+	t.FMoBillNo = inT.FBILLNO
+	t.FMoId = inT.FID
+	t.FMoEntrySeq = inT.FSEQ
+	t.FSrcEntryId = inT.FENTRYID
+	t.FSrcBillType = inT.FSrcBillType
+	t.FSrcBillNo = inT.FBILLNO
+	t.FSrcInterId = inT.FID
+	t.FSrcEntrySeq = inT.FENTRYID
+	t.FMOMAINENTRYID = inT.FENTRYID
+
 	Q.Data.Model.FEntity = append(Q.Data.Model.FEntity, t)
 }
 
