@@ -55,7 +55,7 @@ type scrkModelsEntity struct {
 	} `json:"FStockId"`
 	FLot struct {
 		FNumber string `json:"FNUMBER"`
-	} `json:"FLOT_TEXT"`
+	} `json:"FLot"`
 	FMoBillNo    string `json:"FMOBILLNO"`
 	FMoId        int    `json:"FMOID"`
 	FMoEntryId   int    `json:"FMOENTRYID"`
