@@ -3,6 +3,7 @@ package dbTools
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type wwllModelBase struct {
@@ -74,6 +75,9 @@ type wwllModelsEntity struct {
 	FKeeperId     struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FKeeperId"`
+	FLot struct {
+		FNumber string `json:"FNUMBER"`
+	} `json:"FLOT_TEXT"`
 	FStockStatusId struct {
 		Id string `json:"Id"`
 	} `json:"FStockStatusId"`
@@ -189,6 +193,9 @@ func (Q *wwllModelBase) addModelFEntity(inT *WWTLEntry) {
 		FStockId: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
+		FLot: struct {
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: strings.TrimRight(inT.FLOT_TEXT, " ")}),
 		FSrcInterId:    inT.FSrcInterId,
 		FSrcEntryId:    inT.FSrcEntryId,
 		FSrcBillType:   "SUB_PPBOM",

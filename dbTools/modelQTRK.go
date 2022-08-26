@@ -3,6 +3,7 @@ package dbTools
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type qtrkModelBase struct {
@@ -114,7 +115,7 @@ func (Q *qtrkModelBase) addModelFEntity(inT *QTCRKEntry) {
 		}(struct{ Id string }{Id: inT.FStockStatusId}),
 		FLOT: struct {
 			FNumber string `json:"FNumber"`
-		}(struct{ FNumber string }{FNumber: inT.FLOT_TEXT}),
+		}(struct{ FNumber string }{FNumber: strings.TrimRight(inT.FLOT_TEXT, " ")}),
 		FOWNERID: struct {
 			Id string `json:"Id"`
 		}(struct{ Id string }{Id: inT.FUseOrgNumber}),

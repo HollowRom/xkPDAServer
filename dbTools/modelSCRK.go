@@ -3,6 +3,7 @@ package dbTools
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type scrkModelBase struct {
@@ -29,11 +30,11 @@ type scrkModels struct {
 	FOwnerId0    struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FOwnerId0"`
-	FEntity []*scrkModelsEntity `json:"FInStockEntry"`
+	FEntity []*scrkModelsEntity `json:"FEntity"`
 }
 
 type scrkModelsEntity struct {
-	FSrcEntryId int `json:"FENTRYID"`
+	FSrcEntryId int `json:"FSrcEntryId"`
 	FMaterialId struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FMaterialId"`
@@ -63,8 +64,8 @@ type scrkModelsEntity struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FStockUnitId"`
 	FSrcBillType   string `json:"FSrcBillType"`
-	FSrcBillNo     string `json:"FBILLNO"`
-	FSrcInterId    int    `json:"FID"`
+	FSrcBillNo     string `json:"FSrcBillNo"`
+	FSrcInterId    int    `json:"FSrcInterId"`
 	FStockStatusId struct {
 		Id string `json:"Id"`
 	} `json:"FStockStatusId"`
@@ -86,7 +87,7 @@ type scrkFENTITY_Link struct {
 }
 
 type SCRKMini struct {
-	EntityMini []*SCDDEntry `json:"FInStockEntry"`
+	EntityMini []*SCDDEntry `json:"FEntity"`
 	//HeadMini   *SCDDMain `json:"HeadMini"`
 }
 
@@ -182,10 +183,10 @@ func (Q *scrkModelBase) addModelFEntity(inT *SCDDEntry) {
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
 		FLot: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: inT.FLOT_TEXT}),
+		}(struct{ FNumber string }{FNumber: strings.TrimRight(inT.FLOT_TEXT, " ")}),
 		FStockUnitId: struct {
 			FNumber string `json:"FNUMBER"`
-		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
+		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
 		FStockStatusId: struct {
 			Id string `json:"Id"`
 		}(struct{ Id string }{Id: inT.FStockStatusId}),
@@ -206,10 +207,11 @@ func (Q *scrkModelBase) addModelFEntity(inT *SCDDEntry) {
 	t.FMoId = inT.FID
 	t.FMoEntrySeq = inT.FSEQ
 	t.FSrcEntryId = inT.FENTRYID
+	t.FMoEntryId = inT.FENTRYID
 	t.FSrcBillType = inT.FSrcBillType
 	t.FSrcBillNo = inT.FBILLNO
 	t.FSrcInterId = inT.FID
-	t.FSrcEntrySeq = inT.FENTRYID
+	t.FSrcEntrySeq = inT.FSEQ
 	t.FMOMAINENTRYID = inT.FENTRYID
 
 	Q.Data.Model.FEntity = append(Q.Data.Model.FEntity, t)

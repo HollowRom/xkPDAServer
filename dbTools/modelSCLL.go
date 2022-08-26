@@ -3,6 +3,7 @@ package dbTools
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type scllModelBase struct {
@@ -66,6 +67,9 @@ type scllModelsEntity struct {
 	FBaseActualQty    string `json:"FBaseActualQty"`
 	FBaseAllowOverQty string `json:"FBaseAllowOverQty"`
 	FKeeperTypeId     string `json:"FKeeperTypeId"`
+	FLot struct {
+		FNumber string `json:"FNUMBER"`
+	} `json:"FLOT_TEXT"`
 	FKeeperId         struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FKeeperId"`
@@ -194,6 +198,9 @@ func (Q *scllModelBase) addModelFEntity(inT *SCTLEntry) {
 		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
 		FMoId:        inT.FMOID,
 		FMoEntrySeq:  inT.FMOENTRYSEQ,
+		FLot: struct {
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: strings.TrimRight(inT.FLOT_TEXT, " ")}),
 		FPPBomBillNo: inT.FBILLNO,
 		FBaseUnitId: struct {
 			FNumber string `json:"FNUMBER"`

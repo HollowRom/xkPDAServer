@@ -3,6 +3,7 @@ package dbTools
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type qtckModelBase struct {
@@ -43,6 +44,9 @@ type qtckModelsEntity struct {
 	FStockId struct {
 		FNumber string `json:"FNumber"`
 	} `json:"FStockId"`
+	FLot struct {
+		FNumber string `json:"FNumber"`
+	} `json:"FLot"`
 	FOwnerTypeId string `json:"FOwnerTypeId"`
 	FOwnerId     struct {
 		FNumber string `json:"FNumber"`
@@ -114,6 +118,9 @@ func (Q *qtckModelBase) addModelFEntity(inT *QTCRKEntry) {
 		FStockId: struct {
 			FNumber string `json:"FNumber"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
+		FLot: struct {
+			FNumber string `json:"FNumber"`
+		}(struct{ FNumber string }{FNumber: strings.TrimRight(inT.FLOT_TEXT, " ")}),
 		FOwnerTypeId: "BD_OwnerOrg",
 		FOwnerId: struct {
 			FNumber string `json:"FNumber"`

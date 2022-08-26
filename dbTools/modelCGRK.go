@@ -3,6 +3,7 @@ package dbTools
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type cgrkModelBase struct {
@@ -40,6 +41,9 @@ type cgrkModelsEntity struct {
 	FStockId struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FStockId"`
+	FLot struct {
+		FNumber string `json:"FNUMBER"`
+	} `json:"FLOT_TEXT"`
 	FOWNERID struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FOWNERID"`
@@ -142,6 +146,9 @@ func (Q *cgrkModelBase) addModelFEntity(inT *CGDDEntry) {
 		FStockId: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
+		FLot: struct {
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: strings.TrimRight(inT.FLOT_TEXT, " ")}),
 		FOWNERID: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),

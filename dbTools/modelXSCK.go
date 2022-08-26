@@ -3,6 +3,7 @@ package dbTools
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type xsckModelBase struct {
@@ -50,6 +51,9 @@ type xsckModelsEntity struct {
 	} `json:"FKeeperId"`
 	FRealQty string `json:"FRealQty"`
 	FPrice   string `json:"FPrice"`
+	FLot struct {
+		FNumber string `json:"FNUMBER"`
+	} `json:"FLOT_TEXT"`
 	FStockID struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FStockID"`
@@ -161,6 +165,9 @@ func (Q *xsckModelBase) addModelFEntity(inT *XSDDEntry) {
 		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
 		FRealQty: inT.FMustQty,
 		FPrice:   inT.FPrice,
+		FLot: struct {
+			FNumber string `json:"FNUMBER"`
+		}(struct{ FNumber string }{FNumber: strings.TrimRight(inT.FLOT_TEXT, " ")}),
 		FStockID: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
