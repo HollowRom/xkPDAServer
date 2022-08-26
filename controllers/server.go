@@ -15,7 +15,7 @@ const (
 	defOrgKey      = "FOrgNumber"
 	defBillKey     = "FBillNo"
 	defSuppKey     = "FSupplierNumber"
-	defNumberKey   = "Id"
+	defNumberKey   = "FNumber"
 	defGoodNumberKey = "FGoodNumber"
 	defStockNumberKey = "FStockNumber"
 	defCustNumberKey = "FCustNumber"

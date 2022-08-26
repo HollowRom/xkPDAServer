@@ -50,9 +50,11 @@ func GetSCDDMain(orgNumber, fNumber, fBillNo string) []*SCDDMain {
 
 func getSCDDMain(orgNumber, fNumber, fBillNo string) (r []*SCDDMain) {
 	siss := db.Where(fmt.Sprintf("FUseOrgNumber = '%s'", orgNumber))
+	fmt.Println("fBillNo:" + fBillNo)
 	if fBillNo != "" {
 		siss = siss.And(fmt.Sprintf("FBILLNO like '%s%%'", fBillNo))
 	}
+	fmt.Println("fNumber:" + fNumber)
 	if fNumber != "" {
 		siss = siss.And(fmt.Sprintf("FNUMBER like '%s%%'", fNumber))
 	}
@@ -81,7 +83,6 @@ func getSCDDEntry(FBillNo string) (r []*SCDDEntry) {
 		fmt.Println(e)
 		return nil
 	}
-
 	if len(r) == 0 {
 		fmt.Println("返回nil")
 		return nil
