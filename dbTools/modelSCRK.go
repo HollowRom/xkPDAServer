@@ -88,32 +88,7 @@ type scrkFENTITY_Link struct {
 
 type SCRKMini struct {
 	EntityMini []*SCDDEntry `json:"FEntity"`
-	//HeadMini   *SCDDMain `json:"HeadMini"`
 }
-
-//type scrkEntityMini struct {
-//	FNUMBER    string
-//	FENTRYID        int
-//	FBaseUnitNumber string
-//	FMustQty        string
-//	FPrice          string
-//	FStockNumber   string
-//	FNote          string
-//	FStockStatusId string
-//	FLOT_TEXT string
-//	FMOBILLNO string
-//	FMOID       int
-//	FMOENTRYID  int
-//	FMOENTRYSEQ  int
-//	FBILLNO      string
-//	FSrcBillType string
-//	FID          int
-//	FLinkInfo    []map[string]string
-//}
-
-//type scrkHeadMini struct {
-//	FUseOrgNumber string
-//}
 
 var _ ModelBaseInterface = &scrkModelBase{}
 
