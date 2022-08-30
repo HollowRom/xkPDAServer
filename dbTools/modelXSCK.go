@@ -81,27 +81,7 @@ type xsckFEntity_Link struct {
 
 type XSCKMini struct {
 	EntityMini []*XSDDEntry
-	HeadMini   *XSDDMain
 }
-
-//type xsckEntityMini struct {
-//	FCustNumber string
-//	Id         string
-//	FBaseUnitNumber string
-//	FMustQty        string
-//	FStockNumber    string
-//	FPrice         string
-//	FStockStatusId string
-//	FBILLNO    string
-//	FENTRYID  int
-//	FID       int
-//	FLinkInfo []map[string]string
-//}
-
-//type xsckHeadMini struct {
-//	FUseOrgNumber string
-//	FCustNumber   string
-//}
 
 var _ ModelBaseInterface = &xsckModelBase{}
 
@@ -137,7 +117,7 @@ func (Q *xsckModelBase) GetJson() []byte {
 }
 
 func (Q *xsckModelBase) AddModelHead(in interface{}) {
-	inT, ok := in.(*XSDDMain)
+	inT, ok := in.(*XSDDEntry)
 	if !ok {
 		return
 	}

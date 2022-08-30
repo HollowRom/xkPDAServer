@@ -34,6 +34,7 @@ func postXSCK(context *gin.Context) { // 定义请求接口和处理匿名函数
 			return
 		}
 	}
+	fmt.Println("收到的post:" + string(buf[0:i]))
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
@@ -48,11 +49,11 @@ func postXSCK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		return
 	}
 
-	if miniStr.HeadMini == nil {
-		fmt.Println("解析post异常,QTCKHeadMini不能为空")
-		setErrJson(context, e)
-		return
-	}
+	//if miniStr.HeadMini == nil {
+	//	fmt.Println("解析post异常,QTCKHeadMini不能为空")
+	//	setErrJson(context, e)
+	//	return
+	//}
 
 	if miniStr.EntityMini == nil {
 		fmt.Println("解析post异常,QTCKEntityMini不能为空")
@@ -69,28 +70,26 @@ func postXSCK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		if qm.FStockStatusId == "" {
 			qm.FStockStatusId = defXSCKFStockStatusId
 		}
-		if qm.FBILLNO != "" && qm.FLinkInfo != nil {
-			if len(qm.FLinkInfo) == 0 {
-				qm.FLinkInfo = append(qm.FLinkInfo, map[string]string{})
-			}
-			if qm.FLinkInfo[0]["FENTITY_Link_FRuleId"] == "" {
-				qm.FLinkInfo[0]["FENTITY_Link_FRuleId"] = defXSCKLinkFRuleId
-			}
-			if qm.FLinkInfo[0]["FENTITY_Link_FSTableName"] == "" {
-				qm.FLinkInfo[0]["FENTITY_Link_FSTableName"] = defXSCKLinkFSTableName
-			}
-			if qm.FLinkInfo[0]["FENTITY_Link_FSBillId"] == "" {
-				qm.FLinkInfo[0]["FENTITY_Link_FSBillId"] = strconv.Itoa(qm.FID)
-			}
-			if qm.FLinkInfo[0]["FENTITY_Link_FSId"] == "" {
-				qm.FLinkInfo[0]["FENTITY_Link_FSId"] = strconv.Itoa(qm.FENTRYID)
-			}
-			if qm.FLinkInfo[0]["FEntity_Link_FBaseUnitQty"] == "" {
-				qm.FLinkInfo[0]["FEntity_Link_FBaseUnitQty"] = qm.FMustQty
-			}
-			if qm.FLinkInfo[0]["FEntity_Link_FSALBASEQTY"] == "" {
-				qm.FLinkInfo[0]["FEntity_Link_FSALBASEQTY"] = qm.FMustQty
-			}
+		if len(qm.FLinkInfo) == 0 {
+			qm.FLinkInfo = append(qm.FLinkInfo, map[string]string{})
+		}
+		if qm.FLinkInfo[0]["FENTITY_Link_FRuleId"] == "" {
+			qm.FLinkInfo[0]["FENTITY_Link_FRuleId"] = defXSCKLinkFRuleId
+		}
+		if qm.FLinkInfo[0]["FENTITY_Link_FSTableName"] == "" {
+			qm.FLinkInfo[0]["FENTITY_Link_FSTableName"] = defXSCKLinkFSTableName
+		}
+		if qm.FLinkInfo[0]["FENTITY_Link_FSBillId"] == "" {
+			qm.FLinkInfo[0]["FENTITY_Link_FSBillId"] = strconv.Itoa(qm.FID)
+		}
+		if qm.FLinkInfo[0]["FENTITY_Link_FSId"] == "" {
+			qm.FLinkInfo[0]["FENTITY_Link_FSId"] = strconv.Itoa(qm.FENTRYID)
+		}
+		if qm.FLinkInfo[0]["FEntity_Link_FBaseUnitQty"] == "" {
+			qm.FLinkInfo[0]["FEntity_Link_FBaseUnitQty"] = qm.FMustQty
+		}
+		if qm.FLinkInfo[0]["FEntity_Link_FSALBASEQTY"] == "" {
+			qm.FLinkInfo[0]["FEntity_Link_FSALBASEQTY"] = qm.FMustQty
 		}
 	}
 
