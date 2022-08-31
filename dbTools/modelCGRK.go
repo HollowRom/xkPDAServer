@@ -21,31 +21,31 @@ type cgrkModels struct {
 	} `json:"FBillTypeID"`
 	FDate       string `json:"FDate"`
 	FStockOrgId struct {
-		FNumber string `json:"FNUMBER"`
+		FNumber string `json:"FNumber"`
 	} `json:"FStockOrgId"`
 	FSupplierId struct {
-		FNumber string `json:"FNUMBER"`
+		FNumber string `json:"FNumber"`
 	} `json:"FSupplierId"`
 	FInStockEntry []*cgrkModelsEntity `json:"FInStockEntry"`
 }
 
 type cgrkModelsEntity struct {
 	FMaterialId struct {
-		FNumber string `json:"FNUMBER"`
+		FNumber string `json:"FNumber"`
 	} `json:"FMaterialId"`
 	FUnitID struct {
-		FNumber string `json:"FNUMBER"`
+		FNumber string `json:"FNumber"`
 	} `json:"FUnitID"`
 	FRealQty string `json:"FRealQty"`
 	FPrice   string `json:"FPrice"`
 	FStockId struct {
-		FNumber string `json:"FNUMBER"`
+		FNumber string `json:"FNumber"`
 	} `json:"FStockId"`
 	FLot struct {
-		FNumber string `json:"FNUMBER"`
+		FNumber string `json:"FNumber"`
 	} `json:"FLOT_TEXT"`
 	FOWNERID struct {
-		FNumber string `json:"FNUMBER"`
+		FNumber string `json:"FNumber"`
 	} `json:"FOWNERID"`
 	FPOOrderNo        string                    `json:"FPOOrderNo"`
 	FSRCBILLTYPEID    string                    `json:"FSRCBILLTYPEID"`
@@ -67,29 +67,6 @@ type CGRKMini struct {
 	EntityMini []*CGDDEntry
 	HeadMini   *CGDDMain
 }
-
-//type EntityMini struct {
-//	FNUMBER         string
-//	FBaseUnitNumber string
-//	FMustQty        string
-//	FPrice          string //**
-//	FStockNumber    string
-//	FNote           string
-//	FStockStatusId  string
-//	FKeeperId       string
-//	FLOT_TEXT  string
-//	FSRCBILLNO string
-//	FBILLNO    string
-//	FSrcBillType  string
-//	FSRCID      int
-//	FSRCENTRYID int
-//	FLinkInfo   []map[string]string
-//}
-
-//type HeadMini struct {
-//	FUseOrgNumber string
-//	FSupplierNumber   string
-//}
 
 var _ ModelBaseInterface = &cgrkModelBase{}
 
@@ -125,7 +102,7 @@ func (Q *cgrkModelBase) GetJson() []byte {
 }
 
 func (Q *cgrkModelBase) AddModelHead(in interface{}) {
-	inT, ok := in.(*CGDDMain)
+	inT, ok := in.(*CGDDEntry)
 	if !ok {
 		return
 	}
@@ -136,26 +113,28 @@ func (Q *cgrkModelBase) AddModelHead(in interface{}) {
 func (Q *cgrkModelBase) addModelFEntity(inT *CGDDEntry) {
 	t := &cgrkModelsEntity{
 		FMaterialId: struct {
-			FNumber string `json:"FNUMBER"`
+			FNumber string `json:"FNumber"`
 		}(struct{ FNumber string }{FNumber: inT.FNUMBER}),
 		FUnitID: struct {
-			FNumber string `json:"FNUMBER"`
+			FNumber string `json:"FNumber"`
 		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
-		FRealQty: inT.FMustQty,
+		FRealQty: inT.SQTY,
 		FPrice:   inT.FPrice,
 		FStockId: struct {
-			FNumber string `json:"FNUMBER"`
+			FNumber string `json:"FNumber"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
 		FLot: struct {
-			FNumber string `json:"FNUMBER"`
+			FNumber string `json:"FNumber"`
 		}(struct{ FNumber string }{FNumber: strings.TrimRight(inT.FLOT_TEXT, " ")}),
 		FOWNERID: struct {
-			FNumber string `json:"FNUMBER"`
+			FNumber string `json:"FNumber"`
 		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
-		FPOOrderNo:      inT.FSRCBILLNO,
+		FPOOrderNo:      inT.FBILLNO,
+		//FPOOrderNo:      inT.FSRCBILLNO,
 		FSRCBILLTYPEID:  inT.FSrcBillType,
 		FSRCBillNo:      inT.FBILLNO,
-		FPOORDERENTRYID: inT.FSRCENTRYID,
+		FPOORDERENTRYID: inT.FENTRYID,
+		//FPOORDERENTRYID: inT.FSRCENTRYID,
 	}
 	if inT.FLinkInfo != nil && len(inT.FLinkInfo) == 1 {
 		tempLinkMap := &cgrkFInStockEntry_Link{

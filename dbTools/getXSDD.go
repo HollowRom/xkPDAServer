@@ -24,6 +24,7 @@ type XSDDEntry struct {
 	FSEQ            int `json:",,string"`
 	FORDERNO        string
 	FORDERSEQ       int `json:",,string"`
+	FSOEntryId int `json:",,string"`
 	FMATERIALID     int `json:",,string"`
 	FNUMBER         string
 	FNAME           string
@@ -38,6 +39,7 @@ type XSDDEntry struct {
 	FPrice          string              `xorm:"-"`
 	FStockStatusId  string              `xorm:"-"`
 	FISBATCHMANAGE  string
+	FStockerId string `xorm:"-"`
 }
 
 func (*XSDDEntry) TableName() string {

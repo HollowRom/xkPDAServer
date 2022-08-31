@@ -25,20 +25,23 @@ type xsckModels struct {
 	} `json:"FSaleOrgId"`
 	FCustomerID struct {
 		FNumber string `json:"FNUMBER"`
-	} `json:"FCustNumber"`
+	} `json:"FCustomerID"`
+	FStockerID struct{
+		FNumber string `json:"FNumber"`
+	}
 	FStockOrgId struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FStockOrgId"`
 	FSettleID struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FSettleID"`
-	FEntity []*xsckModelsEntity `json:"FInStockEntry"`
+	FEntity []*xsckModelsEntity `json:"FEntity"`
 }
 
 type xsckModelsEntity struct {
 	FCustMatID struct {
 		FNumber string `json:"FNUMBER"`
-	} `json:"FCustNumber"`
+	} `json:"FCustMatID"`
 	FMaterialID struct {
 		FNumber string `json:"FNUMBER"`
 	} `json:"FMaterialID"`
@@ -66,8 +69,8 @@ type xsckModelsEntity struct {
 	} `json:"FSalUnitID"`
 	FSALUNITQTY  string              `json:"FSALUNITQTY"`
 	FSALBASEQTY  string              `json:"FSALBASEQTY"`
-	FSOEntryId   int                 `json:"FENTRYID"`
-	FSoorDerno   string              `json:"FBILLNO"`
+	FSOEntryId   int                 `json:"FSOEntryId"`
+	FSoorDerno   string              `json:"FSoorDerno"`
 	FEntity_Link []*xsckFEntity_Link `json:"FEntity_Link"`
 }
 
@@ -76,7 +79,8 @@ type xsckFEntity_Link struct {
 	FEntity_Link_FSTableName     string `json:"FEntity_Link_FSTableName"`
 	FEntity_Link_FSBillId        string `json:"FEntity_Link_FSBillId"`
 	FEntity_Link_FSId            string `json:"FEntity_Link_FSId"`
-	FEntity_Link_FBasePrdRealQty string `json:"FEntity_Link_FBasePrdRealQty"`
+	FEntity_Link_FBaseUnitQty string `json:"FEntity_Link_FBaseUnitQty"`
+	FEntity_Link_FSALBASEQTY string `json:"FEntity_Link_FSALBASEQTY"`
 }
 
 type XSCKMini struct {
@@ -126,6 +130,7 @@ func (Q *xsckModelBase) AddModelHead(in interface{}) {
 	Q.Data.Model.FCustomerID.FNumber = inT.FCustNumber
 	Q.Data.Model.FStockOrgId.FNumber = inT.FUseOrgNumber
 	Q.Data.Model.FSettleID.FNumber = inT.FUseOrgNumber
+	Q.Data.Model.FStockerID.FNumber = inT.FStockerId //"027"
 }
 
 func (Q *xsckModelBase) addModelFEntity(inT *XSDDEntry) {
@@ -143,7 +148,7 @@ func (Q *xsckModelBase) addModelFEntity(inT *XSDDEntry) {
 		FKeeperId: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FUseOrgNumber}),
-		FRealQty: inT.FMustQty,
+		FRealQty: inT.SQTY,
 		FPrice:   inT.FPrice,
 		FLot: struct {
 			FNumber string `json:"FNUMBER"`
@@ -151,24 +156,25 @@ func (Q *xsckModelBase) addModelFEntity(inT *XSDDEntry) {
 		FStockID: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FStockNumber}),
-		FAuxUnitQty: inT.FMustQty,
+		FAuxUnitQty: inT.SQTY,
 		FStockStatusID: struct {
 			Id string `json:"Id"`
 		}(struct{ Id string }{Id: inT.FStockStatusId}),
 		FSalUnitID: struct {
 			FNumber string `json:"FNUMBER"`
 		}(struct{ FNumber string }{FNumber: inT.FBaseUnitNumber}),
-		FSALUNITQTY: inT.FMustQty,
-		FSALBASEQTY: inT.FMustQty,
-		FSOEntryId:  inT.FENTRYID,
-		FSoorDerno:  inT.FBILLNO,
+		FSALUNITQTY: inT.SQTY,
+		FSALBASEQTY: inT.SQTY,
+		FSOEntryId:  inT.FSOEntryId,
+		FSoorDerno:  inT.FORDERNO,
 	}
 	t.FEntity_Link = append(t.FEntity_Link, &xsckFEntity_Link{
 		FEntity_Link_FRuleId:         inT.FLinkInfo[0]["FEntity_Link_FRuleId"],
 		FEntity_Link_FSTableName:     inT.FLinkInfo[0]["FEntity_Link_FSTableName"],
 		FEntity_Link_FSBillId:        inT.FLinkInfo[0]["FEntity_Link_FSBillId"],
 		FEntity_Link_FSId:            inT.FLinkInfo[0]["FEntity_Link_FSId"],
-		FEntity_Link_FBasePrdRealQty: inT.FLinkInfo[0]["FEntity_Link_FBasePrdRealQty"],
+		FEntity_Link_FBaseUnitQty: inT.FLinkInfo[0]["FEntity_Link_FBaseUnitQty"],
+		FEntity_Link_FSALBASEQTY: inT.FLinkInfo[0]["FEntity_Link_FSALBASEQTY"],
 	})
 	Q.Data.Model.FEntity = append(Q.Data.Model.FEntity, t)
 }

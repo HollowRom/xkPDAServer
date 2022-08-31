@@ -12,7 +12,8 @@ type CGDDMain struct {
 }
 
 func (*CGDDMain) TableName() string {
-	return "xkPdaServer_sltz_to_cgrk_tool"
+	return "xkPdaServer_poorder_to_stockin_tool"
+	//return "xkPdaServer_sltz_to_cgrk_tool"
 }
 
 type CGDDEntry struct {
@@ -48,7 +49,8 @@ type CGDDEntry struct {
 }
 
 func (*CGDDEntry) TableName() string {
-	return "xkPdaServer_sltz_to_cgrk_tool"
+	return "xkPdaServer_poorder_to_stockin_tool"
+	//return "xkPdaServer_sltz_to_cgrk_tool"
 }
 
 func GetAllCGDDMain(orgNumber string) []*CGDDMain {
@@ -72,7 +74,7 @@ func getCGDDMain(orgNumber, supplierNumber, FBillNo string) (r []*CGDDMain) {
 		fmt.Println(e)
 		return nil
 	}
-
+	fmt.Println(siss.LastSQL())
 	if len(r) == 0 {
 		fmt.Println("返回nil")
 		return nil

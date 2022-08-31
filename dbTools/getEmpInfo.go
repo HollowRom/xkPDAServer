@@ -5,10 +5,10 @@ import (
 )
 
 type EmpInfo struct {
-	FMASTERID     int
+	FMASTERID     int `json:",,string"`
 	FNUMBER       string
 	FNAME         string
-	FUSEORGID     int
+	FUSEORGID     int `json:",,string"`
 	FUseOrgNumber string
 }
 

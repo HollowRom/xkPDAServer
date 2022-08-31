@@ -49,11 +49,11 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		return
 	}
 
-	if miniStr.HeadMini == nil {
-		fmt.Println("解析post异常,QTCKHeadMini不能为空")
-		setErrJson(context, e)
-		return
-	}
+	//if miniStr.HeadMini == nil {
+	//	fmt.Println("解析post异常,QTCKHeadMini不能为空")
+	//	setErrJson(context, e)
+	//	return
+	//}
 
 	if miniStr.EntityMini == nil {
 		fmt.Println("解析post异常,QTCKEntityMini不能为空")
@@ -70,33 +70,32 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		if qm.FStockStatusId == "" {
 			qm.FStockStatusId = defCGRKFStockStatusId
 		}
-		if qm.FSRCBILLNO != "" && qm.FLinkInfo != nil {
-			if len(qm.FLinkInfo) == 0 {
-				qm.FLinkInfo = append(qm.FLinkInfo, map[string]string{})
-			}
-			if qm.FSrcBillType == "" {
-				qm.FSrcBillType = defCGRKFSrcBillTypeID
-			}
-			if qm.FLinkInfo[0]["FInStockEntry_Link_FRuleId"] == "" {
-				qm.FLinkInfo[0]["FInStockEntry_Link_FRuleId"] = defCGRKLinkFRuleId
-			}
-			if qm.FLinkInfo[0]["FInStockEntry_Link_FSTableName"] == "" {
-				qm.FLinkInfo[0]["FInStockEntry_Link_FSTableName"] = defCGRKLinkFSTableName
-			}
+		if len(qm.FLinkInfo) == 0 {
+			qm.FLinkInfo = append(qm.FLinkInfo, map[string]string{})
+		}
+		if qm.FSrcBillType == "" {
+			qm.FSrcBillType = defCGRKFSrcBillTypeID
+		}
+		if qm.FLinkInfo[0]["FInStockEntry_Link_FRuleId"] == "" {
+			qm.FLinkInfo[0]["FInStockEntry_Link_FRuleId"] = defCGRKLinkFRuleId
+		}
+		if qm.FLinkInfo[0]["FInStockEntry_Link_FSTableName"] == "" {
+			qm.FLinkInfo[0]["FInStockEntry_Link_FSTableName"] = defCGRKLinkFSTableName
+		}
 
-			if qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] == "" {
-				qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] = strconv.Itoa(qm.FSRCID)
-			}
-			if qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] == "" {
-				qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] = strconv.Itoa(qm.FSRCENTRYID)
-			}
-			if qm.FLinkInfo[0]["FInStockEntry_Link_FBaseUnitQty"] == "" {
-				qm.FLinkInfo[0]["FInStockEntry_Link_FBaseUnitQty"] = qm.FMustQty
-			}
-			if qm.FLinkInfo[0]["FInStockEntry_Link_FRemainInStockBaseQty"] == "" {
-				qm.FLinkInfo[0]["FInStockEntry_Link_FRemainInStockBaseQty"] = qm.FMustQty
-			}
-
+		if qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] == "" {
+			qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] = strconv.Itoa(qm.FID)
+			//qm.FLinkInfo[0]["FInStockEntry_Link_FSBillId"] = strconv.Itoa(qm.FSRCID)
+		}
+		if qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] == "" {
+			qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] = strconv.Itoa(qm.FENTRYID)
+			//qm.FLinkInfo[0]["FInStockEntry_Link_FSId"] = strconv.Itoa(qm.FSRCENTRYID)
+		}
+		if qm.FLinkInfo[0]["FInStockEntry_Link_FBaseUnitQty"] == "" {
+			qm.FLinkInfo[0]["FInStockEntry_Link_FBaseUnitQty"] = qm.SQTY
+		}
+		if qm.FLinkInfo[0]["FInStockEntry_Link_FRemainInStockBaseQty"] == "" {
+			qm.FLinkInfo[0]["FInStockEntry_Link_FRemainInStockBaseQty"] = qm.SQTY
 		}
 	}
 

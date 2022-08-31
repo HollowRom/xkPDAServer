@@ -73,23 +73,23 @@ func postXSCK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		if len(qm.FLinkInfo) == 0 {
 			qm.FLinkInfo = append(qm.FLinkInfo, map[string]string{})
 		}
-		if qm.FLinkInfo[0]["FENTITY_Link_FRuleId"] == "" {
-			qm.FLinkInfo[0]["FENTITY_Link_FRuleId"] = defXSCKLinkFRuleId
+		if qm.FLinkInfo[0]["FEntity_Link_FRuleId"] == "" {
+			qm.FLinkInfo[0]["FEntity_Link_FRuleId"] = defXSCKLinkFRuleId
 		}
-		if qm.FLinkInfo[0]["FENTITY_Link_FSTableName"] == "" {
-			qm.FLinkInfo[0]["FENTITY_Link_FSTableName"] = defXSCKLinkFSTableName
+		if qm.FLinkInfo[0]["FEntity_Link_FSTableName"] == "" {
+			qm.FLinkInfo[0]["FEntity_Link_FSTableName"] = defXSCKLinkFSTableName
 		}
-		if qm.FLinkInfo[0]["FENTITY_Link_FSBillId"] == "" {
-			qm.FLinkInfo[0]["FENTITY_Link_FSBillId"] = strconv.Itoa(qm.FID)
+		if qm.FLinkInfo[0]["FEntity_Link_FSBillId"] == "" {
+			qm.FLinkInfo[0]["FEntity_Link_FSBillId"] = strconv.Itoa(qm.FID)
 		}
-		if qm.FLinkInfo[0]["FENTITY_Link_FSId"] == "" {
-			qm.FLinkInfo[0]["FENTITY_Link_FSId"] = strconv.Itoa(qm.FENTRYID)
+		if qm.FLinkInfo[0]["FEntity_Link_FSId"] == "" {
+			qm.FLinkInfo[0]["FEntity_Link_FSId"] = strconv.Itoa(qm.FENTRYID)
 		}
 		if qm.FLinkInfo[0]["FEntity_Link_FBaseUnitQty"] == "" {
-			qm.FLinkInfo[0]["FEntity_Link_FBaseUnitQty"] = qm.FMustQty
+			qm.FLinkInfo[0]["FEntity_Link_FBaseUnitQty"] = qm.SQTY
 		}
 		if qm.FLinkInfo[0]["FEntity_Link_FSALBASEQTY"] == "" {
-			qm.FLinkInfo[0]["FEntity_Link_FSALBASEQTY"] = qm.FMustQty
+			qm.FLinkInfo[0]["FEntity_Link_FSALBASEQTY"] = qm.SQTY
 		}
 	}
 
