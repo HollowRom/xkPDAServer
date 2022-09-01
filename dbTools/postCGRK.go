@@ -7,6 +7,7 @@ import (
 
 const (
 	defCGDDBillType = "a1ff32276cd9469dad3bf2494366fa4f"
+	//defCGDDBillType = "ac569f05-f5da-478b-b509-6f0d703b4232"
 	defCGDDFromId   = "STK_InStock"
 )
 

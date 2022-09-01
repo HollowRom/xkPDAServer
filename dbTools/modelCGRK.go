@@ -43,14 +43,14 @@ type cgrkModelsEntity struct {
 	} `json:"FStockId"`
 	FLot struct {
 		FNumber string `json:"FNumber"`
-	} `json:"FLOT_TEXT"`
+	} `json:"FLot"`
 	FOWNERID struct {
 		FNumber string `json:"FNumber"`
 	} `json:"FOWNERID"`
 	FPOOrderNo        string                    `json:"FPOOrderNo"`
 	FSRCBILLTYPEID    string                    `json:"FSRCBILLTYPEID"`
 	FSRCBillNo        string                    `json:"FSRCBillNo"`
-	FPOORDERENTRYID   int                       `json:"FENTRYID"`
+	FPOORDERENTRYID   int                       `json:"FPOORDERENTRYID"`
 	FinstockentryLink []*cgrkFInStockEntry_Link `json:"FInStockEntry_Link"`
 }
 

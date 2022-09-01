@@ -13,8 +13,11 @@ import (
 
 var (
 	defCGRKFStockStatusId  = "10000"
+	//defCGRKFSrcBillTypeID  = "PUR_PurchaseOrder"
 	defCGRKFSrcBillTypeID  = "PUR_PurchaseOrder"
 	defCGRKLinkFSTableName = "t_PUR_POOrderEntry"
+	//defCGRKLinkFRuleId     = "PUR_PurchaseOrder-STK_InStock"
+
 	defCGRKLinkFRuleId     = "PUR_PurchaseOrder-STK_InStock"
 )
 
