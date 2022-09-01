@@ -19,6 +19,7 @@ const (
 	defGoodNumberKey = "FGoodNumber"
 	defStockNumberKey = "FStockNumber"
 	defCustNumberKey = "FCustNumber"
+	defLostTextKey = "FLotText"
 )
 
 var defPort = ":8090"
@@ -73,6 +74,10 @@ func Init() {
 	engine.GET("/getAllOrg", getAllOrg)
 
 	engine.GET("/getOrg", getOrg)
+
+	engine.GET("/getAllInventory", getAllInventory)
+
+	engine.GET("/getInventory", getInventory)
 
 	engine.GET("/getAllCGDDMain", getAllCGDDMain)
 
