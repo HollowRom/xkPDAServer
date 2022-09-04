@@ -46,9 +46,9 @@ func (*XSDDEntry) TableName() string {
 	return "xkPdaServer_sale_tz_to_stockout_tool"
 }
 
-func GetAllXSDDMain(orgNumber string) []*XSDDMain {
-	return getXSDDMain(orgNumber, "", "")
-}
+//func GetAllXSDDMain(orgNumber string) []*XSDDMain {
+//	return getXSDDMain(orgNumber, "", "")
+//}
 
 func GetXSDDMain(orgNumber, custNumber, fBillNo string) []*XSDDMain {
 	return getXSDDMain(orgNumber, custNumber, fBillNo)

@@ -15,6 +15,10 @@ var (
 	defQTCKFStockStatusId = "10000"
 )
 
+func init() {
+	AddHandlerPost("/postQTCK", postQTCK)
+}
+
 func postQTCK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	buf := make([]byte, defReadBufSize)
 	i, e := context.Request.Body.Read(buf)

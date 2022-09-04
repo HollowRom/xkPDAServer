@@ -16,9 +16,9 @@ func (*CustomerInfo) TableName() string {
 	return "xkPdaServer_customer_tool"
 }
 
-func GetAllCustomer(orgNum string) []*CustomerInfo {
-	return getCustomer(orgNum, "")
-}
+//func GetAllCustomer(orgNum string) []*CustomerInfo {
+//	return getCustomer(orgNum, "")
+//}
 
 func GetCustomer(orgNum, number string) []*CustomerInfo {
 	return getCustomer(orgNum, number)

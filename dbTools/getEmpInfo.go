@@ -16,10 +16,6 @@ func (*EmpInfo) TableName() string {
 	return "xkPdaServer_empInfo_tool"
 }
 
-func GetAllEmp(orgNum string) []*EmpInfo {
-	return getEmp(orgNum, "")
-}
-
 func GetEmp(orgNum, number string) []*EmpInfo {
 	return getEmp(orgNum, number)
 }

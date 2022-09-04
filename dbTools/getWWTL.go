@@ -51,9 +51,9 @@ func (*WWTLEntry) TableName() string {
 	return "xkPdaServer_sub_ppbom_to_stockout_tool"
 }
 
-func GetAllWWTLMain(orgNumber string) []*WWTLMain {
-	return getWWTLMain(orgNumber, "", "")
-}
+//func GetAllWWTLMain(orgNumber string) []*WWTLMain {
+//	return getWWTLMain(orgNumber, "", "")
+//}
 
 func GetWWTLMain(orgNumber, supplierNumber, FBillNo string) []*WWTLMain {
 	return getWWTLMain(orgNumber, supplierNumber, FBillNo)

@@ -18,6 +18,10 @@ var (
 	defSCRKLinkFRuleId     = "PRD_MO2INSTOCK"
 )
 
+func init() {
+	AddHandlerPost("/postSCRK", postSCRK)
+}
+
 func postSCRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	buf := make([]byte, defReadBufSize)
 	i, e := context.Request.Body.Read(buf)

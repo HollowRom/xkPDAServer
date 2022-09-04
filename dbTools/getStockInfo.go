@@ -16,9 +16,9 @@ func (*StockInto) TableName() string {
 	return "xkPdaServer_stock_tool"
 }
 
-func GetAllStock(orgNum string) []*StockInto {
-	return getStock(orgNum, "")
-}
+//func GetAllStock(orgNum string) []*StockInto {
+//	return getStock(orgNum, "")
+//}
 
 func GetStock(orgNum, number string) []*StockInto {
 	return getStock(orgNum, number)

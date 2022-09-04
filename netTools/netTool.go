@@ -45,7 +45,9 @@ func GetConfListenPort() string {
 	return dbTools.GetConfFromKey("listenPort")
 }
 
-func Init() {
+var o sync.Once
+
+var oneInit = func() {
 	tempValue := dbTools.GetConfFromKey("acctid")
 	if tempValue != "" {
 		defLoginBase.AcctID = tempValue
@@ -64,6 +66,10 @@ func Init() {
 	}
 	fmt.Println("读取登录信息为:", *defLoginBase)
 	fmt.Println("星空登陆数据初始化完成")
+}
+
+func Init() {
+	o.Do(oneInit)
 }
 
 var client = &http.Client{}

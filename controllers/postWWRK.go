@@ -18,6 +18,10 @@ var (
 	defWWRKLinkFRuleId     = "PUR_ReceiveBill-STK_InStock"
 )
 
+func init() {
+	AddHandlerPost("/postWWRK", postWWRK)
+}
+
 func postWWRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	buf := make([]byte, defReadBufSize)
 	i, e := context.Request.Body.Read(buf)

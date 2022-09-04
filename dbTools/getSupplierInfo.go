@@ -18,9 +18,9 @@ func (*SupplierInfo) TableName() string {
 	return "xkPdaServer_supplier_tool"
 }
 
-func GetAllSupplier(orgNum string) []*SupplierInfo {
-	return getSupplier(orgNum, "")
-}
+//func GetAllSupplier(orgNum string) []*SupplierInfo {
+//	return getSupplier(orgNum, "")
+//}
 
 func GetSupplier(orgNum, number string) []*SupplierInfo {
 	return getSupplier(orgNum, number)

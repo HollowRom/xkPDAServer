@@ -50,9 +50,9 @@ func (*SCTLEntry) TableName() string {
 	return "xkPdaServer_prd_ppbom_to_stockOut_tool"
 }
 
-func GetAllSCTLMain(orgNumber string) []*SCTLMain {
-	return getSCTLMain(orgNumber, "")
-}
+//func GetAllSCTLMain(orgNumber string) []*SCTLMain {
+//	return getSCTLMain(orgNumber, "")
+//}
 
 func GetSCTLMain(orgNumber, fBillNo string) []*SCTLMain {
 	return getSCTLMain(orgNumber, fBillNo)

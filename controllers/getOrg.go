@@ -6,13 +6,8 @@ import (
 	"xkpdaserver/dbTools"
 )
 
-func getAllOrg(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetAllOrg()
-	if info == nil {
-		setErrJson(context, nil)
-		return
-	}
-	context.JSON(http.StatusOK, info)
+func init() {
+	AddHandlerGet("/getOrg", getOrg)
 }
 
 func getOrg(context *gin.Context) { // 定义请求接口和处理匿名函数

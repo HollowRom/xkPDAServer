@@ -16,9 +16,9 @@ func (*KeeperInfo) TableName() string {
 	return "xkPdaServer_keeperInfo_tool"
 }
 
-func GetAllKeeper(orgNum string) []*KeeperInfo {
-	return getKeeper(orgNum, "")
-}
+//func GetAllKeeper(orgNum string) []*KeeperInfo {
+//	return getKeeper(orgNum, "")
+//}
 
 func GetKeeper(orgNum, number string) []*KeeperInfo {
 	return getKeeper(orgNum, number)

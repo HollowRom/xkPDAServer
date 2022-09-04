@@ -21,6 +21,10 @@ var (
 	defCGRKLinkFRuleId     = "PUR_PurchaseOrder-STK_InStock"
 )
 
+func init() {
+	AddHandlerPost("/postCGRK", postCGRK)
+}
+
 func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	buf := make([]byte, defReadBufSize)
 	i, e := context.Request.Body.Read(buf)

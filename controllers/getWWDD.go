@@ -6,13 +6,9 @@ import (
 	"xkpdaserver/dbTools"
 )
 
-func getAllWWDDMain(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetAllWWDDMain(context.Query(defOrgKey))
-	if info == nil {
-		setErrJson(context, nil)
-		return
-	}
-	context.JSON(http.StatusOK, info)
+func init() {
+	AddHandlerGet("/getWWDDMain", getWWDDMain)
+	AddHandlerGet("/getWWDDEntry", getWWDDEntry)
 }
 
 func getWWDDMain(context *gin.Context) { // 定义请求接口和处理匿名函数

@@ -40,9 +40,9 @@ func (*GoodsInto) TableName() string {
 	return "xkPdaServer_good_tool"
 }
 
-func GetAllGood(orgNum string) []*GoodsInto {
-	return getGood(orgNum, "")
-}
+//func GetAllGood(orgNum string) []*GoodsInto {
+//	return getGood(orgNum, "")
+//}
 
 func GetGood(orgNum, number string) []*GoodsInto {
 	return getGood(orgNum, number)

@@ -7,11 +7,11 @@ import (
 )
 
 func init() {
-	AddHandlerGet("/getUser", getUser)
+	AddHandlerGet("/getDepart", getDepart)
 }
 
-func getUser(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetUser(context.Query(defNumberKey))
+func getDepart(context *gin.Context) { // 定义请求接口和处理匿名函数
+	info := dbTools.GetDepart(context.Query(defOrgKey), context.Query(defNumberKey))
 	if info == nil {
 		setErrJson(context, nil)
 		return

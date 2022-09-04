@@ -14,9 +14,9 @@ func (*OrgInfo) TableName() string {
 	return "xkPdaServer_orgInfo_tool"
 }
 
-func GetAllOrg() []*OrgInfo {
-	return getOrg("")
-}
+//func GetAllOrg() []*OrgInfo {
+//	return getOrg("")
+//}
 
 func GetOrg(number string) []*OrgInfo {
 	return getOrg(number)

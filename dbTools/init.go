@@ -2,6 +2,7 @@ package dbTools
 
 import (
 	"fmt"
+	"sync"
 	"xorm.io/xorm"
 	"xorm.io/xorm/names"
 )
@@ -12,7 +13,11 @@ var maxConnNum = 5
 var defDSN = "driver={SQL Server};Server=127.0.0.1;Database=AIS20210805182552;user id=sa;password=sa;"
 var defDSNConf = ""
 
-func Init(dsn string) {
+var dsn string
+
+var o sync.Once
+
+var oneInit = func () {
 	dbConfMap := map[string]string{}
 	tempValue := GetConfFromKey("ServerIp")
 	if tempValue != "" {
@@ -59,6 +64,11 @@ func Init(dsn string) {
 	db.SetMapper(names.SameMapper{})
 
 	fmt.Println("db初始化完成，未出现异常")
+}
+
+func Init(DSN string) {
+	dsn = DSN
+	o.Do(oneInit)
 }
 
 func GetDB() *xorm.Engine {

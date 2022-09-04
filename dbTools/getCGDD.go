@@ -53,10 +53,6 @@ func (*CGDDEntry) TableName() string {
 	//return "xkPdaServer_sltz_to_cgrk_tool"
 }
 
-func GetAllCGDDMain(orgNumber string) []*CGDDMain {
-	return getCGDDMain(orgNumber, "", "")
-}
-
 func GetCGDDMain(orgNumber, supplierNumber, FBillNo string) []*CGDDMain {
 	return getCGDDMain(orgNumber, supplierNumber, FBillNo)
 }

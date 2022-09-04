@@ -11,24 +11,8 @@ import (
 )
 
 func main() {
-	//a := AA{}
-	//_ = json.Unmarshal([]byte(aa), &a)
-	//
-	//fmt.Println(a)
-	//
-	//return
 	someInit()
 }
-
-//var aa = `{
-//   "code": "200001",
-//   "msg": "success"
-//}`
-
-//type AA struct {
-//	Code int `json:",,string"`
-//	Msg string `json:"msg"`
-//}
 
 func someInit() {
 	netTools.Init()
@@ -41,19 +25,6 @@ func someInit() {
 		}
 	}(dbTools.GetDB())
 
-	//db := dbTools.GetDB()
-
-	//var cgMain []*dbTools.GoodsInto
-
-	//ss := db1.Where(fmt.Sprintf("FUseOrgNumber = '%d'", 100)) //.Find(&cgMain)
-	//_ = ss.Find(&cgMain)
-	//cgMain = dbTools.GetGood("3.03", "100")
-	//
-	//for idx := 0; idx < len(cgMain); idx++ {
-	//	fmt.Println(*cgMain[idx])
-	//}
-	//fmt.Println("cgmain:", len(cgMain))
-	//return
 	if !netTools.TryLogin(nil) {
 		fmt.Println("登录失败")
 		panic(nil)

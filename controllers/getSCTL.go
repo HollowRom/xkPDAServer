@@ -6,13 +6,9 @@ import (
 	"xkpdaserver/dbTools"
 )
 
-func getAllSCTLMain(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetAllSCTLMain(context.Query(defOrgKey))
-	if info == nil {
-		setErrJson(context, nil)
-		return
-	}
-	context.JSON(http.StatusOK, info)
+func init() {
+	AddHandlerGet("/getSCTLMain", getSCTLMain)
+	AddHandlerGet("/getSCTLEntry", getSCTLEntry)
 }
 
 func getSCTLMain(context *gin.Context) { // 定义请求接口和处理匿名函数

@@ -10,6 +10,7 @@ type InventoryInfo struct {
 	FMATERIALID int `json:",,string"`
 	FNUMBER string
 	FNAME string
+	FBASEQTY float64 `json:",,string"`
 	FBaseUnitNumber string
 	FUPDATETIME string
 }
@@ -19,9 +20,9 @@ func (*InventoryInfo) TableName() string {
 	return "xkPdaServer_inventory_tool"
 }
 
-func GetAllInventory(orgNum string) []*InventoryInfo {
-	return getInventory(orgNum, "", "", "")
-}
+//func GetAllInventory(orgNum string) []*InventoryInfo {
+//	return getInventory(orgNum, "", "", "")
+//}
 
 func GetInventory(orgNum, fNumber, lotNumber, stockNumber string) []*InventoryInfo {
 	return getInventory(orgNum, fNumber, lotNumber, stockNumber)

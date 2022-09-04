@@ -40,9 +40,9 @@ func (*SCDDEntry) TableName() string {
 	return "xkPdaServer_mo_to_stockin_tool"
 }
 
-func GetAllSCDDMain(orgNumber string) []*SCDDMain {
-	return getSCDDMain(orgNumber, "", "")
-}
+//func GetAllSCDDMain(orgNumber string) []*SCDDMain {
+//	return getSCDDMain(orgNumber, "", "")
+//}
 
 func GetSCDDMain(orgNumber, fNumber, fBillNo string) []*SCDDMain {
 	return getSCDDMain(orgNumber, fNumber, fBillNo)

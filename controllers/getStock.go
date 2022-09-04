@@ -6,13 +6,8 @@ import (
 	"xkpdaserver/dbTools"
 )
 
-func getAllStock(context *gin.Context) { // 定义请求接口和处理匿名函数
-	info := dbTools.GetAllStock(context.Query(defOrgKey))
-	if info == nil {
-		setErrJson(context, nil)
-		return
-	}
-	context.JSON(http.StatusOK, info)
+func init() {
+	AddHandlerGet("/getStock", getStock)
 }
 
 func getStock(context *gin.Context) { // 定义请求接口和处理匿名函数

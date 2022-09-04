@@ -18,6 +18,10 @@ var (
 	defWWLLLinkFRuleId     = "SUB_PPBOM_Pick"
 )
 
+func init() {
+	AddHandlerPost("/postWWLL", postWWLL)
+}
+
 func postWWLL(context *gin.Context) { // 定义请求接口和处理匿名函数
 	buf := make([]byte, defReadBufSize)
 	i, e := context.Request.Body.Read(buf)

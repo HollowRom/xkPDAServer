@@ -43,9 +43,9 @@ func (*WWDDEntry) TableName() string {
 	return "xkPdaServer_pur_to_wwstockin_tool"
 }
 
-func GetAllWWDDMain(orgNumber string) []*WWDDMain {
-	return getWWDDMain(orgNumber, "", "")
-}
+//func GetAllWWDDMain(orgNumber string) []*WWDDMain {
+//	return getWWDDMain(orgNumber, "", "")
+//}
 
 func GetWWDDMain(orgNumber, supplierNumber, FBillNo string) []*WWDDMain {
 	return getWWDDMain(orgNumber, supplierNumber, FBillNo)

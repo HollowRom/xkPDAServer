@@ -4,27 +4,34 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"sync"
 	"xkpdaserver/dbTools"
 )
 
-var engine = gin.Default()
-
 const (
-	defICUrl       = "http://121.37.169.235/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
-	defReadBufSize = 10240
-	defOrgKey      = "FOrgNumber"
-	defBillKey     = "FBillNo"
-	defSuppKey     = "FSupplierNumber"
-	defNumberKey   = "FNumber"
-	defGoodNumberKey = "FGoodNumber"
+	defReadBufSize    = 10240
+	defOrgKey         = "FOrgNumber"
+	defBillKey        = "FBillNo"
+	defSuppKey        = "FSupplierNumber"
+	defNumberKey      = "FNumber"
+	defGoodNumberKey  = "FGoodNumber"
 	defStockNumberKey = "FStockNumber"
-	defCustNumberKey = "FCustNumber"
-	defLostTextKey = "FLotText"
+	defCustNumberKey  = "FCustNumber"
+	defLostTextKey    = "FLotText"
+	defHost = "http://121.37.169.235"
 )
+
+var defICUrl = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
+
+var engine = gin.Default()
 
 var defPort = ":8090"
 
 var returnEmptyJSOn = &gin.H{}
+
+var handlerGetMap = map[string]func(*gin.Context){}
+
+var handlerPostMap = map[string]func(*gin.Context){}
 
 func setErrJson(c *gin.Context, e error) {
 	if e != nil {
@@ -34,7 +41,28 @@ func setErrJson(c *gin.Context, e error) {
 	}
 }
 
-func Init() {
+func AddHandlerGet(k string, v func(*gin.Context)) {
+	handlerGetMap[k] = v
+}
+
+func AddHandlerPost(k string, v func(*gin.Context)) {
+	handlerPostMap[k] = v
+}
+
+var o sync.Once
+
+func init() {
+	AddHandlerGet("/ping", ping)
+	AddHandlerPost("/postPing", postPing)
+}
+
+var onceInit = func (){
+	userHost := dbTools.GetConfFromKey("ServerIp")
+	if userHost != "" {
+		defICUrl = "http://" + userHost + defICUrl
+	} else {
+		defICUrl = defHost + defICUrl
+	}
 	tempValue := dbTools.GetConfFromKey("listenPort")
 
 	if tempValue[0] != ':' {
@@ -43,103 +71,23 @@ func Init() {
 		defPort = tempValue
 	}
 
-	engine.GET("/ping", ping)
+	for k, v := range handlerGetMap {
+		engine.GET(k, v)
+	}
 
-	engine.GET("/getGood", getGood)
-
-	engine.GET("/getAllGood", getAllGood)
-
-	engine.GET("/getCustomer", getCustomer)
-
-	engine.GET("/getAllCustomer", getAllCustomer)
-
-	engine.GET("/getEmp", getEmp)
-
-	engine.GET("/getAllEmp", getAllEmp)
-
-	engine.GET("/getStock", getStock)
-
-	engine.GET("/getAllStock", getAllStock)
-
-	engine.GET("/getSupplier", getSupplier)
-
-	engine.GET("/getAllSupplier", getAllSupplier)
-
-	engine.GET("/getUser", getUser)
-
-	engine.GET("/getAllKeeper", getAllKeeper)
-
-	engine.GET("/getKeeper", getKeeper)
-
-	engine.GET("/getAllOrg", getAllOrg)
-
-	engine.GET("/getOrg", getOrg)
-
-	engine.GET("/getAllInventory", getAllInventory)
-
-	engine.GET("/getInventory", getInventory)
-
-	engine.GET("/getAllCGDDMain", getAllCGDDMain)
-
-	engine.GET("/getCGDDMain", getCGDDMain)
-
-	engine.GET("/getCGDDEntry", getCGDDEntry)
-
-	engine.GET("/getAllSCDDMain", getAllSCDDMain)
-
-	engine.GET("/getSCDDMain", getSCDDMain)
-
-	engine.GET("/getSCDDEntry", getSCDDEntry)
-
-	engine.GET("/getAllXSDDMain", getAllXSDDMain)
-
-	engine.GET("/getXSDDMain", getXSDDMain)
-
-	engine.GET("/getXSDDEntry", getXSDDEntry)
-
-	engine.GET("/getAllSCTLMain", getAllSCTLMain)
-
-	engine.GET("/getSCTLMain", getSCTLMain)
-
-	engine.GET("/getSCTLEntry", getSCTLEntry)
-
-	engine.GET("/getAllWWTLMain", getAllWWTLMain)
-
-	engine.GET("/getWWTLMain", getWWTLMain)
-
-	engine.GET("/getWWTLEntry", getWWTLEntry)
-
-	engine.GET("/getAllWWDDMain", getAllWWDDMain)
-
-	engine.GET("/getWWDDMain", getWWDDMain)
-
-	engine.GET("/getWWDDEntry", getWWDDEntry)
-
-	engine.GET("/getAllUser", getAllUser)
-
-	engine.POST("/postPing", postPing)
-
-	engine.POST("/postQTCK", postQTCK)
-
-	engine.POST("/postQTRK", postQTRK)
-
-	engine.POST("/postCGRK", postCGRK)
-
-	engine.POST("/postSCRK", postSCRK)
-
-	engine.POST("/postSCLL", postSCLL)
-
-	engine.POST("/postXSCK", postXSCK)
-
-	engine.POST("/postWWLL", postWWLL)
-
-	engine.POST("/postWWRK", postWWRK)
+	for k, v := range handlerPostMap {
+		engine.POST(k, v)
+	}
 
 	fmt.Println("注册路由完成尝试启动监听端口" + defPort)
 
 	if err := engine.Run(defPort); err != nil {
 		panic(err)
 	}
+}
+
+func Init() {
+	o.Do(onceInit)
 }
 
 func ping(context *gin.Context) {

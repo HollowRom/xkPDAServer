@@ -13,9 +13,9 @@ func (*UserInfo) TableName() string {
 	return "xkPdaServer_userInfo_tool"
 }
 
-func GetAllUser() []*UserInfo {
-	return getUser("")
-}
+//func GetAllUser() []*UserInfo {
+//	return getUser("")
+//}
 
 func GetUser(number string) []*UserInfo {
 	return getUser(number)

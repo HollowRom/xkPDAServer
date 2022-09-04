@@ -118,15 +118,15 @@ select *
 from xkPdaServer_poorder_to_stockin_tool
 
 select top 10000 a.FSTOCKORGID         as 仓库组织,
-              a.FKEEPERID           as 保管组织,
-              b.FNUMBER             as 仓库编码,
-              c.FNAME               as 仓库名称,
-              isnull(d.FNUMBER, '') as 批号编码,
-              e.FMATERIALID         as 编码内码,
-              e.FNUMBER             as 编码编号,
-              f.FNAME               as 编码名称,
-              g.FNUMBER             as 单位编码,
-              a.FUPDATETIME         as 最后入库时间
+                 a.FKEEPERID           as 保管组织,
+                 b.FNUMBER             as 仓库编码,
+                 c.FNAME               as 仓库名称,
+                 isnull(d.FNUMBER, '') as 批号编码,
+                 e.FMATERIALID         as 编码内码,
+                 e.FNUMBER             as 编码编号,
+                 f.FNAME               as 编码名称,
+                 g.FNUMBER             as 单位编码,
+                 a.FUPDATETIME         as 最后入库时间
 from T_STK_INVENTORY a
          left join
      T_BD_LOTMASTER d on a.FLOT = d.FLOTID,
@@ -148,3 +148,23 @@ where a.FSTOCKID = b.FSTOCKID
 
 select top 10 *
 from T_STK_INVENTORY
+
+
+select top 10 *
+from xkPdaServer_gxplan_to_gxreport_tool
+
+select top 10 *
+from T_SFC_OPERPLANNING
+
+
+select top 10 a.FDEPARTMENTID as 加工车间内码, b.fnumber, *
+from T_SFC_OPERPLANNINGDETAIL a, xkPdaServer_depart_tool b where a.FDEPARTMENTID = b.FMASTERID
+
+select a.FMASTERID, a.FNUMBER, b.FNAME, c.FNUMBER as FUseOrgNumber
+from T_BD_DEPARTMENT a,
+     T_BD_DEPARTMENT_L b,
+     T_ORG_organizations c
+where a.FMASTERID = b.FDEPTID
+  and b.FLOCALEID = 2052
+  and a.FDOCUMENTSTATUS = 'C'
+and a.FUSEORGID = c.FORGID
