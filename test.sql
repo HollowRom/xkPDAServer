@@ -168,3 +168,4 @@ where a.FMASTERID = b.FDEPTID
   and b.FLOCALEID = 2052
   and a.FDOCUMENTSTATUS = 'C'
 and a.FUSEORGID = c.FORGID
+select * from    xkPdaServer_orgInfo_tool
