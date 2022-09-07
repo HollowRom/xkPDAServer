@@ -13,27 +13,27 @@ func (*WorkShopMain) TableName() string {
 }
 
 type WorkShopEntry struct {
-	FID             int `json:",,string"`
-	FBILLNO         string
-	FMOID           int `json:",,string"`
-	FMOENTRYSEQ     int `json:",,string"`
-	FMOENTRYID      int `json:",,string"`
-	FENTRYID        int `json:",,string"`
-	FSEQ            int `json:",,string"`
-	FDepartNumber   string
-	FSEQNUMBER      string
-	FUnitNumber     string
-	FWCNumber       string
-	FMATERIALID     int `json:",,string"`
-	FNUMBER         string
-	FNAME           string
-	FSPECIFICATION  string
+	FID int `json:",,string"`
+	FBILLNO string
+	FMOID int `json:",,string"`
+	FMOENTRYSEQ int `json:",,string"`
+	FMOENTRYID int `json:",,string"`
+	FENTRYID int `json:",,string"`
+	FSEQ int `json:",,string"`
+	FDEPARTMENTID int `json:",,string"`
+	FSEQNUMBER string
+	FOPERUNITID int `json:",,string"`
+	FWORKCENTERID int `json:",,string"`
+	FMATERIALID int `json:",,string"`
+	FNUMBER string
+	FNAME string
+	FSPECIFICATION string
 	FBaseUnitNumber string
-	FLOT_TEXT       string
-	FMustQty        float64 `json:",,string"`
-	SQTY            float64 `json:",,string"`
-	FUseOrgNumber   string
-	FISBATCHMANAGE  int `json:",,string"`
+	FLOT_TEXT string
+	FMustQty float64 `json:",,string"`
+	SQTY float64 `json:",,string"`
+	FUseOrgNumber string
+	FISBATCHMANAGE byte `json:",,string"`
 }
 
 func (*WorkShopEntry) TableName() string {

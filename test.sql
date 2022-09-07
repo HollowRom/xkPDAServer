@@ -169,3 +169,5 @@ where a.FMASTERID = b.FDEPTID
   and a.FDOCUMENTSTATUS = 'C'
 and a.FUSEORGID = c.FORGID
 select * from    xkPdaServer_orgInfo_tool
+
+select * from xkPdaServer_userInfo_tool where fuserid = 102112
