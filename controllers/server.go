@@ -21,8 +21,6 @@ const (
 	defHost = "http://121.37.169.235"
 )
 
-var defICUrl = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
-
 var engine = gin.Default()
 
 var defPort = ":8090"
@@ -57,12 +55,6 @@ func init() {
 }
 
 var onceInit = func (){
-	userHost := dbTools.GetConfFromKey("ServerIp")
-	if userHost != "" {
-		defICUrl = "http://" + userHost + defICUrl
-	} else {
-		defICUrl = defHost + defICUrl
-	}
 	tempValue := dbTools.GetConfFromKey("listenPort")
 
 	if tempValue[0] != ':' {

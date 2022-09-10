@@ -78,7 +78,7 @@ func postQTCK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		return
 	}
 
-	reb := netTools.PostSome(defICUrl, infoJ)
+	reb := netTools.PostSaveSomeBill(infoJ)
 	if reb == nil || len(reb) == 0 {
 		fmt.Println("解析post返回json结果为空")
 		setErrJson(context, nil)

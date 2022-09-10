@@ -19,7 +19,12 @@ const (
 	ASPKey = "ASP.NET_SessionId"
 )
 
-var xkLoginUrl = "http://192.168.31.153/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
+var (
+	loginUrl        = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
+	saveBillUrlTail = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
+	selectBillUrlTail = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.View.common.kdsvc"
+	defHost = "127.0.0.1"
+)
 
 type cookiesManger struct {
 	rwLock  *sync.RWMutex
@@ -62,10 +67,30 @@ var oneInit = func() {
 	}
 	tempValue = dbTools.GetConfFromKey("ServerIp")
 	if tempValue != "" {
-		xkLoginUrl = "http://" + tempValue + "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
+		defHost = tempValue
 	}
+	loginUrl = "http://" + defHost + loginUrl
+	saveBillUrlTail = "http://" + defHost + saveBillUrlTail
+	selectBillUrlTail = "http://" + defHost + selectBillUrlTail
 	fmt.Println("读取登录信息为:", *defLoginBase)
 	fmt.Println("星空登陆数据初始化完成")
+	if !tryLogin(nil) {
+		panic("星空账号登录失败")
+	}
+
+	test()
+
+	panic("终止调试")
+}
+
+func GetLoginUrl() string {
+	return loginUrl
+}
+func GetSaveBillUrl() string {
+	return saveBillUrlTail
+}
+func GetSelectBillUrl() string {
+	return selectBillUrlTail
 }
 
 func Init() {
@@ -79,7 +104,7 @@ type LoginCookie struct {
 	ASP       string
 }
 
-func TryLogin(b *LoginBase) bool {
+func tryLogin(b *LoginBase) bool {
 	if b == nil {
 		b = defLoginBase
 	}
@@ -90,7 +115,7 @@ func TryLogin(b *LoginBase) bool {
 		return false
 	}
 
-	req, _ := http.NewRequest("POST", xkLoginUrl, bytes.NewBuffer(j))
+	req, _ := http.NewRequest("POST", loginUrl, bytes.NewBuffer(j))
 
 	req.Header.Set("Content-Type", "application/json")
 
@@ -143,15 +168,32 @@ func TryLogin(b *LoginBase) bool {
 	return true
 }
 
-func PostSome(postUrl string, jsonByte []byte) []byte {
-	if postUrl == "" || jsonByte == nil || len(jsonByte) == 0 {
+func PostSaveSomeBill(jsonByte []byte) []byte {
+	if jsonByte == nil || len(jsonByte) == 0 {
 		return nil
 	}
+	return postSomeBill(GetSaveBillUrl(), jsonByte)
+}
+
+func PostSelectSomeBill(jsonByte []byte) *map[string]interface{} {
+	if jsonByte == nil || len(jsonByte) == 0 {
+		return nil
+	}
+	reMap := &map[string]interface{}{}
+	e := json.Unmarshal(postSomeBill(GetSaveBillUrl(), jsonByte), reMap)
+	if e != nil {
+		fmt.Println(e)
+		return nil
+	}
+	return reMap
+}
+
+func postSomeBill(postUrl string, jsonByte []byte) []byte {
 	defCookieManger.rwLock.RLock()
 	defer defCookieManger.rwLock.RUnlock()
 	if len(defCookieManger.cookies) == 0 {
 		defCookieManger.rwLock.RUnlock()
-		TryLogin(nil)
+		tryLogin(nil)
 		defCookieManger.rwLock.RLock()
 	}
 
@@ -191,49 +233,49 @@ func PostSome(postUrl string, jsonByte []byte) []byte {
 	return body
 }
 
-func GetSome(postUrl string, jsonByte []byte) []byte {
-	if postUrl == "" || jsonByte == nil || len(jsonByte) == 0 {
-		return nil
-	}
-	defCookieManger.rwLock.RLock()
-	defer defCookieManger.rwLock.RUnlock()
-	if len(defCookieManger.cookies) == 0 {
-		defCookieManger.rwLock.RUnlock()
-		TryLogin(nil)
-		defCookieManger.rwLock.RLock()
-	}
-
-	req, e := http.NewRequest("GET", postUrl, bytes.NewBuffer(jsonByte))
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-
-	for _, c := range defCookieManger.cookies {
-		req.AddCookie(c)
-	}
-
-	resp, e := client.Do(req)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-			fmt.Println(err)
-		}
-	}(resp.Body)
-
-	body, e := ioutil.ReadAll(resp.Body)
-	if e != nil {
-		fmt.Println(e)
-		return nil
-	}
-	return body
-}
+//func GetSome(getUrl string, jsonByte []byte) []byte {
+//	if getUrl == "" || jsonByte == nil || len(jsonByte) == 0 {
+//		return nil
+//	}
+//	defCookieManger.rwLock.RLock()
+//	defer defCookieManger.rwLock.RUnlock()
+//	if len(defCookieManger.cookies) == 0 {
+//		defCookieManger.rwLock.RUnlock()
+//		tryLogin(nil)
+//		defCookieManger.rwLock.RLock()
+//	}
+//
+//	req, e := http.NewRequest("GET", getUrl, bytes.NewBuffer(jsonByte))
+//	if e != nil {
+//		fmt.Println(e)
+//		return nil
+//	}
+//
+//	req.Header.Set("Content-Type", "application/json")
+//
+//	for _, c := range defCookieManger.cookies {
+//		req.AddCookie(c)
+//	}
+//
+//	resp, e := client.Do(req)
+//	if e != nil {
+//		fmt.Println(e)
+//		return nil
+//	}
+//	defer func(Body io.ReadCloser) {
+//		err := Body.Close()
+//		if err != nil {
+//			fmt.Println(err)
+//		}
+//	}(resp.Body)
+//
+//	body, e := ioutil.ReadAll(resp.Body)
+//	if e != nil {
+//		fmt.Println(e)
+//		return nil
+//	}
+//	return body
+//}
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
