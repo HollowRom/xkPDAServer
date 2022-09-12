@@ -151,7 +151,7 @@ from T_STK_INVENTORY
 
 
 select top 10 *
-from xkPdaServer_gxplan_to_gxreport_tool
+from xkPdaServer_gxplan_to_gxreport_tool a
 
 select top 10 *
 from T_SFC_OPERPLANNING

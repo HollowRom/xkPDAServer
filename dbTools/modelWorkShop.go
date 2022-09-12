@@ -47,7 +47,7 @@ func InitWorkShopModel(initBase *WorkShopGXJHMini) *workShopGXJHModelBase {
 	return &workShopGXJHModelBase{Formid: initBase.HeadMini.FromId, Data: &workShopGXJHMModels{
 		Numbers:             []string{initBase.HeadMini.FBillNo},
 		RuleId:              initBase.HeadMini.RuleId,
-		IsDraftWhenSaveFail: "true",
+		IsDraftWhenSaveFail: "false",
 	}}
 }
 
