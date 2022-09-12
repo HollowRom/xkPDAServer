@@ -8,7 +8,6 @@ import (
 
 func init() {
 	AddHandlerGet("/getWorkShopMain", getWorkShopMain)
-
 	AddHandlerGet("/getWorkShopEntry", getWorkShopEntry)
 }
 

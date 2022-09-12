@@ -17,7 +17,6 @@ var (
 	defCGRKFSrcBillTypeID  = "PUR_PurchaseOrder"
 	defCGRKLinkFSTableName = "t_PUR_POOrderEntry"
 	//defCGRKLinkFRuleId     = "PUR_PurchaseOrder-STK_InStock"
-
 	defCGRKLinkFRuleId     = "PUR_PurchaseOrder-STK_InStock"
 )
 
@@ -118,7 +117,7 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		return
 	}
 
-	reb := netTools.PostSome(defICUrl, infoJ)
+	reb := netTools.PostSaveSomeBill(infoJ)
 	if reb == nil || len(reb) == 0 {
 		setErrJson(context, nil)
 		return

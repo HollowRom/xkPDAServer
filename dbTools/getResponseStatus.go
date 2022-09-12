@@ -19,3 +19,34 @@ type ResponseStatus struct {
 		} `json:"NeedReturnData"`
 	} `json:"Result"`
 }
+
+func (r *ResponseStatus) IsSuccess() bool {
+	if r == nil {
+		return false
+	}
+	return r.Result.ResponseStatus.IsSuccess
+}
+
+func (r *ResponseStatus) GetReBillNo() []string {
+	if r == nil || r.Result.ResponseStatus.SuccessEntitys == nil || len(r.Result.ResponseStatus.SuccessEntitys) == 0 {
+		return nil
+	}
+	var returnNumberList []string
+	reList := r.Result.ResponseStatus.SuccessEntitys
+	for _, v := range reList {
+		returnNumberList = append(returnNumberList, v.Number)
+	}
+	return returnNumberList
+}
+
+func (r *ResponseStatus) GetReBillId() []int {
+	if r == nil || r.Result.ResponseStatus.SuccessEntitys == nil || len(r.Result.ResponseStatus.SuccessEntitys) == 0 {
+		return nil
+	}
+	var returnNumberList []int
+	reList := r.Result.ResponseStatus.SuccessEntitys
+	for _, v := range reList {
+		returnNumberList = append(returnNumberList, v.Id)
+	}
+	return returnNumberList
+}

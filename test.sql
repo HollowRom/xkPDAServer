@@ -170,4 +170,4 @@ where a.FMASTERID = b.FDEPTID
 and a.FUSEORGID = c.FORGID
 select * from    xkPdaServer_orgInfo_tool
 
-select * from xkPdaServer_userInfo_tool where fuserid = 102112
+select * from xkPdaServer_gxplan_to_gxreport_tool

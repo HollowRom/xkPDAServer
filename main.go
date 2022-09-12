@@ -15,6 +15,7 @@ func main() {
 }
 
 func someInit() {
+	//涉及读取配置文件生成url所以需要优先初始化
 	netTools.Init()
 	dbTools.Init("driver={SQL Server};Server=127.0.0.1;Database=AIS20210805182552;user id=sa;password=sa;")
 
@@ -25,10 +26,6 @@ func someInit() {
 		}
 	}(dbTools.GetDB())
 
-	if !netTools.TryLogin(nil) {
-		fmt.Println("登录失败")
-		panic(nil)
-	}
 	tempValue := dbTools.GetConfFromKey("serverTimeOut")
 	if tempValue != "" && tempValue != "-1" {
 		timeOut, _ := strconv.Atoi(tempValue)
