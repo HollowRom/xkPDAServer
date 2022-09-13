@@ -20,11 +20,10 @@ const (
 )
 
 var (
-	loginUrl          = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
-	saveBillUrlTail   = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
+	loginUrl        = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
+	saveBillUrlTail = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
 	selectBillUrlTail = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.View.common.kdsvc"
-	pushBillUrlTail   = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Push.common.kdsvc"
-	defHost           = "http://127.0.0.1"
+	defHost = "127.0.0.1"
 )
 
 type cookiesManger struct {
@@ -68,37 +67,30 @@ var oneInit = func() {
 	}
 	tempValue = dbTools.GetConfFromKey("ServerIp")
 	if tempValue != "" {
-		defHost = "http://" + tempValue
+		defHost = tempValue
 	}
-	loginUrl = defHost + loginUrl
-	saveBillUrlTail = defHost + saveBillUrlTail
-	selectBillUrlTail = defHost + selectBillUrlTail
-	pushBillUrlTail = defHost + pushBillUrlTail
+	loginUrl = "http://" + defHost + loginUrl
+	saveBillUrlTail = "http://" + defHost + saveBillUrlTail
+	selectBillUrlTail = "http://" + defHost + selectBillUrlTail
 	fmt.Println("读取登录信息为:", *defLoginBase)
 	fmt.Println("星空登陆数据初始化完成")
 	if !tryLogin(nil) {
 		panic("星空账号登录失败")
 	}
 
-	//test()
-	//
-	//panic("终止调试")
+	test()
+
+	panic("终止调试")
 }
 
 func GetLoginUrl() string {
 	return loginUrl
 }
-
 func GetSaveBillUrl() string {
 	return saveBillUrlTail
 }
-
 func GetSelectBillUrl() string {
 	return selectBillUrlTail
-}
-
-func GetPushBillUrl() string {
-	return pushBillUrlTail
 }
 
 func Init() {
@@ -183,18 +175,17 @@ func PostSaveSomeBill(jsonByte []byte) []byte {
 	return postSomeBill(GetSaveBillUrl(), jsonByte)
 }
 
-func PostSelectSomeBill(jsonByte []byte) []byte {
+func PostSelectSomeBill(jsonByte []byte) *map[string]interface{} {
 	if jsonByte == nil || len(jsonByte) == 0 {
 		return nil
 	}
-	return postSomeBill(GetSelectBillUrl(), jsonByte)
-}
-
-func PostPushSomeBill(jsonByte []byte) []byte {
-	if jsonByte == nil || len(jsonByte) == 0 {
+	reMap := &map[string]interface{}{}
+	e := json.Unmarshal(postSomeBill(GetSaveBillUrl(), jsonByte), reMap)
+	if e != nil {
+		fmt.Println(e)
 		return nil
 	}
-	return postSomeBill(GetPushBillUrl(), jsonByte)
+	return reMap
 }
 
 func postSomeBill(postUrl string, jsonByte []byte) []byte {
