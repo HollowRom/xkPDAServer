@@ -116,7 +116,7 @@ func postWorkShop(context *gin.Context) { // 定义请求接口和处理匿名�
 
 	var updMap = map[string]interface{}{}
 
-	updMap["fromid"] = "SFC_OperationReport"
+	updMap["formid"] = "SFC_OperationReport"
 
 	var entryMap []map[string]interface{}
 	for i := range needInt {
@@ -146,7 +146,7 @@ func postWorkShop(context *gin.Context) { // 定义请求接口和处理匿名�
 		return
 	}
 
-	reb = netTools.PostPushSomeBill(reb)
+	reb = netTools.PostSaveSomeBill(reb)
 
 	if reb == nil || len(reb) == 0 {
 		setErrJson(context, nil)

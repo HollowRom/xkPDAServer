@@ -20,10 +20,11 @@ const (
 )
 
 var (
-	loginUrl        = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
-	saveBillUrlTail = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
+	loginUrl          = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc"
+	saveBillUrlTail   = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Save.common.kdsvc"
+	pushBillUrlTail   = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.Push.common.kdsvc"
 	selectBillUrlTail = "/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.View.common.kdsvc"
-	defHost = "127.0.0.1"
+	defHost           = "127.0.0.1"
 )
 
 type cookiesManger struct {
@@ -72,15 +73,16 @@ var oneInit = func() {
 	loginUrl = "http://" + defHost + loginUrl
 	saveBillUrlTail = "http://" + defHost + saveBillUrlTail
 	selectBillUrlTail = "http://" + defHost + selectBillUrlTail
+	pushBillUrlTail = "http://" + defHost + pushBillUrlTail
 	fmt.Println("读取登录信息为:", *defLoginBase)
 	fmt.Println("星空登陆数据初始化完成")
 	if !tryLogin(nil) {
 		panic("星空账号登录失败")
 	}
 
-	test()
-
-	panic("终止调试")
+	//test()
+	//
+	//panic("终止调试")
 }
 
 func GetLoginUrl() string {
@@ -91,6 +93,9 @@ func GetSaveBillUrl() string {
 }
 func GetSelectBillUrl() string {
 	return selectBillUrlTail
+}
+func GetPushBillUrl() string {
+	return pushBillUrlTail
 }
 
 func Init() {
@@ -173,6 +178,13 @@ func PostSaveSomeBill(jsonByte []byte) []byte {
 		return nil
 	}
 	return postSomeBill(GetSaveBillUrl(), jsonByte)
+}
+
+func PostPushSomeBill(jsonByte []byte) []byte {
+	if jsonByte == nil || len(jsonByte) == 0 {
+		return nil
+	}
+	return postSomeBill(GetPushBillUrl(), jsonByte)
 }
 
 func PostSelectSomeBill(jsonByte []byte) *map[string]interface{} {

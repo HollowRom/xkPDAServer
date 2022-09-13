@@ -20,7 +20,7 @@ func GetPostWorkShop(mini *WorkShopGXJHMini) ModelBaseInterface {
 	}
 
 	if mini.HeadMini.RuleId == "" {
-		mini.HeadMini.FromId = defWorkShopRuleId
+		mini.HeadMini.RuleId = defWorkShopRuleId
 	}
 
 	i := InitWorkShopModel(mini)

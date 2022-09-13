@@ -2,8 +2,8 @@ acctid-62b401e5cc72c9
 acctidls-62b401e5cc72c9
 acctidhome-627cf0721296c7
 acctidgs-610bbd142a6e15
-username-administrator
-password-kd@888888
+username-张文龙
+password-kd@123
 passwordls-kd@888888
 ServerIp-121.37.169.235
 ServerIpmac-127.0.0.1

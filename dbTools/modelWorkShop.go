@@ -35,7 +35,7 @@ type WorkShopGXJHHeadMini struct {
 
 type WorkShopGXJHEntryMini struct {
 	FOPERNUMBER string  `json:"FOPERNUMBER"`
-	FQTY        float64 `json:"FQTY,,string"`
+	FQTY        float64 `json:"SQTY,,string" xorm:"-"`
 }
 
 var _ ModelBaseInterface = &workShopGXJHModelBase{}

@@ -171,3 +171,55 @@ and a.FUSEORGID = c.FORGID
 select * from    xkPdaServer_orgInfo_tool
 
 select * from xkPdaServer_gxplan_to_gxreport_tool
+
+
+select * from xkPdaServer_gxplan_to_gxreport_tool where FBILLNO = 'OP000771'
+
+
+select t0.FID,       t0.FBILLNO,       t0.FMOID,       t0.FMOENTRYSEQ,       t0.FMOENTRYID,       t1.FENTRYID,       t1.FSEQ,       t2.FDEPARTMENTID, --加工车间
+       t1.FSEQNUMBER,--工作序列
+       t2.FOPERUNITID,--工序单位
+       t2.FWORKCENTERID, --工作中心
+       t2.FOPERNUMBER,   --工序序号
+       t3.FMATERIALID,       t3.FNUMBER,       t3.FNAME,       t3.FSPECIFICATION,       t3.FBaseUnitNumber,       iif(t3.FISBATCHMANAGE = '1', t0.FLOT_TEXT, '')   as FLOT_TEXT,       cast(convert(float, t1.FSEQQTY) as varchar(24))  as FMustQty,
+       cast(convert(float, t1.FSEQQTY) as varchar(24))  as SQTY,       t3.FUseOrgNumber,       t3.FISBATCHMANAGE,       row_number() over (order by t0.FMODIFYDATE desc) as idx
+from T_SFC_OPERPLANNING t0
+         left join T_SFC_OPERPLANNINGSEQ t1 on t0.FID = t1.FID
+         left join T_SFC_OPERPLANNINGDETAIL t2 on t1.FENTRYID = t2.FENTRYID
+         left join T_SFC_OPERPLANNINGDETAIL_A t2_A on t2.FDETAILID = t2_A.FDETAILID
+         left join T_SFC_OPERPLANNINGDETAIL_D t2_D on t2.FDETAILID = t2_D.FDETAILID
+         left join T_SFC_OPERPLANNINGDETAIL_b t2_B on t2.FENTRYID = t2_B.FENTRYID
+         join xkPdaServer_good_tool t3 on t3.FMATERIALID = t0.FProductId and t0.FPROORGID in (t3.FUSEORGID, 0)
+where /*isnull(t2.FPROCESSORGID, 0) in (0, 1)
+  and*/
+    /*t2.FOPTCTRLCODEID in (select FId from T_ENG_OPTCTRLCODE where FReportMode <> '40')
+  and*/ t0.FMOENTRYID in (select FEntryID from T_PRD_MOENTRY_A where FStatus in (3, 4, 5))
+  and t2.FWorKCENTERID in (select DSP1.FWCID
+                           from T_SFC_DSPRPTPERMENTRY DSP1
+                                    inner join T_SFC_DSPRPTPERM DSP0 on DSP1.FID = DSP0.FID
+                           where DSP0.FUSERID = 102112
+                             and DSP1.FISCHECKED = '1')
+  and t0.FBILLTYPE in (' ', '001f29d2c9af844211e342cad266ac71')
+ and t2_D.FISDisCRETEOPERDisPDETAIL = '0'
+  and t0.FDOCUMENTSTATUS = N'C'
+  and t2.FOPERCANCEL = N'A'
+  and t0.FMOisSUSPEND = N'0'
+  and t2_A.FISOUTSRC = N'0'
+  and t2.FOPERSTATUS in ('3', '4', '5')
+  and t0.FForMID = 'SFC_OperationPlaNNING'
+  and t2_b.FREPORTQTY < t0.FMOQTY
+  and t0.FBILLNO = 'OP000771'
+
+select t0.FProductId,*
+from T_SFC_OPERPLANNING t0
+         left join T_SFC_OPERPLANNINGSEQ t1 on t0.FID = t1.FID
+         left join T_SFC_OPERPLANNINGDETAIL t2 on t1.FENTRYID = t2.FENTRYID
+         left join T_SFC_OPERPLANNINGDETAIL_A t2_A on t2.FDETAILID = t2_A.FDETAILID
+         left join T_SFC_OPERPLANNINGDETAIL_D t2_D on t2.FDETAILID = t2_D.FDETAILID
+         left join T_SFC_OPERPLANNINGDETAIL_b t2_B on t2.FDETAILID = t2_B.FDETAILID
+         join xkPdaServer_good_tool t3 on t3.FMATERIALID = t0.FProductId --and t0.FPROORGID in (t3.FUSEORGID, 0)
+where t0.FBILLNO = 'OP000771'
+
+select * from dbo.T_BD_MATERIAL where fnumber = '1.01.001'
+
+update T_BD_MATERIAL set T_BD_MATERIAL.FDOCUMENTSTATUS = 'C' where fnumber = '1.01.001'
