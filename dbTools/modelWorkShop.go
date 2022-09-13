@@ -23,8 +23,8 @@ type workShopGXJHMModels struct {
 }
 
 type WorkShopGXJHMini struct {
-	HeadMini  *WorkShopGXJHHeadMini
-	EntryMini []*WorkShopGXJHEntryMini
+	HeadMini  *WorkShopGXJHHeadMini    `json:"HeadMini"`
+	EntryMini []*WorkShopGXJHEntryMini `json:"EntityMini"`
 }
 
 type WorkShopGXJHHeadMini struct {
