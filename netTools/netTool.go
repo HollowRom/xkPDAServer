@@ -17,6 +17,8 @@ import (
 const (
 	KDKey  = "kdservice-sessionid"
 	ASPKey = "ASP.NET_SessionId"
+
+	jumpApiUrl = "http://127.0.0.1:8080/jumpApi/"
 )
 
 var (
@@ -96,6 +98,10 @@ func GetSelectBillUrl() string {
 }
 func GetPushBillUrl() string {
 	return pushBillUrlTail
+}
+
+func GetJumpApi() string {
+	return jumpApiUrl
 }
 
 func Init() {
@@ -185,6 +191,34 @@ func PostPushSomeBill(jsonByte []byte) []byte {
 		return nil
 	}
 	return postSomeBill(GetPushBillUrl(), jsonByte)
+}
+
+func PostJumpApi(jsonByte []byte) []byte {
+	if jsonByte == nil || len(jsonByte) == 0 {
+		return nil
+	}
+
+	m := &map[string]interface{}{}
+
+	e := json.Unmarshal(jsonByte, m)
+	if e != nil {
+		fmt.Println(e)
+		return nil
+	}
+
+	if _, ok := (*m)["api"]; !ok {
+		fmt.Println("不存在api字段")
+		return nil
+	}
+
+	if _, ok := (*m)["jsp"]; !ok {
+		fmt.Println("不存在jsp字段")
+		return nil
+	}
+
+	m = nil
+
+	return postSomeBill(GetJumpApi(), jsonByte)
 }
 
 func PostSelectSomeBill(jsonByte []byte) *map[string]interface{} {
