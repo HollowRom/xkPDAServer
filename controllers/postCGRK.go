@@ -47,6 +47,13 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 			fmt.Println(err)
 		}
 	}(context.Request.Body)
+
+	if netTools.GetCache(string(buf)) {
+		fmt.Println("重复提交数据,一分钟后重试")
+		setErrJson(context, e)
+		return
+	}
+
 	miniStr := &dbTools.CGRKMini{}
 	e = json.Unmarshal(buf[0:i], miniStr)
 	if e != nil {
@@ -133,4 +140,6 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	}
 
 	context.JSON(http.StatusOK, resp)
+
+	netTools.AddCache(string(buf))
 }
