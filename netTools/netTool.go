@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -51,6 +52,74 @@ var defLoginBase = &LoginBase{"627cf0721296c7", "administrator", "kingdee@123", 
 
 func GetConfListenPort() string {
 	return dbTools.GetConfFromKey("listenPort")
+}
+
+const versionFilePath = ".\\version\\version"
+
+type ObjectVersionFieldJson struct {
+	Version string           `json:"version"`
+	Data    *ObjectFieldData `json:"data"`
+}
+
+type ObjectFieldData struct {
+	ListName []string        `json:"listName"`
+	List     []*ObjectFields `json:"list"`
+}
+
+type ObjectFields struct {
+	ObjectName string         `json:"objectName"`
+	Fields     []*ObjectField `json:"fields"`
+}
+
+type ObjectField struct {
+	OrderIdx    int    `json:"orderIdx"`
+	BodyTitle   string `json:"bodyTitle"`
+	IsEdit      bool   `json:"isEdit"`
+	IsHidden    bool   `json:"isHidden"`
+	IsCheckNum  bool   `json:"isCheckNum"`
+	IsPostField bool   `json:"isPostField"`
+	Width       int    `json:"width"`
+}
+
+func setDefObjectFieldJson(o *ObjectVersionFieldJson) {
+	if o.Data != nil && o.Data.List != nil {
+		t := o.Data.List
+		for _, of := range t {
+			if of != nil && of.Fields != nil {
+				for _, off := range of.Fields {
+					if off.Width == 0 {
+						off.Width = 300
+					}
+				}
+			}
+		}
+	}
+
+	//return &ObjectField{
+	//	FieldName:   "",
+	//	OrderIdx:    0,
+	//	BodyTitle:   "",
+	//	IsEdit:      false,
+	//	IsHidden:    true,
+	//	IsCheckNum:  false,
+	//	IsPostField: false,
+	//	Width:       300,
+	//}
+}
+
+func ReadVersionFieldJson() (version string, fieldJson *ObjectFieldData) {
+	s, e := os.ReadFile(versionFilePath)
+	if e != nil {
+		return "", nil
+	}
+	parseStruct := &ObjectVersionFieldJson{}
+	e = json.Unmarshal(s, parseStruct)
+	if e != nil {
+		return "", nil
+	}
+	setDefObjectFieldJson(parseStruct)
+	//到时候在写
+	return parseStruct.Version, parseStruct.Data
 }
 
 var o sync.Once

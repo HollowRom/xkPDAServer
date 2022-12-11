@@ -1,0 +1,1923 @@
+{
+	"version": "version.100001",
+	"data:": {
+		"listName": ["xsddEntryInfo", "cgddEntryInfo", "qtcrkEntryInfo", "sctlEntryInfo", "scddEntryInfo", "wwtlEntryInfo", "wwddEntryInfo", "inventoryEntryInfo", "workShopEntryInfo"],
+		"list": [{
+				"objectName": "xsddEntryInfo",
+				"fields": [{
+						"fieldName": "FID",
+						"orderIdx": 1,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FBILLNO",
+						"orderIdx": 2,
+						"bodyTitle": "单据编号",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FCustNumber",
+						"orderIdx": 3,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FCustName",
+						"orderIdx": 4,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FENTRYID",
+						"orderIdx": 5,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSEQ",
+						"orderIdx": 6,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FORDERNO",
+						"orderIdx": 7,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FORDERSEQ",
+						"orderIdx": 8,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMATERIALID",
+						"orderIdx": 9,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FNUMBER",
+						"orderIdx": 10,
+						"bodyTitle": "物料编码",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNAME",
+						"orderIdx": 11,
+						"bodyTitle": "物料名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FBaseUnitNumber",
+						"orderIdx": 12,
+						"bodyTitle": "单位",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSPECIFICATION",
+						"orderIdx": 13,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FLOT_TEXT",
+						"orderIdx": 14,
+						"bodyTitle": "批号",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMustQty",
+						"orderIdx": 15,
+						"bodyTitle": "应发生数量",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "SQTY",
+						"orderIdx": 16,
+						"bodyTitle": "实发生数量",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FUseOrgNumber",
+						"orderIdx": 17,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockNumber",
+						"orderIdx": 18,
+						"bodyTitle": "仓库",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FPrice",
+						"orderIdx": 19,
+						"bodyTitle": "单价",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockStatusId",
+						"orderIdx": 20,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FISBATCHMANAGE",
+						"orderIdx": 21,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSOEntryId",
+						"orderIdx": 22,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockerId",
+						"orderIdx": 23,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					}
+				]
+			},
+			{
+				"objectName": "cgddEntryInfo",
+				"fields": [{
+						"fieldName": "FID",
+						"orderIdx": 1,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FBILLNO",
+						"orderIdx": 2,
+						"bodyTitle": "单据编号",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSUPPLIERID",
+						"orderIdx": 3,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSuppNumber",
+						"orderIdx": 4,
+						"bodyTitle": "供应商编码",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSuppName",
+						"orderIdx": 5,
+						"bodyTitle": "供应商名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FPURCHASERID",
+						"orderIdx": 6,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSRCBILLNO",
+						"orderIdx": 7,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSRCENTRYID",
+						"orderIdx": 8,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSRCID",
+						"orderIdx": 9,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSRCSEQ",
+						"orderIdx": 10,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMATERIALID",
+						"orderIdx": 11,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FENTRYID",
+						"orderIdx": 12,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSEQ",
+						"orderIdx": 13,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNUMBER",
+						"orderIdx": 14,
+						"bodyTitle": "物料编码",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNAME",
+						"orderIdx": 15,
+						"bodyTitle": "物料名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSPECIFICATION",
+						"orderIdx": 16,
+						"bodyTitle": "物料规格",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FBaseUnitNumber",
+						"orderIdx": 17,
+						"bodyTitle": "物料单位",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FLOT_TEXT",
+						"orderIdx": 18,
+						"bodyTitle": "批号",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMustQty",
+						"orderIdx": 19,
+						"bodyTitle": "应发生数量",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "SQty",
+						"orderIdx": 20,
+						"bodyTitle": "实发生数量",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FUseOrgNumber",
+						"orderIdx": 21,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSrcBillType",
+						"orderIdx": 22,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FKeeperId",
+						"orderIdx": 23,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FPrice",
+						"orderIdx": 24,
+						"bodyTitle": "单价",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockNumber",
+						"orderIdx": 25,
+						"bodyTitle": "仓库",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNote",
+						"orderIdx": 26,
+						"bodyTitle": "备注",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockStatusId",
+						"orderIdx": 27,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FISBATCHMANAGE",
+						"orderIdx": 28,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					}
+				]
+			},
+			{
+				"objectName": "qtcrkEntryInfo",
+				"fields": [{
+						"fieldName": "FUseOrgNumber",
+						"orderIdx": 1,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FCustName",
+						"orderIdx": 2,
+						"bodyTitle": "客户名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FCustNumber",
+						"orderIdx": 3,
+						"bodyTitle": "客户编码",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNumber",
+						"orderIdx": 4,
+						"bodyTitle": "物料编码",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FName",
+						"orderIdx": 5,
+						"bodyTitle": "物料名称/规格",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSPECIFICATION",
+						"orderIdx": 6,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FBaseUnitNumber",
+						"orderIdx": 7,
+						"bodyTitle": "单位",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FQTY",
+						"orderIdx": 8,
+						"bodyTitle": "数量",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FPrice",
+						"orderIdx": 9,
+						"bodyTitle": "单价",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockNumber",
+						"orderIdx": 10,
+						"bodyTitle": "仓库",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockStatusId",
+						"orderIdx": 11,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FLOT_TEXT",
+						"orderIdx": 12,
+						"bodyTitle": "批号",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FISBATCHMANAGE",
+						"orderIdx": 13,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					}
+				]
+			},
+			{
+				"objectName": "sctlEntryInfo",
+				"fields": [{
+						"fieldName": "FID",
+						"orderIdx": 1,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FBILLNO",
+						"orderIdx": 2,
+						"bodyTitle": "单据编号",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FParentNumber",
+						"orderIdx": 3,
+						"bodyTitle": "成品编码",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FParentName",
+						"orderIdx": 4,
+						"bodyTitle": "成品名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FParentUnitNumber",
+						"orderIdx": 5,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FENTRYID",
+						"orderIdx": 6,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSEQ",
+						"orderIdx": 7,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMOBILLNO",
+						"orderIdx": 8,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMOENTRYID",
+						"orderIdx": 9,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMOID",
+						"orderIdx": 10,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMOENTRYSEQ",
+						"orderIdx": 11,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMATERIALID",
+						"orderIdx": 12,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FNUMBER",
+						"orderIdx": 13,
+						"bodyTitle": "物料编码",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FName",
+						"orderIdx": 14,
+						"bodyTitle": "物料名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSPECIFICATION",
+						"orderIdx": 15,
+						"bodyTitle": "物料规格",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FBaseUnitNumber",
+						"orderIdx": 16,
+						"bodyTitle": "单位",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMustQty",
+						"orderIdx": 17,
+						"bodyTitle": "应发生数量",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "SQTY",
+						"orderIdx": 18,
+						"bodyTitle": "实发生数量",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FLOT_TEXT",
+						"orderIdx": 19,
+						"bodyTitle": "批号",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FUseOrgNumber",
+						"orderIdx": 20,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FPrice",
+						"orderIdx": 21,
+						"bodyTitle": "单价",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockNumber",
+						"orderIdx": 22,
+						"bodyTitle": "仓库",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNote",
+						"orderIdx": 23,
+						"bodyTitle": "备注",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockStatusId",
+						"orderIdx": 24,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSrcBillType",
+						"orderIdx": 25,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FISBATCHMANAGE",
+						"orderIdx": 26,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					}
+				]
+			},
+			{
+				"objectName": "scddEntryInfo",
+				"fields": [{
+						"fieldName": "FID",
+						"orderIdx": 1,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FBILLNO",
+						"orderIdx": 2,
+						"bodyTitle": "单据编号",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FENTRYID",
+						"orderIdx": 3,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSEQ",
+						"orderIdx": 4,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNUMBER",
+						"orderIdx": 5,
+						"bodyTitle": "物料编码",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNAME",
+						"orderIdx": 6,
+						"bodyTitle": "物料名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSPECIFICATION",
+						"orderIdx": 7,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FBaseUnitNumber",
+						"orderIdx": 8,
+						"bodyTitle": "单位",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FLOT_TEXT",
+						"orderIdx": 9,
+						"bodyTitle": "批号",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMustQty",
+						"orderIdx": 10,
+						"bodyTitle": "应发生数量",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "SQTY",
+						"orderIdx": 11,
+						"bodyTitle": "实发生数量",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FUseOrgNumber",
+						"orderIdx": 12,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FPrice",
+						"orderIdx": 13,
+						"bodyTitle": "单价",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockNumber",
+						"orderIdx": 14,
+						"bodyTitle": "仓库",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNote",
+						"orderIdx": 15,
+						"bodyTitle": "备注",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockStatusId",
+						"orderIdx": 16,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSrcBillType",
+						"orderIdx": 17,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FISBATCHMANAGE",
+						"orderIdx": 18,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					}
+				]
+			},
+			{
+				"objectName": "wwtlEntryInfo",
+				"fields": [{
+						"fieldName": "FID",
+						"orderIdx": 1,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FBILLNO",
+						"orderIdx": 2,
+						"bodyTitle": "单据编号",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FParentNumber",
+						"orderIdx": 3,
+						"bodyTitle": "成品编码",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FParentName",
+						"orderIdx": 4,
+						"bodyTitle": "成品名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSuppNumber",
+						"orderIdx": 5,
+						"bodyTitle": "供应商编码",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSuppName",
+						"orderIdx": 6,
+						"bodyTitle": "供应商名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FENTRYID",
+						"orderIdx": 7,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSEQ",
+						"orderIdx": 8,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSUBREQBILLNO",
+						"orderIdx": 9,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSUBREQID",
+						"orderIdx": 10,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSUBREQENTRYSEQ",
+						"orderIdx": 11,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSUBREQENTRYID",
+						"orderIdx": 12,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMATERIALID",
+						"orderIdx": 13,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FNUMBER",
+						"orderIdx": 14,
+						"bodyTitle": "物料编码",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNAME",
+						"orderIdx": 15,
+						"bodyTitle": "物料名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FBaseUnitNumber",
+						"orderIdx": 16,
+						"bodyTitle": "单位",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FLOT_TEXT",
+						"orderIdx": 17,
+						"bodyTitle": "批号",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMustQty",
+						"orderIdx": 18,
+						"bodyTitle": "应发生数量",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "SQTY",
+						"orderIdx": 19,
+						"bodyTitle": "实发生数量",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FUseOrgNumber",
+						"orderIdx": 20,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockNumber",
+						"orderIdx": 21,
+						"bodyTitle": "仓库",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockStatusId",
+						"orderIdx": 22,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSrcInterId",
+						"orderIdx": 23,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSrcEntryId",
+						"orderIdx": 24,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSrcBillNo",
+						"orderIdx": 25,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSrcEntrySeq",
+						"orderIdx": 26,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FPOOrderBillNo",
+						"orderIdx": 27,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FISBATCHMANAGE",
+						"orderIdx": 28,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					}
+				]
+			},
+			{
+				"objectName": "wwddEntryInfo",
+				"fields": [{
+						"fieldName": "FID",
+						"orderIdx": 1,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FBILLNO",
+						"orderIdx": 2,
+						"bodyTitle": "单据编号",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSupplierName",
+						"orderIdx": 3,
+						"bodyTitle": "供应商名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSupplierNumber",
+						"orderIdx": 4,
+						"bodyTitle": "供应商编码",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FENTRYID",
+						"orderIdx": 5,
+						"bodyTitle": "",
+						"isEdit": true,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FSEQ",
+						"orderIdx": 6,
+						"bodyTitle": "",
+						"isEdit": true,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMATERIALID",
+						"orderIdx": 7,
+						"bodyTitle": "",
+						"isEdit": true,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FNUMBER",
+						"orderIdx": 8,
+						"bodyTitle": "物料编码",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNAME",
+						"orderIdx": 9,
+						"bodyTitle": "物料名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSPECIFICATION",
+						"orderIdx": 10,
+						"bodyTitle": "物料规格",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FBaseUnitNumber",
+						"orderIdx": 11,
+						"bodyTitle": "单位",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FLOT_TEXT",
+						"orderIdx": 12,
+						"bodyTitle": "批号",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMustQty",
+						"orderIdx": 13,
+						"bodyTitle": "应发生数量",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "SQTY",
+						"orderIdx": 14,
+						"bodyTitle": "实发生数量",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FUseOrgNumber",
+						"orderIdx": 15,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FPrice",
+						"orderIdx": 16,
+						"bodyTitle": "单价",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockNumber",
+						"orderIdx": 17,
+						"bodyTitle": "仓库",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockStatusId",
+						"orderIdx": 18,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSrcBillNo",
+						"orderIdx": 19,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FISBATCHMANAGE",
+						"orderIdx": 20,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					}
+				]
+			},
+			{
+				"objectName": "inventoryEntryInfo",
+				"fields": [{
+						"fieldName": "FUseOrgNumber",
+						"orderIdx": 1,
+						"bodyTitle": "组织编号",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockNumber",
+						"orderIdx": 2,
+						"bodyTitle": "仓库编号",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FStockName",
+						"orderIdx": 3,
+						"bodyTitle": "仓库名称",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FLot_Text",
+						"orderIdx": 4,
+						"bodyTitle": "批号",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMATERIALID",
+						"orderIdx": 5,
+						"bodyTitle": "物料内码",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNUMBER",
+						"orderIdx": 6,
+						"bodyTitle": "物料编码",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FNAME",
+						"orderIdx": 7,
+						"bodyTitle": "物料名称",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FBASEQTY",
+						"orderIdx": 8,
+						"bodyTitle": "库存数量",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FBaseUnitNumber",
+						"orderIdx": 9,
+						"bodyTitle": "单位",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FUPDATETIME",
+						"orderIdx": 10,
+						"bodyTitle": "最后变动时间",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					}
+				]
+			},
+			{
+				"objectName": "workShopEntryInfo",
+				"fields": [{
+						"fieldName": "FID",
+						"orderIdx": 1,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FBILLNO",
+						"orderIdx": 2,
+						"bodyTitle": "工序计划单号",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FMOID",
+						"orderIdx": 3,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FMOENTRYSEQ",
+						"orderIdx": 4,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FMOENTRYID",
+						"orderIdx": 5,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FENTRYID",
+						"orderIdx": 6,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSEQ",
+						"orderIdx": 7,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FDEPARTMENTID",
+						"orderIdx": 8,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSEQNUMBER",
+						"orderIdx": 9,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FOPERUNITID",
+						"orderIdx": 10,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FWORKCENTERID",
+						"orderIdx": 11,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FOPERNUMBER",
+						"orderIdx": 12,
+						"bodyTitle": "工序号",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FMATERIALID",
+						"orderIdx": 13,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FNUMBER",
+						"orderIdx": 14,
+						"bodyTitle": "物料编码",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FNAME",
+						"orderIdx": 15,
+						"bodyTitle": "物料名称",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FSPECIFICATION",
+						"orderIdx": 16,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FBaseUnitNumber",
+						"orderIdx": 17,
+						"bodyTitle": "单位",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FLOT_TEXT",
+						"orderIdx": 18,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FMustQty",
+						"orderIdx": 19,
+						"bodyTitle": "应发生数量",
+						"isEdit": false,
+						"isHidden": false,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "SQTY",
+						"orderIdx": 20,
+						"bodyTitle": "实发生数量",
+						"isEdit": true,
+						"isHidden": false,
+						"isCheckNum": true,
+						"isPostField": true,
+						"width": 300
+					},
+					{
+						"fieldName": "FUseOrgNumber",
+						"orderIdx": 21,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					},
+					{
+						"fieldName": "FISBATCHMANAGE",
+						"orderIdx": 22,
+						"bodyTitle": "",
+						"isEdit": false,
+						"isHidden": true,
+						"isCheckNum": false,
+						"isPostField": false,
+						"width": 300
+					}
+				]
+			}
+		]
+	}
+}
