@@ -2,6 +2,7 @@ package dbTools
 
 import (
 	"fmt"
+	"strings"
 	"sync"
 	"xorm.io/xorm"
 	"xorm.io/xorm/names"
@@ -46,6 +47,11 @@ var oneInit = func () {
 
 	if defDSNConf != "" {
 		dsn = defDSNConf
+	}
+
+	//奇怪的证书bug
+	if !strings.Contains(dsn, "encrypt=") {
+		dsn = strings.TrimRight(dsn, ";") + ";encrypt=disable"
 	}
 
 	if dsn == "" {

@@ -1,6 +1,6 @@
 module xkpdaserver/controllers
 
-go 1.17
+go 1.19
 
 replace xkpdaserver/dbTools => ../dbTools
 

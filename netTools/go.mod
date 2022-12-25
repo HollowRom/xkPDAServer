@@ -1,6 +1,6 @@
 module xkpdaserver/netTools
 
-go 1.17
+go 1.19
 
 replace xkpdaserver/dbTools v0.0.0 => ../dbTools
 
