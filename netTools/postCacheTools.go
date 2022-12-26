@@ -2,6 +2,7 @@ package netTools
 
 import (
 	"crypto/md5"
+	"fmt"
 	"sync"
 	"time"
 )
@@ -39,9 +40,10 @@ func deleteKey(key string) {
 
 func strToMd5(key string) string {
 	var o = md5.Sum([]byte(key))
-	var n = make([]byte, 0, 16)
-	for _, b := range o {
-		n = append(n, b)
-	}
-	return string(n)
+	return fmt.Sprintf("%x", o)
+	//var n = make([]byte, 0, 16)
+	//for _, b := range o {
+	//	n = append(n, b)
+	//}
+	//return string(n)
 }
