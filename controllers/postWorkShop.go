@@ -84,12 +84,14 @@ func postWorkShop(context *gin.Context) { // 定义请求接口和处理匿名�
 
 	resp := &dbTools.ResponseStatus{}
 
-	e = json.Unmarshal(reb, resp)
+	resp.SetStr(string(reb))
 
-	if e != nil {
-		setErrJson(context, e)
-		return
-	}
+	//e = json.Unmarshal(reb, resp)
+	//
+	//if e != nil {
+	//	setErrJson(context, e)
+	//	return
+	//}
 
 	if !resp.IsSuccess() {
 		setErrJson(context, nil)

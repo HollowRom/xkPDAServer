@@ -1,50 +1,124 @@
 package dbTools
 
+import "github.com/tidwall/gjson"
 
-type ResponseStatus struct {
-	Map map[string]interface{}
+/*
+{
+  "name": {"first": "Tom", "last": "Anderson"},
+  "age":37,
+  "children": ["Sara","Alex","Jack"],
+  "fav.movie": "Deer Hunter",
+  "friends": [
+    {"first": "Dale", "last": "Murphy", "age": 44, "nets": ["ig", "fb", "tw"]},
+    {"first": "Roger", "last": "Craig", "age": 68, "nets": ["fb", "tw"]},
+    {"first": "Jane", "last": "Murphy", "age": 47, "nets": ["ig", "tw"]}
+  ]
 }
+"name.last"          >> "Anderson"
+"age"                >> 37
+"children"           >> ["Sara","Alex","Jack"]
+"children.#"         >> 3
+"children.1"         >> "Alex"
+"child*.2"           >> "Jack"
+"c?ildren.0"         >> "Sara"
+"fav\.movie"         >> "Deer Hunter"
+"friends.#.first"    >> ["Dale","Roger","Jane"]
+"friends.1.last"     >> "Craig"
+*/
 
-func (r *ResponseStatus) IsSuccess() bool {
-	if r == nil {
+func isSuccess(json *gjson.Result) bool {
+	if json == nil {
 		return false
 	}
-	return (r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["IsSuccess"].(bool)
+	return json.Get("Result.ResponseStatus.IsSuccess").Bool()
 }
 
-func (r *ResponseStatus) GetReBillNo() []string {
-	if r == nil || (r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"] == nil || len((r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"].([]map[string]interface{})) == 0 {
+func getReBillNo(json *gjson.Result) []string {
+	if json == nil || !json.Get("Result.ResponseStatus.SuccessEntitys").Exists() || len(json.Get("Result.ResponseStatus.SuccessEntitys").Array()) == 0 {
 		return nil
 	}
 	var returnNumberList []string
-	reList := (r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"].([]map[string]interface{})
+	reList := json.Get("Result.ResponseStatus.SuccessEntitys.#.Number").Array()
 	for _, v := range reList {
-		returnNumberList = append(returnNumberList, v["Number"].(string))
+		returnNumberList = append(returnNumberList, v.Str)
 	}
 	return returnNumberList
 }
 
-func (r *ResponseStatus) GetReBillId() []int {
-	if r == nil || (r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"] == nil || len((r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"].([]map[string]interface{})) == 0 {
+func getReBillId(json *gjson.Result) []int {
+	if json == nil || !json.Get("Result.ResponseStatus.SuccessEntitys").Exists() || len(json.Get("Result.ResponseStatus.SuccessEntitys").Array()) == 0 {
 		return nil
 	}
 	var returnNumberList []int
-	reList := (r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"].([]map[string]interface{})
+	reList := json.Get("Result.ResponseStatus.SuccessEntitys.#.Id").Array()
 	for _, v := range reList {
-		//it, err := strconv.Atoi(v.Id)
-		//if err != nil {
-		//	return nil
-		//}
-		//returnNumberList = append(returnNumberList, it)
-		returnNumberList = append(returnNumberList, v["Id"].(int))
+		returnNumberList = append(returnNumberList, int(v.Int()))
 	}
 	return returnNumberList
 }
+
+type ResponseStatus struct {
+	Json *gjson.Result
+}
+
+func (r *ResponseStatus) SetStr(json string) {
+	j := gjson.Parse(json)
+	r.Json = &j
+}
+
+func (r *ResponseStatus) IsSuccess() bool {
+	return isSuccess(r.Json)
+}
+
+func (r *ResponseStatus) GetReBillNo() []string {
+	return getReBillNo(r.Json)
+}
+
+func (r *ResponseStatus) GetReBillId() []int {
+	return getReBillId(r.Json)
+}
+
+//func (r *ResponseStatus) isSuccess() bool {
+//	if r == nil {
+//		return false
+//	}
+//	return (r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["isSuccess"].(bool)
+//}
+//
+//func (r *ResponseStatus) getReBillNo() []string {
+//	if r == nil || (r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"] == nil || len((r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"].([]map[string]interface{})) == 0 {
+//		return nil
+//	}
+//	var returnNumberList []string
+//	reList := (r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"].([]map[string]interface{})
+//	for _, v := range reList {
+//		returnNumberList = append(returnNumberList, v["Number"].(string))
+//	}
+//	return returnNumberList
+//}
+//
+//func (r *ResponseStatus) getReBillId() []int {
+//	if r == nil || (r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"] == nil || len((r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"].([]map[string]interface{})) == 0 {
+//		return nil
+//	}
+//	var returnNumberList []int
+//	reList := (r.Map["Result"]).(map[string]interface{})["ResponseStatus"].(map[string]interface{})["SuccessEntitys"].([]map[string]interface{})
+//	for _, v := range reList {
+//		//it, err := strconv.Atoi(v.Id)
+//		//if err != nil {
+//		//	return nil
+//		//}
+//		//returnNumberList = append(returnNumberList, it)
+//		returnNumberList = append(returnNumberList, v["Id"].(int))
+//	}
+//	return returnNumberList
+//}
+//------------------------
 
 //type ResponseStatus struct {
 //	Result struct {
 //		ResponseStatus struct {
-//			IsSuccess      bool          `json:"IsSuccess"`
+//			isSuccess      bool          `json:"isSuccess"`
 //			Errors         []interface{} `json:"Errors"`
 //			SuccessEntitys []*struct {
 //				Id     int    `json:"Id.,string"`
@@ -61,14 +135,14 @@ func (r *ResponseStatus) GetReBillId() []int {
 //	} `json:"Result"`
 //}
 //
-//func (r *ResponseStatus) IsSuccess() bool {
+//func (r *ResponseStatus) isSuccess() bool {
 //	if r == nil {
 //		return false
 //	}
-//	return r.Result.ResponseStatus.IsSuccess
+//	return r.Result.ResponseStatus.isSuccess
 //}
 //
-//func (r *ResponseStatus) GetReBillNo() []string {
+//func (r *ResponseStatus) getReBillNo() []string {
 //	if r == nil || r.Result.ResponseStatus.SuccessEntitys == nil || len(r.Result.ResponseStatus.SuccessEntitys) == 0 {
 //		return nil
 //	}
@@ -80,7 +154,7 @@ func (r *ResponseStatus) GetReBillId() []int {
 //	return returnNumberList
 //}
 //
-//func (r *ResponseStatus) GetReBillId() []int {
+//func (r *ResponseStatus) getReBillId() []int {
 //	if r == nil || r.Result.ResponseStatus.SuccessEntitys == nil || len(r.Result.ResponseStatus.SuccessEntitys) == 0 {
 //		return nil
 //	}
