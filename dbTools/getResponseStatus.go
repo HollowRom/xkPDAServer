@@ -34,7 +34,7 @@ func isSuccess(json *gjson.Result) bool {
 }
 
 func getReBillNo(json *gjson.Result) []string {
-	if json == nil || !json.Get("Result.ResponseStatus.SuccessEntitys").Exists() || len(json.Get("Result.ResponseStatus.SuccessEntitys").Array()) == 0 {
+	if json == nil || !json.Get("Result.ResponseStatus.SuccessEntitys").Exists() || json.Get("Result.ResponseStatus.SuccessEntitys.#").Int() == 0 {
 		return nil
 	}
 	var returnNumberList []string
@@ -46,7 +46,7 @@ func getReBillNo(json *gjson.Result) []string {
 }
 
 func getReBillId(json *gjson.Result) []int {
-	if json == nil || !json.Get("Result.ResponseStatus.SuccessEntitys").Exists() || len(json.Get("Result.ResponseStatus.SuccessEntitys").Array()) == 0 {
+	if json == nil || !json.Get("Result.ResponseStatus.SuccessEntitys").Exists() || json.Get("Result.ResponseStatus.SuccessEntitys.#").Int() == 0 {
 		return nil
 	}
 	var returnNumberList []int
