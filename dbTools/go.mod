@@ -1,4 +1,4 @@
-module xkpdaserver/dbTools/v0.0.0
+module xkpdaserver/dbTools
 
 go 1.19
 

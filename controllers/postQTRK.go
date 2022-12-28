@@ -44,9 +44,7 @@ func postQTRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		}
 	}(context.Request.Body)
 
-	if netTools.GetCache(string(buf)) {
-		fmt.Println("重复提交数据,一分钟后重试")
-		setErrJson(context, e)
+	if netTools.GetCacheWithCTX(string(buf), context) {
 		return
 	}
 

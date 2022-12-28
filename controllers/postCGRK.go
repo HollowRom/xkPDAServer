@@ -48,9 +48,7 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 		}
 	}(context.Request.Body)
 
-	if netTools.GetCache(string(buf)) {
-		fmt.Println("重复提交数据,一分钟后重试")
-		setErrJson(context, e)
+	if netTools.GetCacheWithCTX(string(buf), context) {
 		return
 	}
 
@@ -127,6 +125,7 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	reb := netTools.PostSaveSomeBill(infoJ)
 	if reb == nil || len(reb) == 0 {
 		setErrJson(context, nil)
+		fmt.Println("reb == nil || len(reb) == 0")
 		return
 	}
 
@@ -135,7 +134,8 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	e = json.Unmarshal(reb, resp)
 
 	if e != nil {
-		setErrJson(context, nil)
+		setErrJson(context, e)
+		fmt.Println("Unmarshal" + e.Error())
 		return
 	}
 

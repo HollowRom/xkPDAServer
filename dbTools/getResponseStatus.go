@@ -1,19 +1,23 @@
 package dbTools
 
+import (
+	"strconv"
+)
+
 type ResponseStatus struct {
 	Result struct {
 		ResponseStatus struct {
 			IsSuccess      bool          `json:"IsSuccess"`
 			Errors         []interface{} `json:"Errors"`
 			SuccessEntitys []struct {
-				Id     int    `json:"Id"`
+				Id     string `json:"Id"`
 				Number string `json:"Number"`
 				DIndex int    `json:"DIndex"`
 			} `json:"SuccessEntitys"`
 			SuccessMessages []interface{} `json:"SuccessMessages"`
 			MsgCode         int           `json:"MsgCode"`
 		} `json:"ResponseStatus"`
-		Id             int    `json:"Id"`
+		Id             string `json:"Id"`
 		Number         string `json:"Number"`
 		NeedReturnData []struct {
 		} `json:"NeedReturnData"`
@@ -46,7 +50,11 @@ func (r *ResponseStatus) GetReBillId() []int {
 	var returnNumberList []int
 	reList := r.Result.ResponseStatus.SuccessEntitys
 	for _, v := range reList {
-		returnNumberList = append(returnNumberList, v.Id)
+		it, err := strconv.Atoi(v.Id)
+		if err != nil {
+			return nil
+		}
+		returnNumberList = append(returnNumberList, it)
 	}
 	return returnNumberList
 }
