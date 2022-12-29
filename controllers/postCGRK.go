@@ -134,17 +134,19 @@ func postCGRK(context *gin.Context) { // 定义请求接口和处理匿名函数
 	//e = json.Unmarshal(reb, resp)
 
 	respMap := &dbTools.ResponseStatus{}
-	respMap.Map = map[string]interface{}{}
-
-	e = json.Unmarshal(reb, &respMap.Map)
-	if e != nil {
-		setErrJson(context, e)
-		fmt.Println("Unmarshal" + e.Error())
-		return
-	}
+	respMap.SetStr(string(reb))
+	//respMap.Map = map[string]interface{}{}
+	//
+	//e = json.Unmarshal(reb, &respMap.Map)
+	//if e != nil {
+	//	setErrJson(context, e)
+	//	fmt.Println("Unmarshal" + e.Error())
+	//	return
+	//}
 
 	//context.JSON(http.StatusOK, resp)
-	context.JSON(http.StatusOK, respMap)
+	fmt.Println("返回json:" + respMap.ToString())
+	context.JSON(http.StatusOK, respMap.ToString())
 
 	netTools.AddCache(string(buf))
 }

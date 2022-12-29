@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"io"
@@ -94,7 +95,7 @@ func postWorkShop(context *gin.Context) { // 定义请求接口和处理匿名�
 	//}
 
 	if !resp.IsSuccess() {
-		setErrJson(context, nil)
+		setErrJson(context, errors.New(resp.GetErrMess()))
 		return
 	}
 

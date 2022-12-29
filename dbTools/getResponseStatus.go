@@ -1,6 +1,9 @@
 package dbTools
 
-import "github.com/tidwall/gjson"
+import (
+	"fmt"
+	"github.com/tidwall/gjson"
+)
 
 /*
 {
@@ -34,7 +37,7 @@ func isSuccess(json *gjson.Result) bool {
 }
 
 func getReBillNo(json *gjson.Result) []string {
-	if json == nil || !json.Get("Result.ResponseStatus.SuccessEntitys").Exists() || json.Get("Result.ResponseStatus.SuccessEntitys.#").Int() == 0 {
+	if json == nil || !isSuccess(json) || !json.Get("Result.ResponseStatus.SuccessEntitys").Exists() || json.Get("Result.ResponseStatus.SuccessEntitys.#").Int() == 0 {
 		return nil
 	}
 	var returnNumberList []string
@@ -46,7 +49,7 @@ func getReBillNo(json *gjson.Result) []string {
 }
 
 func getReBillId(json *gjson.Result) []int {
-	if json == nil || !json.Get("Result.ResponseStatus.SuccessEntitys").Exists() || json.Get("Result.ResponseStatus.SuccessEntitys.#").Int() == 0 {
+	if json == nil || !isSuccess(json) || !json.Get("Result.ResponseStatus.SuccessEntitys").Exists() || json.Get("Result.ResponseStatus.SuccessEntitys.#").Int() == 0 {
 		return nil
 	}
 	var returnNumberList []int
@@ -57,11 +60,34 @@ func getReBillId(json *gjson.Result) []int {
 	return returnNumberList
 }
 
+func getErrMess(json *gjson.Result) string {
+	if isSuccess(json) {
+		return ""
+	}
+	errs := json.Get("Result.ResponseStatus.Errors.#.Message").Array()
+	reStr := ""
+	for _, e := range errs {
+		reStr = reStr + e.Str + "\r\n"
+	}
+	return reStr
+}
+
 type ResponseStatus struct {
 	Json *gjson.Result
 }
 
+func (r *ResponseStatus) GetErrMess() string {
+	return getErrMess(r.Json)
+}
+
+func (r *ResponseStatus) ToString() string {
+	return fmt.Sprintf("%s", r.Json)
+}
+
 func (r *ResponseStatus) SetStr(json string) {
+	if r.Json != nil {
+		return
+	}
 	j := gjson.Parse(json)
 	r.Json = &j
 }
